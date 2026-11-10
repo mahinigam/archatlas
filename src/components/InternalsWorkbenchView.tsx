@@ -988,29 +988,29 @@ export const InternalsWorkbenchView: React.FC = () => {
 
   return (
     <div className="space-y-8 pt-4">
-      <section className="pb-5 border-b border-[var(--line)]">
+      <section className="pb-5 border-b border-(--line)">
         <div className="eyebrow-line">
           Storage Engine Internals · Raft Split-Brain Consensus · Probabilistic Data Structures · Tail Latency Math · Distributed Transactions
         </div>
-        <h1 className="font-display font-bold text-[clamp(28px,3.6vw,44px)] leading-[1.06] tracking-[-0.04em] text-[var(--ink)] mt-3">
+        <h1 className="font-display font-bold text-[clamp(28px,3.6vw,44px)] leading-[1.06] tracking-[-0.04em] text-(--ink) mt-3">
           Deep Internals & Distributed Storage Engine Workbench
         </h1>
       </section>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 items-stretch">
         {/* WORKBENCH 1: LSM-TREE VS B+TREE STORAGE ENGINE */}
-        <article className="bg-[var(--panel)] border border-[var(--line)] rounded-[18px] p-5 sm:p-6 flex flex-col justify-between">
+        <article className="bg-(--panel) border border-(--line) rounded-[18px] p-5 sm:p-6 flex flex-col justify-between">
           <div className="space-y-4">
-            <div className="flex items-center justify-between border-b border-[var(--line)] pb-3">
-              <h2 className="font-display text-base font-bold text-[var(--ink)]">
+            <div className="flex items-center justify-between border-b border-(--line) pb-3">
+              <h2 className="font-display text-base font-bold text-(--ink)">
                 01. Storage Internals: LSM-Tree vs. B+Tree IOPS
               </h2>
-              <span className="text-[10px] font-mono text-[var(--lime)] uppercase tracking-wider">
+              <span className="text-[10px] font-mono text-(--lime) uppercase tracking-wider">
                 DDIA Ch. 3
               </span>
             </div>
 
-            <p className="text-xs text-[var(--muted)] leading-relaxed">
+            <p className="text-xs text-(--muted) leading-relaxed">
               Simulate random key writes. Watch how an LSM-Tree (Cassandra/RocksDB) buffers writes in RAM (MemTable + sequential WAL) and flushes immutable SSTables, while a B+Tree (PostgreSQL) incurs random disk page I/O.
             </p>
 
@@ -1018,54 +1018,54 @@ export const InternalsWorkbenchView: React.FC = () => {
               <button
                 type="button"
                 onClick={() => handleWriteStorage(25)}
-                className="px-3 py-1.5 text-xs font-mono font-bold bg-[var(--lime)] text-[var(--lime-ink)] rounded-[9px] whitespace-nowrap cursor-pointer"
+                className="px-3 py-1.5 text-xs font-mono font-bold bg-(--lime) text-(--lime-ink) rounded-[9px] whitespace-nowrap cursor-pointer"
               >
                 + Write 25 Keys
               </button>
               <button
                 type="button"
                 onClick={() => handleWriteStorage(100)}
-                className="px-3 py-1.5 text-xs font-mono font-bold bg-[var(--cyan)] text-[#0a0d14] rounded-[9px] whitespace-nowrap cursor-pointer"
+                className="px-3 py-1.5 text-xs font-mono font-bold bg-(--cyan) text-[#0a0d14] rounded-[9px] whitespace-nowrap cursor-pointer"
               >
                 Flush Burst (100 Keys)
               </button>
               <button
                 type="button"
                 onClick={handleCompactL0}
-                className="px-3 py-1.5 text-xs font-mono font-medium bg-[var(--p2)] text-[var(--ink)] border border-[var(--line)] hover:border-[var(--lime)] rounded-[9px] whitespace-nowrap cursor-pointer"
+                className="px-3 py-1.5 text-xs font-mono font-medium bg-(--p2) text-(--ink) border border-(--line) hover:border-(--lime) rounded-[9px] whitespace-nowrap cursor-pointer"
               >
                 Run Level Compaction
               </button>
               <button
                 type="button"
                 onClick={handleResetStorage}
-                className="px-3 py-1.5 text-xs font-mono text-[var(--muted)] hover:text-[var(--rose)] border border-[var(--line)] rounded-[9px] cursor-pointer"
+                className="px-3 py-1.5 text-xs font-mono text-(--muted) hover:text-(--rose) border border-(--line) rounded-[9px] cursor-pointer"
               >
                 Reset
               </button>
             </div>
 
-            <div className="p-3.5 rounded-[12px] bg-[var(--p2)] border border-[var(--line)] space-y-3 font-mono text-xs">
+            <div className="p-3.5 rounded-xl bg-(--p2) border border-(--line) space-y-3 font-mono text-xs">
               <div>
                 <div className="flex justify-between mb-1">
-                  <span className="text-[var(--muted)]">
+                  <span className="text-(--muted)">
                     RAM MemTable (SkipList, Flushes @ 100 keys):
                   </span>
-                  <strong className="text-[var(--lime)]">
+                  <strong className="text-(--lime)">
                     {memKeys} / 100 keys
                   </strong>
                 </div>
-                <div className="h-2.5 bg-[var(--p3)] rounded-full overflow-hidden">
+                <div className="h-2.5 bg-(--p3) rounded-full overflow-hidden">
                   <div
-                    className="h-full bg-[var(--lime)] transition-all"
+                    className="h-full bg-(--lime) transition-all"
                     style={{ width: `${memKeys}%` }}
                   />
                 </div>
               </div>
 
               <div className="flex items-start gap-2">
-                <span className="text-[var(--muted)] w-24 shrink-0">L0 SSTables:</span>
-                <div className="text-[var(--cyan)]">
+                <span className="text-(--muted) w-24 shrink-0">L0 SSTables:</span>
+                <div className="text-(--cyan)">
                   {l0Tables.length > 0
                     ? l0Tables.join(' · ')
                     : 'Empty (Awaiting MemTable flush)'}
@@ -1073,8 +1073,8 @@ export const InternalsWorkbenchView: React.FC = () => {
               </div>
 
               <div className="flex items-start gap-2">
-                <span className="text-[var(--muted)] w-24 shrink-0">L1 Compacted:</span>
-                <div className="text-[var(--lime)]">
+                <span className="text-(--muted) w-24 shrink-0">L1 Compacted:</span>
+                <div className="text-(--lime)">
                   {l1Tables.length > 0
                     ? l1Tables.join(' · ')
                     : 'Auto-compacts when 4 L0 files accumulate'}
@@ -1083,52 +1083,52 @@ export const InternalsWorkbenchView: React.FC = () => {
             </div>
 
             <div className="grid grid-cols-3 gap-2.5 font-mono">
-              <div className="p-2.5 rounded-[10px] bg-[var(--p2)] border border-[var(--line)]">
-                <span className="text-[10px] text-[var(--muted)] block">
+              <div className="p-2.5 rounded-[10px] bg-(--p2) border border-(--line)">
+                <span className="text-[10px] text-(--muted) block">
                   Keys Written
                 </span>
-                <strong className="text-sm text-[var(--cyan)]">
+                <strong className="text-sm text-(--cyan)">
                   {totalKeys}
                 </strong>
               </div>
-              <div className="p-2.5 rounded-[10px] bg-[var(--p2)] border border-[var(--line)]">
-                <span className="text-[10px] text-[var(--muted)] block">
+              <div className="p-2.5 rounded-[10px] bg-(--p2) border border-(--line)">
+                <span className="text-[10px] text-(--muted) block">
                   LSM Sequential I/O
                 </span>
-                <strong className="text-sm text-[var(--lime)]">
+                <strong className="text-sm text-(--lime)">
                   {lsmSequentialOps} ops
                 </strong>
               </div>
-              <div className="p-2.5 rounded-[10px] bg-[var(--p2)] border border-[var(--line)]">
-                <span className="text-[10px] text-[var(--muted)] block">
+              <div className="p-2.5 rounded-[10px] bg-(--p2) border border-(--line)">
+                <span className="text-[10px] text-(--muted) block">
                   B+Tree Random IOPS
                 </span>
-                <strong className="text-sm text-[var(--rose)]">
+                <strong className="text-sm text-(--rose)">
                   {btreeRandomIops} IOPS
                 </strong>
               </div>
             </div>
           </div>
 
-          <p className="mt-4 pt-3 border-t border-[var(--line)] text-xs text-[var(--muted)]">
-            <strong className="text-[var(--ink)]">Staff Trade-Off:</strong>{' '}
+          <p className="mt-4 pt-3 border-t border-(--line) text-xs text-(--muted)">
+            <strong className="text-(--ink)">Staff Trade-Off:</strong>{' '}
             LSM-Trees trade fast sequential writes for Read Amplification (checking MemTable → L0 → L1), which RocksDB mitigates using per-SSTable Bloom Filters.
           </p>
         </article>
 
         {/* WORKBENCH 2: RAFT CONSENSUS & FENCING TOKENS */}
-        <article className="bg-[var(--panel)] border border-[var(--line)] rounded-[18px] p-5 sm:p-6 flex flex-col justify-between">
+        <article className="bg-(--panel) border border-(--line) rounded-[18px] p-5 sm:p-6 flex flex-col justify-between">
           <div className="space-y-4">
-            <div className="flex items-center justify-between border-b border-[var(--line)] pb-3">
-              <h2 className="font-display text-base font-bold text-[var(--ink)]">
+            <div className="flex items-center justify-between border-b border-(--line) pb-3">
+              <h2 className="font-display text-base font-bold text-(--ink)">
                 02. Raft Consensus, Partition & Fencing Tokens
               </h2>
-              <span className="text-[10px] font-mono text-[var(--cyan)] uppercase tracking-wider">
+              <span className="text-[10px] font-mono text-(--cyan) uppercase tracking-wider">
                 Split-Brain Defense
               </span>
             </div>
 
-            <p className="text-xs text-[var(--muted)] leading-relaxed">
+            <p className="text-xs text-(--muted) leading-relaxed">
               Simulate a 5-node Raft cluster (Quorum = 3). Sever the network to isolate Leader Node 01 in a 2-node minority, watch the 3-node majority elect a new Leader with a higher Term (Fencing Token), and test writes on both sides.
             </p>
 
@@ -1138,8 +1138,8 @@ export const InternalsWorkbenchView: React.FC = () => {
                 onClick={handleTogglePartition}
                 className={`px-3 py-1.5 text-xs font-mono font-bold rounded-[9px] border whitespace-nowrap cursor-pointer ${
                   isPartitioned
-                    ? 'bg-[var(--orange)] text-[#10150c] border-[var(--orange)]'
-                    : 'bg-[var(--p2)] text-[var(--ink)] border-[var(--line)] hover:border-[var(--orange)]'
+                    ? 'bg-(--orange) text-[#10150c] border-(--orange)'
+                    : 'bg-(--p2) text-(--ink) border-(--line) hover:border-(--orange)'
                 }`}
               >
                 {isPartitioned
@@ -1149,14 +1149,14 @@ export const InternalsWorkbenchView: React.FC = () => {
               <button
                 type="button"
                 onClick={handleWriteOldLeader}
-                className="px-3 py-1.5 text-xs font-mono font-bold bg-[var(--rose)] text-[#10150c] rounded-[9px] whitespace-nowrap cursor-pointer"
+                className="px-3 py-1.5 text-xs font-mono font-bold bg-(--rose) text-[#10150c] rounded-[9px] whitespace-nowrap cursor-pointer"
               >
                 Write to Node 01 (Term 1)
               </button>
               <button
                 type="button"
                 onClick={handleWriteMajorityLeader}
-                className="px-3 py-1.5 text-xs font-mono font-bold bg-[var(--lime)] text-[var(--lime-ink)] rounded-[9px] whitespace-nowrap cursor-pointer"
+                className="px-3 py-1.5 text-xs font-mono font-bold bg-(--lime) text-(--lime-ink) rounded-[9px] whitespace-nowrap cursor-pointer"
               >
                 Write to Majority Leader
               </button>
@@ -1164,7 +1164,7 @@ export const InternalsWorkbenchView: React.FC = () => {
 
             <svg
               viewBox="0 0 540 185"
-              className="w-full h-44 bg-[var(--p2)] border border-[var(--line)] rounded-[12px]"
+              className="w-full h-44 bg-(--p2) border border-(--line) rounded-xl"
             >
               {(() => {
                 const raftNodes = [
@@ -1309,28 +1309,28 @@ export const InternalsWorkbenchView: React.FC = () => {
             <div
               className={`p-3 rounded-[10px] border font-mono text-xs ${
                 raftLogStatus === 'err'
-                  ? 'bg-[var(--rose)]/10 border-[var(--rose)]/40 text-[var(--rose)]'
-                  : 'bg-[var(--lime)]/10 border-[var(--lime)]/40 text-[var(--lime)]'
+                  ? 'bg-(--rose)/10 border-(--rose)/40 text-(--rose)'
+                  : 'bg-(--lime)/10 border-(--lime)/40 text-(--lime)'
               }`}
             >
               {raftLogMessage}
             </div>
           </div>
 
-          <p className="mt-4 pt-3 border-t border-[var(--line)] text-xs text-[var(--muted)]">
-            <strong className="text-[var(--ink)]">Staff Interview Signal:</strong>{' '}
+          <p className="mt-4 pt-3 border-t border-(--line) text-xs text-(--muted)">
+            <strong className="text-(--ink)">Staff Interview Signal:</strong>{' '}
             Storage nodes enforce Monotonic Fencing Tokens (Term ID) so a leader waking up from a 15-second GC pause can never corrupt state.
           </p>
         </article>
 
         {/* WORKBENCH 3: BLOOM FILTER BIT-ARRAY & SIZING MATH */}
-        <article className="bg-[var(--panel)] border border-[var(--line)] rounded-[18px] p-5 sm:p-6 flex flex-col justify-between">
+        <article className="bg-(--panel) border border-(--line) rounded-[18px] p-5 sm:p-6 flex flex-col justify-between">
           <div className="space-y-4">
-            <div className="flex items-center justify-between border-b border-[var(--line)] pb-3">
-              <h2 className="font-display text-base font-bold text-[var(--ink)]">
+            <div className="flex items-center justify-between border-b border-(--line) pb-3">
+              <h2 className="font-display text-base font-bold text-(--ink)">
                 03. Bloom Filter Bit-Array & Sizing Calculator
               </h2>
-              <span className="text-[10px] font-mono text-[var(--orange)] uppercase tracking-wider">
+              <span className="text-[10px] font-mono text-(--orange) uppercase tracking-wider">
                 Zero False Negatives
               </span>
             </div>
@@ -1341,25 +1341,25 @@ export const InternalsWorkbenchView: React.FC = () => {
                 aria-label="Bloom filter key input"
                 value={bfKey}
                 onChange={(e) => setBfKey(e.target.value)}
-                className="flex-1 px-3 py-1.5 text-xs font-mono bg-[var(--p2)] border border-[var(--line)] rounded-[9px] text-[var(--ink)]"
+                className="flex-1 px-3 py-1.5 text-xs font-mono bg-(--p2) border border-(--line) rounded-[9px] text-(--ink)"
               />
               <button
                 type="button"
                 onClick={handleBfInsert}
-                className="px-3 py-1.5 text-xs font-mono font-bold bg-[var(--lime)] text-[var(--lime-ink)] rounded-[9px] whitespace-nowrap cursor-pointer"
+                className="px-3 py-1.5 text-xs font-mono font-bold bg-(--lime) text-(--lime-ink) rounded-[9px] whitespace-nowrap cursor-pointer"
               >
                 + Insert Key
               </button>
               <button
                 type="button"
                 onClick={handleBfQuery}
-                className="px-3 py-1.5 text-xs font-mono font-bold bg-[var(--cyan)] text-[#0a0d14] rounded-[9px] whitespace-nowrap cursor-pointer"
+                className="px-3 py-1.5 text-xs font-mono font-bold bg-(--cyan) text-[#0a0d14] rounded-[9px] whitespace-nowrap cursor-pointer"
               >
                 Check Membership
               </button>
             </div>
 
-            <div className="text-xs font-mono text-[var(--cyan)]">
+            <div className="text-xs font-mono text-(--cyan)">
               {bfFeedback}
             </div>
 
@@ -1369,8 +1369,8 @@ export const InternalsWorkbenchView: React.FC = () => {
                   key={idx}
                   className={`py-1.5 text-center font-mono text-[10px] rounded border ${
                     bit === 1
-                      ? 'bg-[var(--lime)] text-[var(--lime-ink)] font-bold border-[var(--lime)]'
-                      : 'bg-[var(--p2)] text-[var(--muted)] border-[var(--line)]'
+                      ? 'bg-(--lime) text-(--lime-ink) font-bold border-(--lime)'
+                      : 'bg-(--p2) text-(--muted) border-(--line)'
                   }`}
                 >
                   {bit}
@@ -1378,11 +1378,11 @@ export const InternalsWorkbenchView: React.FC = () => {
               ))}
             </div>
 
-            <div className="p-3.5 rounded-[12px] bg-[var(--p2)] border border-[var(--line)] space-y-3 text-xs font-mono">
+            <div className="p-3.5 rounded-xl bg-(--p2) border border-(--line) space-y-3 text-xs font-mono">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
-                  <label htmlFor="bf-n" className="block text-[var(--muted)] mb-1">
-                    Expected Keys (N): <strong className="text-[var(--ink)]">{bfItemsMillions}M</strong>
+                  <label htmlFor="bf-n" className="block text-(--muted) mb-1">
+                    Expected Keys (N): <strong className="text-(--ink)">{bfItemsMillions}M</strong>
                   </label>
                   <input
                     id="bf-n"
@@ -1391,13 +1391,13 @@ export const InternalsWorkbenchView: React.FC = () => {
                     max={500}
                     value={bfItemsMillions}
                     onChange={(e) => setBfItemsMillions(Number(e.target.value))}
-                    className="w-full accent-[var(--cyan)]"
+                    className="w-full accent-(--cyan)"
                   />
                 </div>
                 <div>
-                  <label htmlFor="bf-p" className="block text-[var(--muted)] mb-1">
+                  <label htmlFor="bf-p" className="block text-(--muted) mb-1">
                     False Positive Rate (P):{' '}
-                    <strong className="text-[var(--ink)]">{(falsePositiveRate * 100).toFixed(1)}%</strong>
+                    <strong className="text-(--ink)">{(falsePositiveRate * 100).toFixed(1)}%</strong>
                   </label>
                   <input
                     id="bf-p"
@@ -1408,12 +1408,12 @@ export const InternalsWorkbenchView: React.FC = () => {
                     onChange={(e) =>
                       setBfFalsePositiveSlider(Number(e.target.value))
                     }
-                    className="w-full accent-[var(--lime)]"
+                    className="w-full accent-(--lime)"
                   />
                 </div>
               </div>
 
-              <div className="text-[var(--lime)] pt-1">
+              <div className="text-(--lime) pt-1">
                 Optimal Bits/Key: <strong>{bloomMath.bitsPerElement} bits</strong> ·
                 Hash Functions: <strong>k = {bloomMath.optimalHashCount}</strong> ·
                 Total RAM for {bfItemsMillions}M keys:{' '}
@@ -1422,35 +1422,35 @@ export const InternalsWorkbenchView: React.FC = () => {
             </div>
           </div>
 
-          <p className="mt-4 pt-3 border-t border-[var(--line)] text-xs text-[var(--muted)]">
-            <strong className="text-[var(--ink)]">Rule of Thumb:</strong>{' '}
+          <p className="mt-4 pt-3 border-t border-(--line) text-xs text-(--muted)">
+            <strong className="text-(--ink)">Rule of Thumb:</strong>{' '}
             1% false-positive rate costs ~9.6 bits (1.2 bytes) per key—allowing 100M crawled URLs to fit in 120 MB of RAM.
           </p>
         </article>
 
         {/* WORKBENCH 4: TAIL LATENCY AMPLIFICATION & HEDGED REQUESTS */}
-        <article className="bg-[var(--panel)] border border-[var(--line)] rounded-[18px] p-5 sm:p-6 flex flex-col justify-between">
+        <article className="bg-(--panel) border border-(--line) rounded-[18px] p-5 sm:p-6 flex flex-col justify-between">
           <div className="space-y-4">
-            <div className="flex items-center justify-between border-b border-[var(--line)] pb-3">
-              <h2 className="font-display text-base font-bold text-[var(--ink)]">
+            <div className="flex items-center justify-between border-b border-(--line) pb-3">
+              <h2 className="font-display text-base font-bold text-(--ink)">
                 04. Tail Latency Amplification & Hedged Requests
               </h2>
-              <span className="text-[10px] font-mono text-[var(--rose)] uppercase tracking-wider">
+              <span className="text-[10px] font-mono text-(--rose) uppercase tracking-wider">
                 The Tail at Scale
               </span>
             </div>
 
-            <p className="text-xs text-[var(--muted)] leading-relaxed">
+            <p className="text-xs text-(--muted) leading-relaxed">
               When an aggregator service fans out to N parallel shards and waits for the slowest response, tail latency compounds according to P(Slow) = 1 - (1 - p)ⁿ.
             </p>
 
-            <div className="p-3.5 rounded-[12px] bg-[var(--p2)] border border-[var(--line)] space-y-3 text-xs font-mono">
+            <div className="p-3.5 rounded-xl bg-(--p2) border border-(--line) space-y-3 text-xs font-mono">
               <div>
                 <div className="flex justify-between mb-1">
-                  <label htmlFor="tail-n" className="text-[var(--muted)]">
+                  <label htmlFor="tail-n" className="text-(--muted)">
                     Parallel Microservice Fan-Out (N shards):
                   </label>
-                  <strong className="text-[var(--cyan)]">
+                  <strong className="text-(--cyan)">
                     {fanOutCount} services
                   </strong>
                 </div>
@@ -1461,16 +1461,16 @@ export const InternalsWorkbenchView: React.FC = () => {
                   max={100}
                   value={fanOutCount}
                   onChange={(e) => setFanOutCount(Number(e.target.value))}
-                  className="w-full accent-[var(--cyan)]"
+                  className="w-full accent-(--cyan)"
                 />
               </div>
 
               <div>
                 <div className="flex justify-between mb-1">
-                  <label htmlFor="tail-p" className="text-[var(--muted)]">
+                  <label htmlFor="tail-p" className="text-(--muted)">
                     Single Leaf P99 Slow Probability (p):
                   </label>
-                  <strong className="text-[var(--orange)]">
+                  <strong className="text-(--orange)">
                     {tailMath.singleSlowPct}%
                   </strong>
                 </div>
@@ -1483,33 +1483,33 @@ export const InternalsWorkbenchView: React.FC = () => {
                   onChange={(e) =>
                     setSingleNodeSlowSlider(Number(e.target.value))
                   }
-                  className="w-full accent-[var(--orange)]"
+                  className="w-full accent-(--orange)"
                 />
               </div>
             </div>
 
             <div className="grid grid-cols-3 gap-2.5 font-mono">
-              <div className="p-2.5 rounded-[10px] bg-[var(--p2)] border border-[var(--line)]">
-                <span className="text-[10px] text-[var(--muted)] block">
+              <div className="p-2.5 rounded-[10px] bg-(--p2) border border-(--line)">
+                <span className="text-[10px] text-(--muted) block">
                   Single Shard Slow
                 </span>
-                <strong className="text-sm text-[var(--ink)]">
+                <strong className="text-sm text-(--ink)">
                   {tailMath.singleSlowPct}%
                 </strong>
               </div>
-              <div className="p-2.5 rounded-[10px] bg-[var(--p2)] border border-[var(--line)]">
-                <span className="text-[10px] text-[var(--muted)] block">
+              <div className="p-2.5 rounded-[10px] bg-(--p2) border border-(--line)">
+                <span className="text-[10px] text-(--muted) block">
                   Compound User P99
                 </span>
-                <strong className="text-sm text-[var(--rose)]">
+                <strong className="text-sm text-(--rose)">
                   {tailMath.compoundSlowPct}% of reqs
                 </strong>
               </div>
-              <div className="p-2.5 rounded-[10px] bg-[var(--p2)] border border-[var(--line)]">
-                <span className="text-[10px] text-[var(--muted)] block">
+              <div className="p-2.5 rounded-[10px] bg-(--p2) border border-(--line)">
+                <span className="text-[10px] text-(--muted) block">
                   With Hedged Reqs
                 </span>
-                <strong className="text-sm text-[var(--lime)]">
+                <strong className="text-sm text-(--lime)">
                   {tailMath.hedgedSlowPct}% of reqs
                 </strong>
               </div>
@@ -1518,26 +1518,26 @@ export const InternalsWorkbenchView: React.FC = () => {
             <div className="space-y-2 text-xs font-mono">
               <div>
                 <div className="flex justify-between text-[11px] mb-1">
-                  <span className="text-[var(--muted)]">Unhedged User Tail Experience</span>
-                  <span className="text-[var(--rose)]">{tailMath.compoundSlowPct}% slow</span>
+                  <span className="text-(--muted)">Unhedged User Tail Experience</span>
+                  <span className="text-(--rose)">{tailMath.compoundSlowPct}% slow</span>
                 </div>
-                <div className="h-2.5 bg-[var(--p3)] rounded-full overflow-hidden">
+                <div className="h-2.5 bg-(--p3) rounded-full overflow-hidden">
                   <div
-                    className="h-full bg-[var(--rose)]"
+                    className="h-full bg-(--rose)"
                     style={{ width: `${Math.min(100, tailMath.compoundSlowPct)}%` }}
                   />
                 </div>
               </div>
               <div>
                 <div className="flex justify-between text-[11px] mb-1">
-                  <span className="text-[var(--muted)]">Hedged Requests (Duplicate sent after P95 wait)</span>
-                  <span className="text-[var(--lime)]">
+                  <span className="text-(--muted)">Hedged Requests (Duplicate sent after P95 wait)</span>
+                  <span className="text-(--lime)">
                     {tailMath.hedgedSlowPct}% slow
                   </span>
                 </div>
-                <div className="h-2.5 bg-[var(--p3)] rounded-full overflow-hidden">
+                <div className="h-2.5 bg-(--p3) rounded-full overflow-hidden">
                   <div
-                    className="h-full bg-[var(--lime)]"
+                    className="h-full bg-(--lime)"
                     style={{ width: `${Math.max(2, tailMath.hedgedSlowPct)}%` }}
                   />
                 </div>
@@ -1545,32 +1545,32 @@ export const InternalsWorkbenchView: React.FC = () => {
             </div>
           </div>
 
-          <p className="mt-4 pt-3 border-t border-[var(--line)] text-xs text-[var(--muted)]">
-            <strong className="text-[var(--ink)]">Staff Mitigation:</strong>{' '}
+          <p className="mt-4 pt-3 border-t border-(--line) text-xs text-(--muted)">
+            <strong className="text-(--ink)">Staff Mitigation:</strong>{' '}
             Send a hedged request to a replica if the primary shard exceeds its P95 threshold, cutting P99 tail latency by 10x for only ~5% extra load.
           </p>
         </article>
 
         {/* WORKBENCH 5: DISTRIBUTED SAGAS VS. TWO-PHASE COMMIT (2PC) */}
-        <article className="bg-[var(--panel)] border border-[var(--line)] rounded-[18px] p-5 sm:p-6 flex flex-col justify-between lg:col-span-2">
+        <article className="bg-(--panel) border border-(--line) rounded-[18px] p-5 sm:p-6 flex flex-col justify-between lg:col-span-2">
           <div className="space-y-4">
-            <div className="flex flex-wrap items-center justify-between gap-3 border-b border-[var(--line)] pb-3">
+            <div className="flex flex-wrap items-center justify-between gap-3 border-b border-(--line) pb-3">
               <div>
-                <h2 className="font-display text-base sm:text-lg font-bold text-[var(--ink)]">
+                <h2 className="font-display text-base sm:text-lg font-bold text-(--ink)">
                   05. Distributed Sagas vs. Two-Phase Commit (2PC)
                 </h2>
-                <p className="text-xs text-[var(--muted)] mt-0.5">
+                <p className="text-xs text-(--muted) mt-0.5">
                   Atomicity vs. Availability across microservices: Compare synchronous blocking 2PC with asynchronous compensating Sagas.
                 </p>
               </div>
-              <span className="text-[10px] font-mono text-[var(--lime)] uppercase tracking-wider px-2 py-0.5 rounded-[6px] bg-[var(--p2)] border border-[var(--line)]">
+              <span className="text-[10px] font-mono text-(--lime) uppercase tracking-wider px-2 py-0.5 rounded-md bg-(--p2) border border-(--line)">
                 Dual-Phase vs Choreography
               </span>
             </div>
 
             {/* Tab Switcher & Status Bar */}
             <div className="flex flex-wrap items-center justify-between gap-3">
-              <div className="flex items-center gap-1 bg-[var(--p2)] border border-[var(--line)] rounded-[10px] p-1 w-fit">
+              <div className="flex items-center gap-1 bg-(--p2) border border-(--line) rounded-[10px] p-1 w-fit">
                 <button
                   type="button"
                   onClick={() => {
@@ -1578,8 +1578,8 @@ export const InternalsWorkbenchView: React.FC = () => {
                   }}
                   className={
                     activeDistTxTab === '2pc'
-                      ? 'px-3 py-1.5 text-xs font-mono font-bold rounded-[8px] bg-[var(--lime)] text-[var(--lime-ink)] cursor-pointer'
-                      : 'px-3 py-1.5 text-xs font-mono font-bold rounded-[8px] text-[var(--muted)] hover:text-[var(--ink)] cursor-pointer'
+                      ? 'px-3 py-1.5 text-xs font-mono font-bold rounded-lg bg-(--lime) text-(--lime-ink) cursor-pointer'
+                      : 'px-3 py-1.5 text-xs font-mono font-bold rounded-lg text-(--muted) hover:text-(--ink) cursor-pointer'
                   }
                 >
                   Two-Phase Commit
@@ -1591,8 +1591,8 @@ export const InternalsWorkbenchView: React.FC = () => {
                   }}
                   className={
                     activeDistTxTab === 'saga'
-                      ? 'px-3 py-1.5 text-xs font-mono font-bold rounded-[8px] bg-[var(--lime)] text-[var(--lime-ink)] cursor-pointer'
-                      : 'px-3 py-1.5 text-xs font-mono font-bold rounded-[8px] text-[var(--muted)] hover:text-[var(--ink)] cursor-pointer'
+                      ? 'px-3 py-1.5 text-xs font-mono font-bold rounded-lg bg-(--lime) text-(--lime-ink) cursor-pointer'
+                      : 'px-3 py-1.5 text-xs font-mono font-bold rounded-lg text-(--muted) hover:text-(--ink) cursor-pointer'
                   }
                 >
                   Saga Pattern
@@ -1602,18 +1602,18 @@ export const InternalsWorkbenchView: React.FC = () => {
               <div className="flex items-center gap-2 text-xs font-mono">
                 {activeDistTxTab === '2pc' ? (
                   <>
-                    <span className="text-[var(--muted)]">Phase:</span>
+                    <span className="text-(--muted)">Phase:</span>
                     <span
                       className={`font-bold px-2 py-0.5 rounded border text-[11px] ${
                         tpcState.phase === 'coordinator-down'
-                          ? 'bg-[var(--rose)]/15 border-[var(--rose)]/40 text-[var(--rose)]'
+                          ? 'bg-(--rose)/15 border-(--rose)/40 text-(--rose)'
                           : tpcState.phase === 'committed'
-                          ? 'bg-[var(--lime)]/15 border-[var(--lime)]/40 text-[var(--lime)]'
+                          ? 'bg-(--lime)/15 border-(--lime)/40 text-(--lime)'
                           : tpcState.phase === 'aborted'
-                          ? 'bg-[var(--rose)]/15 border-[var(--rose)]/40 text-[var(--rose)]'
+                          ? 'bg-(--rose)/15 border-(--rose)/40 text-(--rose)'
                           : tpcState.phase.startsWith('phase')
-                          ? 'bg-[var(--cyan)]/15 border-[var(--cyan)]/40 text-[var(--cyan)]'
-                          : 'bg-[var(--p2)] border-[var(--line)] text-[var(--muted)]'
+                          ? 'bg-(--cyan)/15 border-(--cyan)/40 text-(--cyan)'
+                          : 'bg-(--p2) border-(--line) text-(--muted)'
                       }`}
                     >
                       {tpcState.phase.toUpperCase()}
@@ -1621,17 +1621,17 @@ export const InternalsWorkbenchView: React.FC = () => {
                   </>
                 ) : (
                   <>
-                    <span className="text-[var(--muted)]">Execution Flow:</span>
+                    <span className="text-(--muted)">Execution Flow:</span>
                     <span
                       className={`font-bold px-2 py-0.5 rounded border text-[11px] ${
                         sagaState.direction === 'done'
-                          ? 'bg-[var(--lime)]/15 border-[var(--lime)]/40 text-[var(--lime)]'
+                          ? 'bg-(--lime)/15 border-(--lime)/40 text-(--lime)'
                           : sagaState.direction === 'compensating' ||
                             sagaState.direction === 'compensated'
-                          ? 'bg-[var(--rose)]/15 border-[var(--rose)]/40 text-[var(--rose)]'
+                          ? 'bg-(--rose)/15 border-(--rose)/40 text-(--rose)'
                           : sagaState.direction === 'forward'
-                          ? 'bg-[var(--cyan)]/15 border-[var(--cyan)]/40 text-[var(--cyan)]'
-                          : 'bg-[var(--p2)] border-[var(--line)] text-[var(--muted)]'
+                          ? 'bg-(--cyan)/15 border-(--cyan)/40 text-(--cyan)'
+                          : 'bg-(--p2) border-(--line) text-(--muted)'
                       }`}
                     >
                       {sagaState.direction.toUpperCase()}
@@ -1648,7 +1648,7 @@ export const InternalsWorkbenchView: React.FC = () => {
                   type="button"
                   onClick={handleRunNormal2PC}
                   disabled={isAnimating}
-                  className="px-3 py-1.5 text-xs font-mono font-bold bg-[var(--lime)] text-[var(--lime-ink)] rounded-[9px] whitespace-nowrap cursor-pointer hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="px-3 py-1.5 text-xs font-mono font-bold bg-(--lime) text-(--lime-ink) rounded-[9px] whitespace-nowrap cursor-pointer hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   Run Normal 2PC
                 </button>
@@ -1656,7 +1656,7 @@ export const InternalsWorkbenchView: React.FC = () => {
                   type="button"
                   onClick={handleForceVoteNoPayment}
                   disabled={isAnimating}
-                  className="px-3 py-1.5 text-xs font-mono font-bold bg-[var(--rose)] text-[#10150c] rounded-[9px] whitespace-nowrap cursor-pointer hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="px-3 py-1.5 text-xs font-mono font-bold bg-(--rose) text-[#10150c] rounded-[9px] whitespace-nowrap cursor-pointer hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   Force Vote NO on Payment
                 </button>
@@ -1664,7 +1664,7 @@ export const InternalsWorkbenchView: React.FC = () => {
                   type="button"
                   onClick={handleCrashCoordinator}
                   disabled={isAnimating}
-                  className="px-3 py-1.5 text-xs font-mono font-bold bg-[var(--orange)] text-[#10150c] rounded-[9px] whitespace-nowrap cursor-pointer hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="px-3 py-1.5 text-xs font-mono font-bold bg-(--orange) text-[#10150c] rounded-[9px] whitespace-nowrap cursor-pointer hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   Crash Coordinator After Phase 1
                 </button>
@@ -1674,7 +1674,7 @@ export const InternalsWorkbenchView: React.FC = () => {
                     type="button"
                     onClick={handleRecoverCoordinator}
                     disabled={isAnimating}
-                    className="px-3 py-1.5 text-xs font-mono font-bold bg-[var(--cyan)] text-[#0a0d14] rounded-[9px] whitespace-nowrap cursor-pointer hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed animate-pulse"
+                    className="px-3 py-1.5 text-xs font-mono font-bold bg-(--cyan) text-[#0a0d14] rounded-[9px] whitespace-nowrap cursor-pointer hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed animate-pulse"
                   >
                     Recover Coordinator
                   </button>
@@ -1682,7 +1682,7 @@ export const InternalsWorkbenchView: React.FC = () => {
                 <button
                   type="button"
                   onClick={handleReset2PC}
-                  className="px-3 py-1.5 text-xs font-mono text-[var(--muted)] hover:text-[var(--rose)] border border-[var(--line)] rounded-[9px] cursor-pointer hover:border-[var(--rose)] ml-auto"
+                  className="px-3 py-1.5 text-xs font-mono text-(--muted) hover:text-(--rose) border border-(--line) rounded-[9px] cursor-pointer hover:border-(--rose) ml-auto"
                 >
                   Reset
                 </button>
@@ -1693,7 +1693,7 @@ export const InternalsWorkbenchView: React.FC = () => {
                   type="button"
                   onClick={handleRunNormalSaga}
                   disabled={isAnimating}
-                  className="px-3 py-1.5 text-xs font-mono font-bold bg-[var(--lime)] text-[var(--lime-ink)] rounded-[9px] whitespace-nowrap cursor-pointer hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="px-3 py-1.5 text-xs font-mono font-bold bg-(--lime) text-(--lime-ink) rounded-[9px] whitespace-nowrap cursor-pointer hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   Run Normal Saga
                 </button>
@@ -1701,7 +1701,7 @@ export const InternalsWorkbenchView: React.FC = () => {
                   type="button"
                   onClick={handleFailPaymentSaga}
                   disabled={isAnimating}
-                  className="px-3 py-1.5 text-xs font-mono font-bold bg-[var(--orange)] text-[#10150c] rounded-[9px] whitespace-nowrap cursor-pointer hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="px-3 py-1.5 text-xs font-mono font-bold bg-(--orange) text-[#10150c] rounded-[9px] whitespace-nowrap cursor-pointer hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   Fail Payment Service
                 </button>
@@ -1709,14 +1709,14 @@ export const InternalsWorkbenchView: React.FC = () => {
                   type="button"
                   onClick={handleFailInventorySaga}
                   disabled={isAnimating}
-                  className="px-3 py-1.5 text-xs font-mono font-bold bg-[var(--rose)] text-[#10150c] rounded-[9px] whitespace-nowrap cursor-pointer hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="px-3 py-1.5 text-xs font-mono font-bold bg-(--rose) text-[#10150c] rounded-[9px] whitespace-nowrap cursor-pointer hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   Fail Inventory Service
                 </button>
                 <button
                   type="button"
                   onClick={handleResetSaga}
-                  className="px-3 py-1.5 text-xs font-mono text-[var(--muted)] hover:text-[var(--rose)] border border-[var(--line)] rounded-[9px] cursor-pointer hover:border-[var(--rose)] ml-auto"
+                  className="px-3 py-1.5 text-xs font-mono text-(--muted) hover:text-(--rose) border border-(--line) rounded-[9px] cursor-pointer hover:border-(--rose) ml-auto"
                 >
                   Reset
                 </button>
@@ -1727,7 +1727,7 @@ export const InternalsWorkbenchView: React.FC = () => {
             {activeDistTxTab === '2pc' ? (
               <svg
                 viewBox="0 0 680 260"
-                className="w-full h-auto bg-[var(--p2)] border border-[var(--line)] rounded-[12px]"
+                className="w-full h-auto bg-(--p2) border border-(--line) rounded-xl"
               >
                 <defs>
                   <marker
@@ -2207,7 +2207,7 @@ export const InternalsWorkbenchView: React.FC = () => {
             ) : (
               <svg
                 viewBox="0 0 680 220"
-                className="w-full h-auto bg-[var(--p2)] border border-[var(--line)] rounded-[12px]"
+                className="w-full h-auto bg-(--p2) border border-(--line) rounded-xl"
               >
                 <defs>
                   <marker
@@ -2474,16 +2474,16 @@ export const InternalsWorkbenchView: React.FC = () => {
 
             {/* Architecture Metrics Grid */}
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 font-mono">
-              <div className="p-2.5 rounded-[10px] bg-[var(--p2)] border border-[var(--line)]">
-                <span className="text-[10px] text-[var(--muted)] block">
+              <div className="p-2.5 rounded-[10px] bg-(--p2) border border-(--line)">
+                <span className="text-[10px] text-(--muted) block">
                   Distributed Locking
                 </span>
                 <strong
                   className={`text-sm ${
                     activeDistTxTab === '2pc' &&
                     tpcState.participants.some((p) => p.locksHeld)
-                      ? 'text-[var(--orange)]'
-                      : 'text-[var(--lime)]'
+                      ? 'text-(--orange)'
+                      : 'text-(--lime)'
                   }`}
                 >
                   {activeDistTxTab === '2pc'
@@ -2491,27 +2491,27 @@ export const InternalsWorkbenchView: React.FC = () => {
                     : 'Zero Distributed Locks'}
                 </strong>
               </div>
-              <div className="p-2.5 rounded-[10px] bg-[var(--p2)] border border-[var(--line)]">
-                <span className="text-[10px] text-[var(--muted)] block">
+              <div className="p-2.5 rounded-[10px] bg-(--p2) border border-(--line)">
+                <span className="text-[10px] text-(--muted) block">
                   Consistency Model
                 </span>
-                <strong className="text-sm text-[var(--cyan)]">
+                <strong className="text-sm text-(--cyan)">
                   {activeDistTxTab === '2pc'
                     ? 'Strict ACID (XA)'
                     : 'Eventual Consistency (BASE)'}
                 </strong>
               </div>
-              <div className="p-2.5 rounded-[10px] bg-[var(--p2)] border border-[var(--line)]">
-                <span className="text-[10px] text-[var(--muted)] block">
+              <div className="p-2.5 rounded-[10px] bg-(--p2) border border-(--line)">
+                <span className="text-[10px] text-(--muted) block">
                   Fault Behavior
                 </span>
                 <strong
                   className={`text-sm ${
                     activeDistTxTab === '2pc'
                       ? tpcState.coordinator === 'CRASHED'
-                        ? 'text-[var(--rose)]'
-                        : 'text-[var(--ink)]'
-                      : 'text-[var(--lime)]'
+                        ? 'text-(--rose)'
+                        : 'text-(--ink)'
+                      : 'text-(--lime)'
                   }`}
                 >
                   {activeDistTxTab === '2pc'
@@ -2521,15 +2521,15 @@ export const InternalsWorkbenchView: React.FC = () => {
                     : 'Non-Blocking (Compensates)'}
                 </strong>
               </div>
-              <div className="p-2.5 rounded-[10px] bg-[var(--p2)] border border-[var(--line)]">
-                <span className="text-[10px] text-[var(--muted)] block">
+              <div className="p-2.5 rounded-[10px] bg-(--p2) border border-(--line)">
+                <span className="text-[10px] text-(--muted) block">
                   System Throughput
                 </span>
                 <strong
                   className={`text-sm ${
                     activeDistTxTab === '2pc'
-                      ? 'text-[var(--rose)]'
-                      : 'text-[var(--lime)]'
+                      ? 'text-(--rose)'
+                      : 'text-(--lime)'
                   }`}
                 >
                   {activeDistTxTab === '2pc'
@@ -2541,25 +2541,25 @@ export const InternalsWorkbenchView: React.FC = () => {
 
             {/* Phase Log Display */}
             <div>
-              <div className="text-[11px] font-mono text-[var(--muted)] mb-1 flex items-center justify-between">
+              <div className="text-[11px] font-mono text-(--muted) mb-1 flex items-center justify-between">
                 <span>Transaction Execution Log</span>
-                <span className="text-[10px] text-[var(--soft)]">
+                <span className="text-[10px] text-(--muted)">
                   {activeDistTxTab === '2pc'
                     ? `${tpcState.log.length} entries`
                     : `${sagaState.log.length} entries`}
                 </span>
               </div>
-              <div className="space-y-1 max-h-36 overflow-y-auto text-[11px] font-mono p-3 rounded-[10px] bg-[var(--p2)] border border-[var(--line)]">
+              <div className="space-y-1 max-h-36 overflow-y-auto text-[11px] font-mono p-3 rounded-[10px] bg-(--p2) border border-(--line)">
                 {(activeDistTxTab === '2pc' ? tpcState.log : sagaState.log).map(
                   (entry, i) => {
                     const colorClass =
                       entry.type === 'success'
-                        ? 'text-[var(--lime)]'
+                        ? 'text-(--lime)'
                         : entry.type === 'error'
-                        ? 'text-[var(--rose)]'
+                        ? 'text-(--rose)'
                         : entry.type === 'warning'
-                        ? 'text-[var(--orange)]'
-                        : 'text-[var(--muted)]';
+                        ? 'text-(--orange)'
+                        : 'text-(--muted)';
                     return (
                       <div key={i} className={colorClass}>
                         {entry.text}
@@ -2571,8 +2571,8 @@ export const InternalsWorkbenchView: React.FC = () => {
             </div>
           </div>
 
-          <p className="mt-4 pt-3 border-t border-[var(--line)] text-xs text-[var(--muted)]">
-            <strong className="text-[var(--ink)]">Staff Trade-Off:</strong>{' '}
+          <p className="mt-4 pt-3 border-t border-(--line) text-xs text-(--muted)">
+            <strong className="text-(--ink)">Staff Trade-Off:</strong>{' '}
             2PC guarantees atomic all-or-nothing across services but blocks participants if the coordinator crashes (violating availability). Sagas trade atomicity for availability—each step commits locally and failures trigger compensating transactions, achieving eventual consistency without distributed locks.
           </p>
         </article>

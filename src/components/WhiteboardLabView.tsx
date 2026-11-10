@@ -806,18 +806,18 @@ export const WhiteboardLabView: React.FC<WhiteboardLabViewProps> = ({
   return (
     <div className="space-y-10 pt-4">
       {/* Top Workspace Control Bar */}
-      <section className="flex flex-col lg:flex-row lg:items-end justify-between gap-4 pb-5 border-b border-[var(--line)]">
+      <section className="flex flex-col lg:flex-row lg:items-end justify-between gap-4 pb-5 border-b border-(--line)">
         <div>
           <div className="eyebrow-line">
             Interactive Topology Simulator · Little’s Law Queueing · Staff Architecture Audit
           </div>
-          <h1 className="font-display font-bold text-[clamp(28px,3.6vw,44px)] leading-[1.06] tracking-[-0.04em] text-[var(--ink)] mt-3">
+          <h1 className="font-display font-bold text-[clamp(28px,3.6vw,44px)] leading-[1.06] tracking-[-0.04em] text-(--ink) mt-3">
             Architecture Whiteboard & Telemetry Lab
           </h1>
         </div>
 
         <div className="flex flex-wrap items-center gap-2.5">
-          <label htmlFor="preset-select" className="text-xs font-mono text-[var(--muted)]">
+          <label htmlFor="preset-select" className="text-xs font-mono text-(--muted)">
             Blueprint:
           </label>
           <select
@@ -825,7 +825,7 @@ export const WhiteboardLabView: React.FC<WhiteboardLabViewProps> = ({
             aria-label="Select architecture blueprint preset"
             value={presetKey}
             onChange={(e) => loadPreset(e.target.value)}
-            className="px-3 py-2 text-xs font-mono font-medium bg-[var(--panel)] border border-[var(--line)] rounded-[10px] text-[var(--ink)] focus:outline-none focus:border-[var(--lime)]"
+            className="px-3 py-2 text-xs font-mono font-medium bg-(--panel) border border-(--line) rounded-[10px] text-(--ink) focus:outline-none focus:border-(--lime)"
           >
             {Object.values(WHITEBOARD_PRESETS).map((p) => (
               <option key={p.id} value={p.id}>
@@ -843,8 +843,8 @@ export const WhiteboardLabView: React.FC<WhiteboardLabViewProps> = ({
             }}
             className={`inline-flex items-center gap-1.5 px-3 py-2 text-xs font-mono font-semibold rounded-[10px] border transition-colors whitespace-nowrap shrink-0 cursor-pointer ${
               connectMode
-                ? 'bg-[var(--cyan)] text-[#0a0d14] border-[var(--cyan)]'
-                : 'bg-[var(--panel)] text-[var(--ink)] border-[var(--line)] hover:border-[var(--cyan)]'
+                ? 'bg-(--cyan) text-[#0a0d14] border-(--cyan)'
+                : 'bg-(--panel) text-(--ink) border-(--line) hover:border-(--cyan)'
             }`}
           >
             <Link2 className="w-3.5 h-3.5" />
@@ -864,8 +864,8 @@ export const WhiteboardLabView: React.FC<WhiteboardLabViewProps> = ({
             }}
             className={`inline-flex items-center gap-1.5 px-3 py-2 text-xs font-mono font-semibold rounded-[10px] border transition-colors whitespace-nowrap shrink-0 cursor-pointer ${
               chaosMode
-                ? 'bg-[var(--rose)] text-[#0a0d14] border-[var(--rose)]'
-                : 'bg-[var(--panel)] text-[var(--ink)] border-[var(--line)] hover:border-[var(--rose)]'
+                ? 'bg-(--rose) text-[#0a0d14] border-(--rose)'
+                : 'bg-(--panel) text-(--ink) border-(--line) hover:border-(--rose)'
             }`}
           >
             <ZapOff className="w-3.5 h-3.5" />
@@ -876,9 +876,9 @@ export const WhiteboardLabView: React.FC<WhiteboardLabViewProps> = ({
             type="button"
             onClick={handleExportJson}
             title="Download architecture as JSON file"
-            className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-mono font-semibold rounded-[10px] border bg-[var(--panel)] text-[var(--ink)] border-[var(--line)] hover:border-[var(--lime)] transition-colors whitespace-nowrap shrink-0 cursor-pointer"
+            className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-mono font-semibold rounded-[10px] border bg-(--panel) text-(--ink) border-(--line) hover:border-(--lime) transition-colors whitespace-nowrap shrink-0 cursor-pointer"
           >
-            <Download className="w-3.5 h-3.5 text-[var(--lime)]" />
+            <Download className="w-3.5 h-3.5 text-(--lime)" />
             Export JSON
           </button>
 
@@ -886,9 +886,9 @@ export const WhiteboardLabView: React.FC<WhiteboardLabViewProps> = ({
             type="button"
             onClick={handleImportJsonClick}
             title="Import architecture from JSON file"
-            className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-mono font-semibold rounded-[10px] border bg-[var(--panel)] text-[var(--ink)] border-[var(--line)] hover:border-[var(--cyan)] transition-colors whitespace-nowrap shrink-0 cursor-pointer"
+            className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-mono font-semibold rounded-[10px] border bg-(--panel) text-(--ink) border-(--line) hover:border-(--cyan) transition-colors whitespace-nowrap shrink-0 cursor-pointer"
           >
-            <Upload className="w-3.5 h-3.5 text-[var(--cyan)]" />
+            <Upload className="w-3.5 h-3.5 text-(--cyan)" />
             Import JSON
           </button>
           <input
@@ -904,9 +904,9 @@ export const WhiteboardLabView: React.FC<WhiteboardLabViewProps> = ({
             type="button"
             onClick={handleExportPng}
             title="Export whiteboard canvas as PNG image"
-            className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-mono font-semibold rounded-[10px] border bg-[var(--panel)] text-[var(--ink)] border-[var(--line)] hover:border-[var(--orange)] transition-colors whitespace-nowrap shrink-0 cursor-pointer"
+            className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-mono font-semibold rounded-[10px] border bg-(--panel) text-(--ink) border-(--line) hover:border-(--orange) transition-colors whitespace-nowrap shrink-0 cursor-pointer"
           >
-            <ImageIcon className="w-3.5 h-3.5 text-[var(--orange)]" />
+            <ImageIcon className="w-3.5 h-3.5 text-(--orange)" />
             Export PNG
           </button>
         </div>
@@ -916,8 +916,8 @@ export const WhiteboardLabView: React.FC<WhiteboardLabViewProps> = ({
       <section className="grid grid-cols-1 xl:grid-cols-12 gap-5 items-stretch">
         {/* Left 3 Columns: Component Palette & Live Traffic Sliders */}
         <div className="xl:col-span-3 space-y-4">
-          <div className="bg-[var(--panel)] border border-[var(--line)] rounded-[16px] p-4">
-            <h2 className="text-[10px] font-mono uppercase tracking-[0.14em] text-[var(--lime)] mb-3">
+          <div className="bg-(--panel) border border-(--line) rounded-2xl p-4">
+            <h2 className="text-[10px] font-mono uppercase tracking-[0.14em] text-(--lime) mb-3">
               Add Infrastructure Node
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-1 gap-2">
@@ -928,35 +928,35 @@ export const WhiteboardLabView: React.FC<WhiteboardLabViewProps> = ({
                     key={comp.type}
                     type="button"
                     onClick={() => handleAddNode(comp.type)}
-                    className="flex items-center justify-between px-3 py-2 rounded-[10px] bg-[var(--p2)] border border-[var(--line)] hover:border-[var(--lime)] text-left transition-colors cursor-pointer"
+                    className="flex items-center justify-between px-3 py-2 rounded-[10px] bg-(--p2) border border-(--line) hover:border-(--lime) text-left transition-colors cursor-pointer"
                   >
                     <div>
-                      <div className="text-xs font-display font-bold text-[var(--ink)]">
+                      <div className="text-xs font-display font-bold text-(--ink)">
                         {comp.name}
                       </div>
-                      <div className="text-[10px] font-mono text-[var(--muted)]">
+                      <div className="text-[10px] font-mono text-(--muted)">
                         {(comp.capacityPerNode / 1000).toFixed(0)}k QPS/node ·{' '}
                         {comp.baseLatencyMs}ms
                       </div>
                     </div>
-                    <Plus className="w-4 h-4 text-[var(--lime)] shrink-0" />
+                    <Plus className="w-4 h-4 text-(--lime) shrink-0" />
                   </button>
                 ))}
             </div>
           </div>
 
           {/* Live Traffic Physics Generator */}
-          <div className="bg-[var(--panel)] border border-[var(--line)] rounded-[16px] p-4 space-y-3.5">
-            <h2 className="text-[10px] font-mono uppercase tracking-[0.14em] text-[var(--cyan)]">
+          <div className="bg-(--panel) border border-(--line) rounded-2xl p-4 space-y-3.5">
+            <h2 className="text-[10px] font-mono uppercase tracking-[0.14em] text-(--cyan)">
               Live Traffic & Workload Sliders
             </h2>
 
             <div>
               <div className="flex justify-between text-xs font-mono mb-1">
-                <label htmlFor="wb-qps" className="text-[var(--muted)]">
+                <label htmlFor="wb-qps" className="text-(--muted)">
                   Ingress Traffic QPS:
                 </label>
-                <strong className="text-[var(--lime)]">
+                <strong className="text-(--lime)">
                   {ingressQps.toLocaleString()} /s
                 </strong>
               </div>
@@ -968,16 +968,16 @@ export const WhiteboardLabView: React.FC<WhiteboardLabViewProps> = ({
                 step={1000}
                 value={ingressQps}
                 onChange={(e) => setIngressQps(Number(e.target.value))}
-                className="w-full accent-[var(--lime)] cursor-pointer"
+                className="w-full accent-(--lime) cursor-pointer"
               />
             </div>
 
             <div>
               <div className="flex justify-between text-xs font-mono mb-1">
-                <label htmlFor="wb-cache" className="text-[var(--muted)]">
+                <label htmlFor="wb-cache" className="text-(--muted)">
                   Cache Hit Ratio:
                 </label>
-                <strong className="text-[var(--cyan)]">{cacheHitPct}%</strong>
+                <strong className="text-(--cyan)">{cacheHitPct}%</strong>
               </div>
               <input
                 id="wb-cache"
@@ -987,16 +987,16 @@ export const WhiteboardLabView: React.FC<WhiteboardLabViewProps> = ({
                 step={1}
                 value={cacheHitPct}
                 onChange={(e) => setCacheHitPct(Number(e.target.value))}
-                className="w-full accent-[var(--cyan)] cursor-pointer"
+                className="w-full accent-(--cyan) cursor-pointer"
               />
             </div>
 
             <div>
               <div className="flex justify-between text-xs font-mono mb-1">
-                <label htmlFor="wb-rw" className="text-[var(--muted)]">
+                <label htmlFor="wb-rw" className="text-(--muted)">
                   Read : Write Ratio:
                 </label>
-                <strong className="text-[var(--orange)]">
+                <strong className="text-(--orange)">
                   {readRatioPct} : {100 - readRatioPct}
                 </strong>
               </div>
@@ -1008,27 +1008,27 @@ export const WhiteboardLabView: React.FC<WhiteboardLabViewProps> = ({
                 step={5}
                 value={readRatioPct}
                 onChange={(e) => setReadRatioPct(Number(e.target.value))}
-                className="w-full accent-[var(--orange)] cursor-pointer"
+                className="w-full accent-(--orange) cursor-pointer"
               />
             </div>
           </div>
         </div>
 
         {/* Center 6 Columns: Interactive Drag-and-Drop SVG Canvas */}
-        <div className="xl:col-span-6 bg-[var(--panel)] border border-[var(--line)] rounded-[18px] flex flex-col justify-between overflow-hidden shadow-[var(--shadow)]">
+        <div className="xl:col-span-6 bg-(--panel) border border-(--line) rounded-[18px] flex flex-col justify-between overflow-hidden shadow-(--shadow)">
           {/* Canvas Telemetry Header */}
-          <div className="px-4 py-3 border-b border-[var(--line)] flex flex-wrap items-center justify-between gap-3 text-xs font-mono bg-[var(--p2)]">
-            <div className="flex items-center gap-3 text-[var(--muted)]">
+          <div className="px-4 py-3 border-b border-(--line) flex flex-wrap items-center justify-between gap-3 text-xs font-mono bg-(--p2)">
+            <div className="flex items-center gap-3 text-(--muted)">
               <span>
                 E2E P99:{' '}
-                <strong className="text-[var(--ink)]">
+                <strong className="text-(--ink)">
                   {simulation.e2eLatencyMs} ms
                 </strong>
               </span>
               <span>·</span>
               <span>
                 Composite SLA:{' '}
-                <strong className="text-[var(--cyan)]">
+                <strong className="text-(--cyan)">
                   {simulation.compositeSlaPct}
                 </strong>
               </span>
@@ -1039,10 +1039,10 @@ export const WhiteboardLabView: React.FC<WhiteboardLabViewProps> = ({
               <strong
                 className={
                   simulation.overallStatus === 'NOMINAL'
-                    ? 'text-[var(--lime)]'
+                    ? 'text-(--lime)'
                     : simulation.overallStatus === 'ELEVATED'
-                    ? 'text-[var(--orange)]'
-                    : 'text-[var(--rose)]'
+                    ? 'text-(--orange)'
+                    : 'text-(--rose)'
                 }
               >
                 {simulation.overallStatus} (Max {simulation.maxUtilizationPct}%)
@@ -1234,17 +1234,17 @@ export const WhiteboardLabView: React.FC<WhiteboardLabViewProps> = ({
             </svg>
 
             {/* Zoom Controls Cluster */}
-            <div className="absolute bottom-3 right-3 z-10 flex items-center gap-1 p-1 bg-[var(--panel)] border border-[var(--line)] rounded-[10px] shadow-sm select-none backdrop-blur-sm">
+            <div className="absolute bottom-3 right-3 z-10 flex items-center gap-1 p-1 bg-(--panel) border border-(--line) rounded-[10px] shadow-sm select-none backdrop-blur-sm">
               <button
                 type="button"
                 onClick={handleZoomOut}
                 title="Zoom Out (-)"
                 aria-label="Zoom Out"
-                className="w-6 h-6 flex items-center justify-center rounded-[6px] text-[var(--muted)] hover:text-[var(--ink)] hover:bg-[var(--p2)] transition-colors cursor-pointer"
+                className="w-6 h-6 flex items-center justify-center rounded-md text-(--muted) hover:text-(--ink) hover:bg-(--p2) transition-colors cursor-pointer"
               >
                 <Minus className="w-3.5 h-3.5" />
               </button>
-              <span className="px-1.5 font-mono text-[10px] font-semibold text-[var(--ink)] min-w-[38px] text-center">
+              <span className="px-1.5 font-mono text-[10px] font-semibold text-(--ink) min-w-[38px] text-center">
                 {Math.round(zoom * 100)}%
               </span>
               <button
@@ -1252,24 +1252,24 @@ export const WhiteboardLabView: React.FC<WhiteboardLabViewProps> = ({
                 onClick={handleZoomIn}
                 title="Zoom In (+)"
                 aria-label="Zoom In"
-                className="w-6 h-6 flex items-center justify-center rounded-[6px] text-[var(--muted)] hover:text-[var(--ink)] hover:bg-[var(--p2)] transition-colors cursor-pointer"
+                className="w-6 h-6 flex items-center justify-center rounded-md text-(--muted) hover:text-(--ink) hover:bg-(--p2) transition-colors cursor-pointer"
               >
                 <Plus className="w-3.5 h-3.5" />
               </button>
-              <div className="w-[1px] h-3.5 bg-[var(--line)] mx-0.5" />
+              <div className="w-[1px] h-3.5 bg-(--line) mx-0.5" />
               <button
                 type="button"
                 onClick={handleResetView}
                 title="Reset View (100%)"
                 aria-label="Reset View"
-                className="w-6 h-6 flex items-center justify-center rounded-[6px] text-[var(--muted)] hover:text-[var(--ink)] hover:bg-[var(--p2)] transition-colors cursor-pointer"
+                className="w-6 h-6 flex items-center justify-center rounded-md text-(--muted) hover:text-(--ink) hover:bg-(--p2) transition-colors cursor-pointer"
               >
                 <RotateCcw className="w-3 h-3" />
               </button>
             </div>
           </div>
 
-          <div className="px-4 py-2.5 border-t border-[var(--line)] text-[11px] font-mono text-[var(--muted)] flex flex-wrap justify-between gap-2 bg-[var(--p2)]">
+          <div className="px-4 py-2.5 border-t border-(--line) text-[11px] font-mono text-(--muted) flex flex-wrap justify-between gap-2 bg-(--p2)">
             <span>Drag nodes to arrange · Scroll to zoom · Drag canvas to pan</span>
             <span>Little’s Law Concurrency: L = λ × W</span>
           </div>
@@ -1278,12 +1278,12 @@ export const WhiteboardLabView: React.FC<WhiteboardLabViewProps> = ({
         {/* Right 3 Columns: Selected Node Inspector + Staff Architecture Linter */}
         <div className="xl:col-span-3 space-y-4">
           {selectedNode && (
-            <div className="bg-[var(--panel)] border border-[var(--line)] rounded-[16px] p-4 space-y-3.5">
-              <div className="flex items-center justify-between border-b border-[var(--line)] pb-2.5">
-                <h2 className="text-[10px] font-mono uppercase tracking-[0.14em] text-[var(--muted)]">
+            <div className="bg-(--panel) border border-(--line) rounded-2xl p-4 space-y-3.5">
+              <div className="flex items-center justify-between border-b border-(--line) pb-2.5">
+                <h2 className="text-[10px] font-mono uppercase tracking-[0.14em] text-(--muted)">
                   Node Inspector ({selectedNode.id})
                 </h2>
-                <span className="text-xs font-mono font-semibold text-[var(--lime)]">
+                <span className="text-xs font-mono font-semibold text-(--lime)">
                   {selectedNode.status}
                 </span>
               </div>
@@ -1291,7 +1291,7 @@ export const WhiteboardLabView: React.FC<WhiteboardLabViewProps> = ({
               <div>
                 <label
                   htmlFor="node-label-input"
-                  className="text-[10px] font-mono uppercase tracking-wider text-[var(--muted)] block mb-1"
+                  className="text-[10px] font-mono uppercase tracking-wider text-(--muted) block mb-1"
                 >
                   Component Label:
                 </label>
@@ -1307,46 +1307,46 @@ export const WhiteboardLabView: React.FC<WhiteboardLabViewProps> = ({
                       )
                     );
                   }}
-                  className="w-full px-2.5 py-1.5 text-xs font-mono bg-[var(--p2)] border border-[var(--line)] rounded-[8px] text-[var(--ink)] focus:outline-none focus:border-[var(--lime)]"
+                  className="w-full px-2.5 py-1.5 text-xs font-mono bg-(--p2) border border-(--line) rounded-lg text-(--ink) focus:outline-none focus:border-(--lime)"
                 />
               </div>
 
               <div className="grid grid-cols-2 gap-2 font-mono">
-                <div className="p-2.5 rounded-[10px] bg-[var(--p2)] border border-[var(--line)]">
-                  <span className="text-[10px] text-[var(--muted)] block">
+                <div className="p-2.5 rounded-[10px] bg-(--p2) border border-(--line)">
+                  <span className="text-[10px] text-(--muted) block">
                     Incoming QPS
                   </span>
-                  <strong className="text-sm text-[var(--cyan)]">
+                  <strong className="text-sm text-(--cyan)">
                     {selectedNode.inQps.toLocaleString()}/s
                   </strong>
                 </div>
-                <div className="p-2.5 rounded-[10px] bg-[var(--p2)] border border-[var(--line)]">
-                  <span className="text-[10px] text-[var(--muted)] block">
+                <div className="p-2.5 rounded-[10px] bg-(--p2) border border-(--line)">
+                  <span className="text-[10px] text-(--muted) block">
                     Utilization
                   </span>
                   <strong
                     className={`text-sm ${
                       selectedNode.utilizationPct > 95
-                        ? 'text-[var(--rose)]'
-                        : 'text-[var(--lime)]'
+                        ? 'text-(--rose)'
+                        : 'text-(--lime)'
                     }`}
                   >
                     {selectedNode.utilizationPct}%
                   </strong>
                 </div>
-                <div className="p-2.5 rounded-[10px] bg-[var(--p2)] border border-[var(--line)]">
-                  <span className="text-[10px] text-[var(--muted)] block">
+                <div className="p-2.5 rounded-[10px] bg-(--p2) border border-(--line)">
+                  <span className="text-[10px] text-(--muted) block">
                     Concurrency (L)
                   </span>
-                  <strong className="text-sm text-[var(--orange)]">
+                  <strong className="text-sm text-(--orange)">
                     {selectedNode.concurrencyConnections} conns
                   </strong>
                 </div>
-                <div className="p-2.5 rounded-[10px] bg-[var(--p2)] border border-[var(--line)]">
-                  <span className="text-[10px] text-[var(--muted)] block">
+                <div className="p-2.5 rounded-[10px] bg-(--p2) border border-(--line)">
+                  <span className="text-[10px] text-(--muted) block">
                     Node P99
                   </span>
-                  <strong className="text-sm text-[var(--ink)]">
+                  <strong className="text-sm text-(--ink)">
                     {selectedNode.effectiveLatencyMs} ms
                   </strong>
                 </div>
@@ -1358,14 +1358,14 @@ export const WhiteboardLabView: React.FC<WhiteboardLabViewProps> = ({
                     <button
                       type="button"
                       onClick={() => scaleSelectedNode(1)}
-                      className="flex-1 px-3 py-2 text-xs font-mono font-bold bg-[var(--lime)] text-[var(--lime-ink)] rounded-[9px] hover:opacity-95 transition-opacity whitespace-nowrap cursor-pointer"
+                      className="flex-1 px-3 py-2 text-xs font-mono font-bold bg-(--lime) text-(--lime-ink) rounded-[9px] hover:opacity-95 transition-opacity whitespace-nowrap cursor-pointer"
                     >
                       +1 Replica (x{selectedNode.replicas + 1})
                     </button>
                     <button
                       type="button"
                       onClick={() => scaleSelectedNode(-1)}
-                      className="px-3 py-2 text-xs font-mono font-bold bg-[var(--p2)] text-[var(--ink)] rounded-[9px] border border-[var(--line)] hover:border-[var(--lime)] cursor-pointer"
+                      className="px-3 py-2 text-xs font-mono font-bold bg-(--p2) text-(--ink) rounded-[9px] border border-(--line) hover:border-(--lime) cursor-pointer"
                     >
                       -1
                     </button>
@@ -1375,7 +1375,7 @@ export const WhiteboardLabView: React.FC<WhiteboardLabViewProps> = ({
                     <button
                       type="button"
                       onClick={toggleSelectedNodeDown}
-                      className="flex-1 px-3 py-1.5 text-xs font-mono font-medium border border-[var(--rose)]/50 text-[var(--rose)] rounded-[9px] hover:bg-[var(--rose)]/10 transition-colors whitespace-nowrap cursor-pointer"
+                      className="flex-1 px-3 py-1.5 text-xs font-mono font-medium border border-(--rose)/50 text-(--rose) rounded-[9px] hover:bg-(--rose)/10 transition-colors whitespace-nowrap cursor-pointer"
                     >
                       {selectedNode.down ? 'Restore Node' : 'Simulate Crash'}
                     </button>
@@ -1383,7 +1383,7 @@ export const WhiteboardLabView: React.FC<WhiteboardLabViewProps> = ({
                       type="button"
                       aria-label={`Delete ${selectedNode.label}`}
                       onClick={deleteSelectedNode}
-                      className="px-2.5 py-1.5 text-xs font-mono border border-[var(--line)] text-[var(--muted)] hover:text-[var(--rose)] rounded-[9px] cursor-pointer"
+                      className="px-2.5 py-1.5 text-xs font-mono border border-(--line) text-(--muted) hover:text-(--rose) rounded-[9px] cursor-pointer"
                     >
                       <Trash2 className="w-4 h-4" />
                     </button>
@@ -1394,12 +1394,12 @@ export const WhiteboardLabView: React.FC<WhiteboardLabViewProps> = ({
           )}
 
           {/* Automated Staff Architecture Review Linter */}
-          <div className="bg-[var(--panel)] border border-[var(--line)] rounded-[16px] p-4 space-y-3">
-            <div className="flex items-center justify-between border-b border-[var(--line)] pb-2.5">
-              <h2 className="text-[10px] font-mono uppercase tracking-[0.14em] text-[var(--muted)]">
+          <div className="bg-(--panel) border border-(--line) rounded-2xl p-4 space-y-3">
+            <div className="flex items-center justify-between border-b border-(--line) pb-2.5">
+              <h2 className="text-[10px] font-mono uppercase tracking-[0.14em] text-(--muted)">
                 Staff Architecture Review
               </h2>
-              <span className="text-[10px] font-mono text-[var(--lime)]">
+              <span className="text-[10px] font-mono text-(--lime)">
                 LIVE AUDIT
               </span>
             </div>
@@ -1410,23 +1410,23 @@ export const WhiteboardLabView: React.FC<WhiteboardLabViewProps> = ({
                   key={f.id}
                   className={`p-3 rounded-[10px] border text-xs ${
                     f.severity === 'CRITICAL'
-                      ? 'bg-[var(--rose)]/10 border-[var(--rose)]/40'
+                      ? 'bg-(--rose)/10 border-(--rose)/40'
                       : f.severity === 'WARNING'
-                      ? 'bg-[var(--orange)]/10 border-[var(--orange)]/40'
-                      : 'bg-[var(--lime)]/10 border-[var(--lime)]/40'
+                      ? 'bg-(--orange)/10 border-(--orange)/40'
+                      : 'bg-(--lime)/10 border-(--lime)/40'
                   }`}
                 >
-                  <div className="flex items-center gap-1.5 font-semibold text-[var(--ink)] mb-1">
+                  <div className="flex items-center gap-1.5 font-semibold text-(--ink) mb-1">
                     {f.severity === 'CRITICAL' ? (
-                      <ShieldAlert className="w-4 h-4 text-[var(--rose)] shrink-0" />
+                      <ShieldAlert className="w-4 h-4 text-(--rose) shrink-0" />
                     ) : f.severity === 'WARNING' ? (
-                      <AlertTriangle className="w-4 h-4 text-[var(--orange)] shrink-0" />
+                      <AlertTriangle className="w-4 h-4 text-(--orange) shrink-0" />
                     ) : (
-                      <CheckCircle2 className="w-4 h-4 text-[var(--lime)] shrink-0" />
+                      <CheckCircle2 className="w-4 h-4 text-(--lime) shrink-0" />
                     )}
                     <span>{f.title}</span>
                   </div>
-                  <p className="text-[var(--muted)] leading-relaxed text-[11px]">
+                  <p className="text-(--muted) leading-relaxed text-[11px]">
                     {f.detail}
                   </p>
                 </div>
@@ -1437,24 +1437,24 @@ export const WhiteboardLabView: React.FC<WhiteboardLabViewProps> = ({
       </section>
 
       {/* Bottom Dock: 3 Interactive Algorithmic Proof Calculators */}
-      <section className="pt-6 border-t border-[var(--line)] space-y-4">
+      <section className="pt-6 border-t border-(--line) space-y-4">
         <div>
-          <p className="text-[10px] font-mono uppercase tracking-[0.15em] text-[var(--lime)]">
+          <p className="text-[10px] font-mono uppercase tracking-[0.15em] text-(--lime)">
             Interactive Mathematical Proofs
           </p>
-          <h2 className="font-display text-xl font-bold text-[var(--ink)] mt-1">
+          <h2 className="font-display text-xl font-bold text-(--ink) mt-1">
             Distributed Systems Calculators & Visualizers
           </h2>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
           {/* Tool 1: Consistent Hashing Ring */}
-          <div className="bg-[var(--panel)] border border-[var(--line)] rounded-[16px] p-5 flex flex-col justify-between">
+          <div className="bg-(--panel) border border-(--line) rounded-2xl p-5 flex flex-col justify-between">
             <div>
-              <h3 className="font-display text-base font-bold text-[var(--ink)]">
+              <h3 className="font-display text-base font-bold text-(--ink)">
                 01. Consistent Hashing Ring (0..2³²-1)
               </h3>
-              <p className="text-xs text-[var(--muted)] mt-1 mb-3">
+              <p className="text-xs text-(--muted) mt-1 mb-3">
                 Add or remove shards and hash keys to see clockwise routing and why only 1/N keys move.
               </p>
 
@@ -1462,14 +1462,14 @@ export const WhiteboardLabView: React.FC<WhiteboardLabViewProps> = ({
                 <button
                   type="button"
                   onClick={handleAddRingShard}
-                  className="px-2.5 py-1.5 text-xs font-mono font-medium bg-[var(--p2)] text-[var(--ink)] rounded-[8px] border border-[var(--line)] hover:border-[var(--lime)] whitespace-nowrap cursor-pointer"
+                  className="px-2.5 py-1.5 text-xs font-mono font-medium bg-(--p2) text-(--ink) rounded-lg border border-(--line) hover:border-(--lime) whitespace-nowrap cursor-pointer"
                 >
                   + Add Shard
                 </button>
                 <button
                   type="button"
                   onClick={handleRemoveRingShard}
-                  className="px-2.5 py-1.5 text-xs font-mono font-medium bg-[var(--p2)] text-[var(--ink)] rounded-[8px] border border-[var(--line)] hover:border-[var(--rose)] whitespace-nowrap cursor-pointer"
+                  className="px-2.5 py-1.5 text-xs font-mono font-medium bg-(--p2) text-(--ink) rounded-lg border border-(--line) hover:border-(--rose) whitespace-nowrap cursor-pointer"
                 >
                   - Remove Shard
                 </button>
@@ -1478,7 +1478,7 @@ export const WhiteboardLabView: React.FC<WhiteboardLabViewProps> = ({
                   aria-label="Consistent hash key input"
                   value={ringKey}
                   onChange={(e) => setRingKey(e.target.value)}
-                  className="flex-1 min-w-[120px] px-2.5 py-1.5 text-xs font-mono bg-[var(--p2)] border border-[var(--line)] rounded-[8px] text-[var(--ink)]"
+                  className="flex-1 min-w-[120px] px-2.5 py-1.5 text-xs font-mono bg-(--p2) border border-(--line) rounded-lg text-(--ink)"
                 />
               </div>
 
@@ -1558,9 +1558,9 @@ export const WhiteboardLabView: React.FC<WhiteboardLabViewProps> = ({
                   })()}
                 </svg>
 
-                <div className="text-xs font-mono space-y-1.5 text-[var(--muted)]">
+                <div className="text-xs font-mono space-y-1.5 text-(--muted)">
                   <div>
-                    Key Angle: <strong className="text-[var(--ink)]">{ringResult.keyAngle}°</strong>
+                    Key Angle: <strong className="text-(--ink)">{ringResult.keyAngle}°</strong>
                   </div>
                   <div>
                     Routed To:{' '}
@@ -1569,7 +1569,7 @@ export const WhiteboardLabView: React.FC<WhiteboardLabViewProps> = ({
                     </strong>
                   </div>
                   <div>Active Shards: {ringNodes.length}</div>
-                  <div className="text-[var(--lime)]">
+                  <div className="text-(--lime)">
                     Scale Event Moves: ~{ringResult.remapPercentage}% keys
                   </div>
                 </div>
@@ -1578,12 +1578,12 @@ export const WhiteboardLabView: React.FC<WhiteboardLabViewProps> = ({
           </div>
 
           {/* Tool 2: Token Bucket Rate Limiter Simulator */}
-          <div className="bg-[var(--panel)] border border-[var(--line)] rounded-[16px] p-5 flex flex-col justify-between">
+          <div className="bg-(--panel) border border-(--line) rounded-2xl p-5 flex flex-col justify-between">
             <div>
-              <h3 className="font-display text-base font-bold text-[var(--ink)]">
+              <h3 className="font-display text-base font-bold text-(--ink)">
                 02. Token Bucket Rate Limiter
               </h3>
-              <p className="text-xs text-[var(--muted)] mt-1 mb-3">
+              <p className="text-xs text-(--muted) mt-1 mb-3">
                 Fire traffic bursts against a live refilling bucket to test HTTP 200 vs 429 rejections.
               </p>
 
@@ -1591,30 +1591,30 @@ export const WhiteboardLabView: React.FC<WhiteboardLabViewProps> = ({
                 <button
                   type="button"
                   onClick={() => handleFireRequests(1)}
-                  className="px-2.5 py-1.5 text-xs font-mono font-bold bg-[var(--lime)] text-[var(--lime-ink)] rounded-[8px] whitespace-nowrap cursor-pointer"
+                  className="px-2.5 py-1.5 text-xs font-mono font-bold bg-(--lime) text-(--lime-ink) rounded-lg whitespace-nowrap cursor-pointer"
                 >
                   Send 1 Req
                 </button>
                 <button
                   type="button"
                   onClick={() => handleFireRequests(5)}
-                  className="px-2.5 py-1.5 text-xs font-mono font-bold bg-[var(--orange)] text-[#10150c] rounded-[8px] whitespace-nowrap cursor-pointer"
+                  className="px-2.5 py-1.5 text-xs font-mono font-bold bg-(--orange) text-[#10150c] rounded-lg whitespace-nowrap cursor-pointer"
                 >
                   Burst 5 Reqs
                 </button>
                 <button
                   type="button"
                   onClick={() => handleFireRequests(12)}
-                  className="px-2.5 py-1.5 text-xs font-mono font-bold bg-[var(--rose)] text-[#10150c] rounded-[8px] whitespace-nowrap cursor-pointer"
+                  className="px-2.5 py-1.5 text-xs font-mono font-bold bg-(--rose) text-[#10150c] rounded-lg whitespace-nowrap cursor-pointer"
                 >
                   Spike 12 Reqs
                 </button>
               </div>
 
-              <div className="p-3 rounded-[10px] bg-[var(--p2)] border border-[var(--line)] mb-3">
+              <div className="p-3 rounded-[10px] bg-(--p2) border border-(--line) mb-3">
                 <div className="flex justify-between text-xs font-mono mb-1.5">
-                  <span className="text-[var(--muted)]">Available Tokens:</span>
-                  <strong className="text-[var(--cyan)]">
+                  <span className="text-(--muted)">Available Tokens:</span>
+                  <strong className="text-(--cyan)">
                     {bucketTokens} / 10
                   </strong>
                 </div>
@@ -1623,21 +1623,21 @@ export const WhiteboardLabView: React.FC<WhiteboardLabViewProps> = ({
                     <div
                       key={i}
                       className={`rounded-xs transition-colors ${
-                        i < bucketTokens ? 'bg-[var(--lime)]' : 'bg-[var(--p3)]'
+                        i < bucketTokens ? 'bg-(--lime)' : 'bg-(--p3)'
                       }`}
                     />
                   ))}
                 </div>
               </div>
 
-              <div className="space-y-1 max-h-24 overflow-y-auto text-[11px] font-mono p-2.5 rounded-[10px] bg-[var(--p2)] border border-[var(--line)]">
+              <div className="space-y-1 max-h-24 overflow-y-auto text-[11px] font-mono p-2.5 rounded-[10px] bg-(--p2) border border-(--line)">
                 {rateLogs.map((log) => (
                   <div
                     key={log.id}
                     className={
                       log.rejected
-                        ? 'text-[var(--rose)] font-semibold'
-                        : 'text-[var(--lime)]'
+                        ? 'text-(--rose) font-semibold'
+                        : 'text-(--lime)'
                     }
                   >
                     {log.text}
@@ -1648,19 +1648,19 @@ export const WhiteboardLabView: React.FC<WhiteboardLabViewProps> = ({
           </div>
 
           {/* Tool 3: Dynamo Leaderless Quorum (W + R > N) Calculator */}
-          <div className="bg-[var(--panel)] border border-[var(--line)] rounded-[16px] p-5 flex flex-col justify-between">
+          <div className="bg-(--panel) border border-(--line) rounded-2xl p-5 flex flex-col justify-between">
             <div>
-              <h3 className="font-display text-base font-bold text-[var(--ink)]">
+              <h3 className="font-display text-base font-bold text-(--ink)">
                 03. Leaderless Quorum (W + R &gt; N)
               </h3>
-              <p className="text-xs text-[var(--muted)] mt-1 mb-3">
+              <p className="text-xs text-(--muted) mt-1 mb-3">
                 Tune Replication Factor (N), Write Quorum (W), and Read Quorum (R) to verify strict overlap.
               </p>
 
               <div className="grid grid-cols-3 gap-2.5 mb-3 text-xs font-mono">
                 <div>
-                  <label htmlFor="q-n" className="block text-[var(--muted)] mb-1">
-                    Replicas N: <strong className="text-[var(--ink)]">{quorumResult.n}</strong>
+                  <label htmlFor="q-n" className="block text-(--muted) mb-1">
+                    Replicas N: <strong className="text-(--ink)">{quorumResult.n}</strong>
                   </label>
                   <input
                     id="q-n"
@@ -1669,12 +1669,12 @@ export const WhiteboardLabView: React.FC<WhiteboardLabViewProps> = ({
                     max={7}
                     value={quorumResult.n}
                     onChange={(e) => setQuorumN(Number(e.target.value))}
-                    className="w-full accent-[var(--cyan)]"
+                    className="w-full accent-(--cyan)"
                   />
                 </div>
                 <div>
-                  <label htmlFor="q-w" className="block text-[var(--muted)] mb-1">
-                    Write W: <strong className="text-[var(--lime)]">{quorumResult.w}</strong>
+                  <label htmlFor="q-w" className="block text-(--muted) mb-1">
+                    Write W: <strong className="text-(--lime)">{quorumResult.w}</strong>
                   </label>
                   <input
                     id="q-w"
@@ -1683,12 +1683,12 @@ export const WhiteboardLabView: React.FC<WhiteboardLabViewProps> = ({
                     max={quorumResult.n}
                     value={quorumResult.w}
                     onChange={(e) => setQuorumW(Number(e.target.value))}
-                    className="w-full accent-[var(--lime)]"
+                    className="w-full accent-(--lime)"
                   />
                 </div>
                 <div>
-                  <label htmlFor="q-r" className="block text-[var(--muted)] mb-1">
-                    Read R: <strong className="text-[var(--orange)]">{quorumResult.r}</strong>
+                  <label htmlFor="q-r" className="block text-(--muted) mb-1">
+                    Read R: <strong className="text-(--orange)">{quorumResult.r}</strong>
                   </label>
                   <input
                     id="q-r"
@@ -1697,7 +1697,7 @@ export const WhiteboardLabView: React.FC<WhiteboardLabViewProps> = ({
                     max={quorumResult.n}
                     value={quorumResult.r}
                     onChange={(e) => setQuorumR(Number(e.target.value))}
-                    className="w-full accent-[var(--orange)]"
+                    className="w-full accent-(--orange)"
                   />
                 </div>
               </div>
@@ -1710,14 +1710,14 @@ export const WhiteboardLabView: React.FC<WhiteboardLabViewProps> = ({
                   return (
                     <div
                       key={idx}
-                      className={`p-2 rounded-[8px] border text-center font-mono text-[10px] ${
+                      className={`p-2 rounded-lg border text-center font-mono text-[10px] ${
                         isOverlap
-                          ? 'border-[var(--lime)] bg-[var(--lime)]/15 text-[var(--lime)] font-bold'
+                          ? 'border-(--lime) bg-(--lime)/15 text-(--lime) font-bold'
                           : inW
-                          ? 'border-[var(--cyan)] bg-[var(--cyan)]/10 text-[var(--cyan)]'
+                          ? 'border-(--cyan) bg-(--cyan)/10 text-(--cyan)'
                           : inR
-                          ? 'border-[var(--orange)] bg-[var(--orange)]/10 text-[var(--orange)]'
-                          : 'border-[var(--line)] bg-[var(--p2)] text-[var(--muted)]'
+                          ? 'border-(--orange) bg-(--orange)/10 text-(--orange)'
+                          : 'border-(--line) bg-(--p2) text-(--muted)'
                       }`}
                     >
                       R{idx + 1}
@@ -1732,8 +1732,8 @@ export const WhiteboardLabView: React.FC<WhiteboardLabViewProps> = ({
               <div
                 className={`p-2.5 rounded-[10px] border text-xs font-mono ${
                   quorumResult.isStrongConsistency
-                    ? 'border-[var(--lime)]/50 bg-[var(--lime)]/10 text-[var(--lime)]'
-                    : 'border-[var(--rose)]/50 bg-[var(--rose)]/10 text-[var(--rose)]'
+                    ? 'border-(--lime)/50 bg-(--lime)/10 text-(--lime)'
+                    : 'border-(--rose)/50 bg-(--rose)/10 text-(--rose)'
                 }`}
               >
                 {quorumResult.isStrongConsistency

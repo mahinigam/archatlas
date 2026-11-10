@@ -144,21 +144,21 @@ export const KnowledgeMapView: React.FC<KnowledgeMapViewProps> = ({
 
   return (
     <div className="space-y-14">
-      {/* 00 / HERO SECTION */}
+      {/* 00 / HERO SECTION: orient the learner before the graph */}
       <section
         id="overview"
-        className="pt-8 pb-6 grid grid-cols-1 lg:grid-cols-[1.35fr_0.65fr] gap-10 items-end border-b border-[var(--line)]"
+        className="pt-8 pb-6 grid grid-cols-1 lg:grid-cols-[1.35fr_0.65fr] gap-10 items-end border-b border-(--line)"
       >
         <div>
           <div className="eyebrow-line">A visual course · 25 connected modules · Interactive labs</div>
-          <h1 className="font-display font-bold text-[clamp(42px,6.5vw,88px)] leading-[0.93] tracking-[-0.06em] text-[var(--ink)] mt-5 mb-5">
-            Think in <span className="text-[var(--lime)]">systems.</span>
+          <h1 className="font-display font-bold text-[clamp(42px,6.5vw,88px)] leading-[0.93] tracking-[-0.06em] text-(--ink) mt-5 mb-5">
+            Think in <span className="text-(--lime)">systems.</span>
             <br />
             Design for scale.
           </h1>
-          <p className="max-w-[650px] text-[15px] leading-[1.78] text-[var(--muted)]">
+          <p className="max-w-162.5 text-[15px] leading-[1.78] text-(--muted)">
             A practical engineering field guide and interactive workbench for building software that survives{' '}
-            <strong className="text-[var(--ink)] font-semibold">
+            <strong className="text-(--ink) font-semibold">
               real traffic, partial failures, messy data, and changing requirements.
             </strong>{' '}
             Learn the primitives, test failure modes in the live simulators, and defend every trade-off.
@@ -167,7 +167,7 @@ export const KnowledgeMapView: React.FC<KnowledgeMapViewProps> = ({
             <button
               type="button"
               onClick={() => openModuleLesson(1, true)}
-              className="px-4 py-2.5 rounded-[10px] bg-[var(--lime)] text-[var(--lime-ink)] font-semibold text-xs tracking-tight hover:opacity-95 transition-opacity cursor-pointer"
+              className="px-4 py-2.5 rounded-[10px] bg-(--lime) text-(--lime-ink) font-semibold text-xs tracking-tight hover:opacity-95 transition-opacity cursor-pointer"
             >
               Start the learning path ↘
             </button>
@@ -177,49 +177,49 @@ export const KnowledgeMapView: React.FC<KnowledgeMapViewProps> = ({
                 const nextIncomplete = MODULES.find((m) => !completedIds.includes(m.id)) || MODULES[0];
                 openModuleLesson(nextIncomplete.id, true);
               }}
-              className="px-4 py-2.5 rounded-[10px] border border-[var(--line)] bg-[var(--panel)] text-[var(--ink)] font-semibold text-xs hover:border-[var(--lime)] transition-colors cursor-pointer"
+              className="px-4 py-2.5 rounded-[10px] border border-(--line) bg-(--panel) text-(--ink) font-semibold text-xs hover:border-(--lime) transition-colors cursor-pointer"
             >
               Continue where I left off (M{String((MODULES.find((m) => !completedIds.includes(m.id)) || MODULES[0]).id).padStart(2, '0')})
             </button>
             <button
               type="button"
               onClick={() => onLaunchPresetInWhiteboard('whatsapp')}
-              className="px-4 py-2.5 rounded-[10px] border border-[var(--line)] bg-[var(--p2)] text-[var(--cyan)] font-mono text-xs hover:border-[var(--cyan)] transition-colors flex items-center gap-1.5 cursor-pointer"
+              className="px-4 py-2.5 rounded-[10px] border border-(--line) bg-(--p2) text-(--cyan) font-mono text-xs hover:border-(--cyan) transition-colors flex items-center gap-1.5 cursor-pointer"
             >
               <Play className="w-3.5 h-3.5" /> Open Live Whiteboard Simulator
             </button>
           </div>
         </div>
 
-        <div className="lg:border-l border-t lg:border-t-0 border-[var(--line)] pt-5 lg:pt-3 lg:pl-7">
-          <p className="font-display font-medium text-[17px] leading-[1.5] text-[var(--ink)] mb-5">
+        <div className="lg:border-l border-t lg:border-t-0 border-(--line) pt-5 lg:pt-3 lg:pl-7">
+          <p className="font-display font-medium text-[17px] leading-normal text-(--ink) mb-5">
             “A good design is not a collection of technologies. It is a set of{' '}
-            <span className="text-[var(--lime)]">defensible decisions</span> tied to requirements.”
+            <span className="text-(--lime)">defensible decisions</span> tied to requirements.”
           </p>
           <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-2 gap-4">
-            <div className="border-t border-[var(--line)] pt-3">
-              <b className="font-display font-bold text-2xl sm:text-[28px] block text-[var(--ink)]">25</b>
-              <small className="font-mono text-[10px] text-[var(--muted)] uppercase tracking-[0.1em]">
+            <div className="border-t border-(--line) pt-3">
+              <b className="font-display font-bold text-2xl sm:text-[28px] block text-(--ink)">25</b>
+              <small className="font-mono text-[10px] text-(--muted) uppercase tracking-widest">
                 Core modules
               </small>
             </div>
-            <div className="border-t border-[var(--line)] pt-3">
-              <b className="font-display font-bold text-2xl sm:text-[28px] block text-[var(--ink)]">04</b>
-              <small className="font-mono text-[10px] text-[var(--muted)] uppercase tracking-[0.1em]">
+            <div className="border-t border-(--line) pt-3">
+              <b className="font-display font-bold text-2xl sm:text-[28px] block text-(--ink)">04</b>
+              <small className="font-mono text-[10px] text-(--muted) uppercase tracking-widest">
                 Learning tracks
               </small>
             </div>
-            <div className="border-t border-[var(--line)] pt-3">
-              <b className="font-display font-bold text-2xl sm:text-[28px] block text-[var(--ink)]">08</b>
-              <small className="font-mono text-[10px] text-[var(--muted)] uppercase tracking-[0.1em]">
+            <div className="border-t border-(--line) pt-3">
+              <b className="font-display font-bold text-2xl sm:text-[28px] block text-(--ink)">08</b>
+              <small className="font-mono text-[10px] text-(--muted) uppercase tracking-widest">
                 Week plan
               </small>
             </div>
-            <div className="border-t border-[var(--line)] pt-3">
-              <b className="font-display font-bold text-2xl sm:text-[28px] block text-[var(--lime)]">
+            <div className="border-t border-(--line) pt-3">
+              <b className="font-display font-bold text-2xl sm:text-[28px] block text-(--lime)">
                 {completionPercent}%
               </b>
-              <small className="font-mono text-[10px] text-[var(--muted)] uppercase tracking-[0.1em]">
+              <small className="font-mono text-[10px] text-(--muted) uppercase tracking-widest">
                 Completed ({completedIds.length}/25)
               </small>
             </div>
@@ -231,29 +231,29 @@ export const KnowledgeMapView: React.FC<KnowledgeMapViewProps> = ({
       <section id="knowledge-map" className="space-y-4">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
           <div>
-            <div className="font-mono text-[10px] uppercase tracking-[0.15em] text-[var(--muted)]">
+            <div className="font-mono text-[10px] uppercase tracking-[0.15em] text-(--muted)">
               01 · The big picture
             </div>
-            <h2 className="font-display font-bold text-[clamp(24px,3vw,36px)] leading-[1.1] tracking-[-0.04em] text-[var(--ink)] mt-1.5">
+            <h2 className="font-display font-bold text-[clamp(24px,3vw,36px)] leading-[1.1] tracking-[-0.04em] text-(--ink) mt-1.5">
               Your system design knowledge map
             </h2>
           </div>
-          <p className="max-w-[470px] text-xs text-[var(--muted)] leading-relaxed">
+          <p className="max-w-117.5 text-xs text-(--muted) leading-relaxed">
             Follow the dependency lines from fundamentals to architecture and interview practice. Select any numbered node to inspect its deep-dive lesson below.
           </p>
         </div>
 
-        <div className="border border-[var(--line)] rounded-[20px] bg-[var(--panel)] overflow-hidden shadow-[var(--shadow)]">
-          <div className="flex flex-wrap justify-between items-center gap-3 px-5 py-4 border-b border-[var(--line)]">
+        <div className="border border-(--line) rounded-[20px] bg-(--panel) overflow-hidden shadow-(--shadow)">
+          <div className="flex flex-wrap justify-between items-center gap-3 px-5 py-4 border-b border-(--line)">
             <div>
-              <b className="font-display font-bold text-[13px] text-[var(--ink)] block">
+              <b className="font-display font-bold text-[13px] text-(--ink) block">
                 THE LEARNING GRAPH · 25 CONNECTED PRIMITIVES
               </b>
-              <small className="text-[11px] text-[var(--muted)]">
+              <small className="text-[11px] text-(--muted)">
                 Concepts build on one another. Hover or click any node to highlight upstream prerequisites & downstream dependents.
               </small>
             </div>
-            <span className="font-mono text-[10px] text-[var(--lime)] uppercase tracking-wider">
+            <span className="font-mono text-[10px] text-(--lime) uppercase tracking-wider">
               ACTIVE: M{String(selectedId).padStart(2, '0')} · {activeModule.title} ↗
             </span>
           </div>
@@ -261,8 +261,8 @@ export const KnowledgeMapView: React.FC<KnowledgeMapViewProps> = ({
           <div className="overflow-x-auto">
             <svg
               viewBox="0 0 1200 770"
-              className="block w-full min-w-[860px] h-auto map-radial-bg select-none"
-              role="img"
+              className="block w-full min-w-215 h-auto map-radial-bg select-none"
+              role="group"
               aria-label="System design knowledge map with 25 connected modules"
             >
               {/* Swimlane backgrounds */}
@@ -360,7 +360,6 @@ export const KnowledgeMapView: React.FC<KnowledgeMapViewProps> = ({
                     className="cursor-pointer outline-none"
                     role="button"
                     tabIndex={0}
-                    aria-label={`Open module ${m.id}: ${m.title}`}
                     onKeyDown={(e) => {
                       if (e.key === 'Enter' || e.key === ' ') {
                         e.preventDefault();
@@ -414,19 +413,19 @@ export const KnowledgeMapView: React.FC<KnowledgeMapViewProps> = ({
             </svg>
           </div>
 
-          <div className="flex flex-wrap items-center justify-between gap-4 px-5 py-3 border-t border-[var(--line)] font-mono text-[10px] text-[var(--muted)]">
+          <div className="flex flex-wrap items-center justify-between gap-4 px-5 py-3 border-t border-(--line) font-mono text-[10px] text-(--muted)">
             <div className="flex flex-wrap items-center gap-5">
               <span className="flex items-center gap-2">
-                <i className="inline-block w-2 h-2 rounded-full bg-[var(--lime)]" /> Selected / Completed
+                <i className="inline-block w-2 h-2 rounded-full bg-(--lime)" /> Selected / Completed
               </span>
               <span className="flex items-center gap-2">
-                <i className="inline-block w-2 h-2 rounded-full bg-[var(--cyan)]" /> Upstream Prerequisite
+                <i className="inline-block w-2 h-2 rounded-full bg-(--cyan)" /> Upstream Prerequisite
               </span>
               <span className="flex items-center gap-2">
-                <i className="inline-block w-2 h-2 rounded-full bg-[var(--orange)]" /> Downstream Dependent
+                <i className="inline-block w-2 h-2 rounded-full bg-(--orange)" /> Downstream Dependent
               </span>
               <span className="flex items-center gap-2">
-                <i className="inline-block w-2 h-2 rounded-full bg-[var(--soft)]" /> Not started
+                <i className="inline-block w-2 h-2 rounded-full bg-(--soft)" /> Not started
               </span>
             </div>
             <span>Lines = architectural learning dependencies</span>
@@ -441,22 +440,22 @@ export const KnowledgeMapView: React.FC<KnowledgeMapViewProps> = ({
               <article
                 key={track.id}
                 onClick={() => onFilterPartChange(isActiveTrack ? 'all' : track.id)}
-                className={`track-rings border rounded-[15px] bg-[var(--panel)] p-4 min-h-[148px] cursor-pointer transition-all hover:-translate-y-0.5 ${
+                className={`track-rings border rounded-[15px] bg-(--panel) p-4 min-h-37 cursor-pointer transition-all hover:-translate-y-0.5 ${
                   isActiveTrack
-                    ? 'border-[var(--lime)] shadow-[var(--shadow)]'
-                    : 'border-[var(--line)] hover:border-[var(--soft)]'
+                    ? 'border-(--lime) shadow-(--shadow)'
+                    : 'border-(--line) hover:border-(--soft)'
                 }`}
               >
-                <span className="font-mono text-[10px] text-[var(--lime)] tracking-[0.14em] uppercase">
+                <span className="font-mono text-[10px] text-(--lime) tracking-[0.14em] uppercase">
                   TRACK 0{track.id}
                 </span>
-                <span className="float-right font-mono text-[10px] text-[var(--muted)]">
+                <span className="float-right font-mono text-[10px] text-(--muted)">
                   {track.range}
                 </span>
-                <h3 className="font-display font-bold text-base text-[var(--ink)] mt-3 mb-1">
+                <h3 className="font-display font-bold text-base text-(--ink) mt-3 mb-1">
                   {track.title}
                 </h3>
-                <p className="text-[11px] text-[var(--muted)] leading-relaxed max-w-[220px]">
+                <p className="text-[11px] text-(--muted) leading-relaxed max-w-55">
                   {track.desc}
                 </p>
               </article>
@@ -469,14 +468,14 @@ export const KnowledgeMapView: React.FC<KnowledgeMapViewProps> = ({
       <section id="curriculum" className="space-y-5">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
           <div>
-            <div className="font-mono text-[10px] uppercase tracking-[0.15em] text-[var(--muted)]">
+            <div className="font-mono text-[10px] uppercase tracking-[0.15em] text-(--muted)">
               02 · The curriculum
             </div>
-            <h2 className="font-display font-bold text-[clamp(24px,3vw,36px)] leading-[1.1] tracking-[-0.04em] text-[var(--ink)] mt-1.5">
+            <h2 className="font-display font-bold text-[clamp(24px,3vw,36px)] leading-[1.1] tracking-[-0.04em] text-(--ink) mt-1.5">
               Build the mental models
             </h2>
           </div>
-          <p className="max-w-[470px] text-xs text-[var(--muted)] leading-relaxed">
+          <p className="max-w-117.5 text-xs text-(--muted) leading-relaxed">
             Each lesson includes the mental model, mechanics, ASCII blueprint, trade-off matrix, Staff interview signal, and an interactive concept checkpoint.
           </p>
         </div>
@@ -502,8 +501,8 @@ export const KnowledgeMapView: React.FC<KnowledgeMapViewProps> = ({
                   onClick={() => onFilterPartChange(btn.id)}
                   className={`px-3 py-1.5 rounded-full font-mono text-[10px] border transition-colors cursor-pointer ${
                     active
-                      ? 'border-[var(--lime)] text-[var(--lime)] bg-[var(--p2)]'
-                      : 'border-[var(--line)] bg-[var(--panel)] text-[var(--muted)] hover:border-[var(--lime)] hover:text-[var(--lime)]'
+                      ? 'border-(--lime) text-(--lime) bg-(--p2)'
+                      : 'border-(--line) bg-(--panel) text-(--muted) hover:border-(--lime) hover:text-(--lime)'
                   }`}
                 >
                   {btn.label}
@@ -514,17 +513,17 @@ export const KnowledgeMapView: React.FC<KnowledgeMapViewProps> = ({
 
           <div className="flex items-center gap-3">
             <div className="relative">
-              <Search className="w-3.5 h-3.5 text-[var(--muted)] absolute left-3 top-1/2 -translate-y-1/2" />
+              <Search className="w-3.5 h-3.5 text-(--muted) absolute left-3 top-1/2 -translate-y-1/2" />
               <input
                 type="search"
                 value={searchQuery}
                 onChange={(e) => onSearchChange(e.target.value)}
                 placeholder="Filter 25 modules..."
                 aria-label="Filter modules"
-                className="pl-8 pr-3 py-1.5 rounded-[10px] border border-[var(--line)] bg-[var(--panel)] text-xs text-[var(--ink)] placeholder:text-[var(--muted)] focus:outline-none focus:border-[var(--lime)] w-48 sm:w-60"
+                className="pl-8 pr-3 py-1.5 rounded-[10px] border border-(--line) bg-(--panel) text-xs text-(--ink) placeholder:text-(--muted) focus:outline-none focus:border-(--lime) w-48 sm:w-60"
               />
             </div>
-            <span className="font-mono text-[10px] text-[var(--muted)] hidden sm:inline">
+            <span className="font-mono text-[10px] text-(--muted) hidden sm:inline">
               {filteredModules.length} MODULE{filteredModules.length === 1 ? '' : 'S'} · {completedIds.length}/25 COMPLETE
             </span>
           </div>
@@ -532,7 +531,7 @@ export const KnowledgeMapView: React.FC<KnowledgeMapViewProps> = ({
 
         {/* 25-Module Responsive Grid */}
         {filteredModules.length === 0 ? (
-          <div className="p-8 border border-dashed border-[var(--line)] rounded-[14px] text-center text-xs text-[var(--muted)]">
+          <div className="p-8 border border-dashed border-(--line) rounded-[14px] text-center text-xs text-(--muted)">
             No matching modules. Try clearing your search or selecting "All modules".
           </div>
         ) : (
@@ -546,35 +545,35 @@ export const KnowledgeMapView: React.FC<KnowledgeMapViewProps> = ({
                   key={m.id}
                   type="button"
                   onClick={() => openModuleLesson(m.id, true)}
-                  className={`min-h-[172px] border rounded-[15px] p-4 text-left flex flex-col transition-all relative overflow-hidden cursor-pointer hover:-translate-y-0.5 ${
+                  className={`min-h-43 border rounded-[15px] p-4 text-left flex flex-col transition-all relative overflow-hidden cursor-pointer hover:-translate-y-0.5 ${
                     isSelected
-                      ? 'border-[var(--lime)] bg-[var(--p2)] shadow-[var(--shadow)]'
+                      ? 'border-(--lime) bg-(--p2) shadow-(--shadow)'
                       : isDone
-                      ? 'border-[var(--lime)]/70 bg-[var(--panel)]'
-                      : 'border-[var(--line)] bg-[var(--panel)] hover:border-[var(--soft)]'
+                      ? 'border-(--lime)/70 bg-(--panel)'
+                      : 'border-(--line) bg-(--panel) hover:border-(--soft)'
                   }`}
                 >
-                  <div className="flex items-center gap-2 font-mono text-[10px] text-[var(--muted)] w-full">
-                    <span className="text-[var(--lime)] font-bold">
+                  <div className="flex items-center gap-2 font-mono text-[10px] text-(--muted) w-full">
+                    <span className="text-(--lime) font-bold">
                       {m.code}
                     </span>
                     <span>·</span>
                     <span className="truncate">0{m.cat} · {m.catName}</span>
                     {isDone && (
-                      <span className="ml-auto text-[var(--lime)] font-mono text-xs">✓</span>
+                      <span className="ml-auto text-(--lime) font-mono text-xs">✓</span>
                     )}
                   </div>
 
-                  <h3 className="font-display font-bold text-[18px] leading-[1.15] tracking-[-0.03em] text-[var(--ink)] mt-4 mb-1.5">
+                  <h3 className="font-display font-bold text-[18px] leading-[1.15] tracking-[-0.03em] text-(--ink) mt-4 mb-1.5">
                     {m.title}
                   </h3>
-                  <p className="text-[11px] leading-[1.55] text-[var(--muted)] line-clamp-3">
+                  <p className="text-[11px] leading-[1.55] text-(--muted) line-clamp-3">
                     {m.mental}
                   </p>
 
-                  <div className="flex items-center justify-between mt-auto pt-4 font-mono text-[9.5px] text-[var(--muted)] w-full">
+                  <div className="flex items-center justify-between mt-auto pt-4 font-mono text-[9.5px] text-(--muted) w-full">
                     <span>{m.points.length} CORE PILLARS</span>
-                    <b className="font-medium text-[var(--cyan)]">OPEN LESSON ↗</b>
+                    <b className="font-medium text-(--cyan)">OPEN LESSON ↗</b>
                   </div>
                 </button>
               );
@@ -586,22 +585,22 @@ export const KnowledgeMapView: React.FC<KnowledgeMapViewProps> = ({
         <article
           ref={lessonRef}
           id="lesson-studio"
-          className="border border-[var(--line)] rounded-[20px] bg-[var(--panel)] overflow-hidden shadow-[var(--shadow)] mt-7"
+          className="border border-(--line) rounded-[20px] bg-(--panel) overflow-hidden shadow-(--shadow) mt-7"
         >
           {/* Lesson Header */}
-          <div className="p-6 sm:p-9 border-b border-[var(--line)] bg-gradient-to-br from-[var(--p2)] to-[var(--panel)]">
+          <div className="p-6 sm:p-9 border-b border-(--line) bg-linear-to-br from-(--p2) to-(--panel)">
             <div className="flex flex-wrap items-center justify-between gap-3">
-              <div className="font-mono text-[10px] text-[var(--lime)] uppercase tracking-[0.16em]">
+              <div className="font-mono text-[10px] text-(--lime) uppercase tracking-[0.16em]">
                 MODULE {activeModule.code} / TRACK 0{activeModule.cat} · {activeModule.catName}
               </div>
               <div className="flex items-center gap-2">
                 <button
                   type="button"
                   onClick={() => onToggleComplete(activeModule.id)}
-                  className={`px-3 py-1.5 rounded-[8px] font-mono text-[11px] font-semibold border transition-colors cursor-pointer ${
+                  className={`px-3 py-1.5 rounded-lg font-mono text-[11px] font-semibold border transition-colors cursor-pointer ${
                     completedIds.includes(activeModule.id)
-                      ? 'bg-[var(--lime)] text-[var(--lime-ink)] border-[var(--lime)]'
-                      : 'bg-[var(--p3)] text-[var(--ink)] border-[var(--line)] hover:border-[var(--lime)]'
+                      ? 'bg-(--lime) text-(--lime-ink) border-(--lime)'
+                      : 'bg-(--p3) text-(--ink) border-(--line) hover:border-(--lime)'
                   }`}
                 >
                   {completedIds.includes(activeModule.id)
@@ -611,20 +610,20 @@ export const KnowledgeMapView: React.FC<KnowledgeMapViewProps> = ({
               </div>
             </div>
 
-            <h2 className="font-display font-bold text-[clamp(28px,3.8vw,44px)] leading-[1.08] tracking-[-0.04em] text-[var(--ink)] mt-2">
+            <h2 className="font-display font-bold text-[clamp(28px,3.8vw,44px)] leading-[1.08] tracking-[-0.04em] text-(--ink) mt-2">
               {activeModule.title}
             </h2>
-            <p className="max-w-[820px] text-[13px] text-[var(--muted)] mt-2.5 leading-relaxed">
+            <p className="max-w-205 text-[13px] text-(--muted) mt-2.5 leading-relaxed">
               {activeModule.mental}
             </p>
 
             {/* Unboxed Metadata Bar */}
-            <div className="flex flex-wrap items-center gap-x-4 gap-y-1.5 mt-4 pt-3 border-t border-[var(--line)]/60 font-mono text-[10px] text-[var(--muted)]">
+            <div className="flex flex-wrap items-center gap-x-4 gap-y-1.5 mt-4 pt-3 border-t border-(--line)/60 font-mono text-[10px] text-(--muted)">
               <span>
-                Track: <strong className="text-[var(--ink)]">0{activeModule.cat} · {activeModule.catName}</strong>
+                Track: <strong className="text-(--ink)">0{activeModule.cat} · {activeModule.catName}</strong>
               </span>
               <span>
-                Core Pillars: <strong className="text-[var(--ink)]">{activeModule.points.length}</strong>
+                Core Pillars: <strong className="text-(--ink)">{activeModule.points.length}</strong>
               </span>
               {activeModule.deps.length > 0 && (
                 <span>
@@ -634,7 +633,7 @@ export const KnowledgeMapView: React.FC<KnowledgeMapViewProps> = ({
                       key={preId}
                       type="button"
                       onClick={() => openModuleLesson(preId, false)}
-                      className="text-[var(--cyan)] hover:underline ml-1 cursor-pointer"
+                      className="text-(--cyan) hover:underline ml-1 cursor-pointer"
                     >
                       M{String(preId).padStart(2, '0')}
                       {i < activeModule.deps.length - 1 ? ',' : ''}
@@ -648,11 +647,11 @@ export const KnowledgeMapView: React.FC<KnowledgeMapViewProps> = ({
           {/* Lesson Body */}
           <div className="p-6 sm:p-9 space-y-7">
             {/* Mental Model Box */}
-            <div className="grid grid-cols-1 md:grid-cols-[170px_1fr] gap-4 bg-[var(--p2)] border border-[var(--line)] rounded-[14px] p-4 sm:p-5">
-              <small className="font-mono text-[10px] uppercase tracking-[0.14em] text-[var(--lime)]">
+            <div className="grid grid-cols-1 md:grid-cols-[170px_1fr] gap-4 bg-(--p2) border border-(--line) rounded-[14px] p-4 sm:p-5">
+              <small className="font-mono text-[10px] uppercase tracking-[0.14em] text-(--lime)">
                 Mental model
               </small>
-              <p className="font-display font-semibold text-[15px] leading-[1.55] text-[var(--ink)] m-0">
+              <p className="font-display font-semibold text-[15px] leading-[1.55] text-(--ink) m-0">
                 {activeModule.mental}
               </p>
             </div>
@@ -662,18 +661,18 @@ export const KnowledgeMapView: React.FC<KnowledgeMapViewProps> = ({
               {activeModule.points.map((pt, idx) => (
                 <article
                   key={idx}
-                  className="border border-[var(--line)] rounded-[14px] p-4 sm:p-5 bg-[var(--bg)] flex flex-col justify-between"
+                  className="border border-(--line) rounded-[14px] p-4 sm:p-5 bg-(--bg) flex flex-col justify-between"
                 >
                   <div>
                     <div className="flex items-center gap-2.5 mb-2.5">
-                      <span className="w-6 h-6 rounded-[7px] bg-[var(--p3)] grid place-items-center font-mono text-[10px] text-[var(--cyan)]">
+                      <span className="w-6 h-6 rounded-[7px] bg-(--p3) grid place-items-center font-mono text-[10px] text-(--cyan)">
                         0{idx + 1}
                       </span>
-                      <h3 className="font-display font-bold text-base text-[var(--ink)]">
+                      <h3 className="font-display font-bold text-base text-(--ink)">
                         {pt.label}
                       </h3>
                     </div>
-                    <p className="text-xs text-[var(--muted)] leading-relaxed">
+                    <p className="text-xs text-(--muted) leading-relaxed">
                       {pt.text}
                     </p>
                   </div>
@@ -682,17 +681,17 @@ export const KnowledgeMapView: React.FC<KnowledgeMapViewProps> = ({
             </div>
 
             {/* Mental Flow Row */}
-            <div className="bg-[var(--p2)] border border-[var(--line)] rounded-[14px] p-4 sm:p-5">
-              <div className="font-mono text-[10px] uppercase tracking-[0.14em] text-[var(--muted)] mb-3">
+            <div className="bg-(--p2) border border-(--line) rounded-[14px] p-4 sm:p-5">
+              <div className="font-mono text-[10px] uppercase tracking-[0.14em] text-(--muted) mb-3">
                 A useful mental flow · Request & State Lifecycle
               </div>
               <div className="flex flex-wrap items-center justify-center gap-2">
                 {activeSupplement.flow.map((step, idx) => (
                   <React.Fragment key={idx}>
                     {idx > 0 && (
-                      <span className="font-mono text-base text-[var(--lime)]">→</span>
+                      <span className="font-mono text-base text-(--lime)">→</span>
                     )}
-                    <div className="px-3 py-2 rounded-[8px] bg-[var(--panel)] border border-[var(--soft)] font-mono font-semibold text-[10.5px] text-[var(--ink)] text-center min-w-[92px]">
+                    <div className="px-3 py-2 rounded-lg bg-(--panel) border border-(--soft) font-mono font-semibold text-[10.5px] text-(--ink) text-center min-w-23">
                       {step}
                     </div>
                   </React.Fragment>
@@ -702,23 +701,23 @@ export const KnowledgeMapView: React.FC<KnowledgeMapViewProps> = ({
 
             {/* ASCII Architecture Diagram + Trade-Off Matrix */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-              <div className="border border-[var(--line)] rounded-[14px] bg-[var(--bg)] p-4 sm:p-5 overflow-x-auto">
-                <div className="font-mono text-[10px] uppercase tracking-[0.14em] text-[var(--cyan)] mb-2.5">
+              <div className="border border-(--line) rounded-[14px] bg-(--bg) p-4 sm:p-5 overflow-x-auto">
+                <div className="font-mono text-[10px] uppercase tracking-[0.14em] text-(--cyan) mb-2.5">
                   Architecture Blueprint Schematic
                 </div>
-                <pre className="font-mono text-[11px] leading-[1.45] text-[var(--ink)] overflow-x-auto">
+                <pre className="font-mono text-[11px] leading-[1.45] text-(--ink) overflow-x-auto">
                   {activeModule.diagram}
                 </pre>
               </div>
 
-              <div className="border border-[var(--line)] rounded-[14px] bg-[var(--bg)] p-4 sm:p-5 overflow-x-auto">
-                <div className="font-mono text-[10px] uppercase tracking-[0.14em] text-[var(--lime)] mb-2.5">
+              <div className="border border-(--line) rounded-[14px] bg-(--bg) p-4 sm:p-5 overflow-x-auto">
+                <div className="font-mono text-[10px] uppercase tracking-[0.14em] text-(--lime) mb-2.5">
                   Staff Trade-Off Matrix
                 </div>
                 {activeModule.table && activeModule.table.length > 1 && (
                   <table className="w-full text-left border-collapse text-xs">
                     <thead>
-                      <tr className="border-b border-[var(--line)] font-mono text-[10px] text-[var(--muted)]">
+                      <tr className="border-b border-(--line) font-mono text-[10px] text-(--muted)">
                         {activeModule.table[0].map((header, hIdx) => (
                           <th key={hIdx} className="py-2 px-2 first:pl-0 last:pr-0">
                             {header}
@@ -726,7 +725,7 @@ export const KnowledgeMapView: React.FC<KnowledgeMapViewProps> = ({
                         ))}
                       </tr>
                     </thead>
-                    <tbody className="divide-y divide-[var(--line)]/60">
+                    <tbody className="divide-y divide-(--line)/60">
                       {activeModule.table.slice(1).map((row, rIdx) => (
                         <tr key={rIdx} className="align-top">
                           {row.map((cell, cIdx) => (
@@ -734,10 +733,10 @@ export const KnowledgeMapView: React.FC<KnowledgeMapViewProps> = ({
                               key={cIdx}
                               className={`py-2.5 px-2 first:pl-0 last:pr-0 text-[11px] ${
                                 cIdx === 0
-                                  ? 'font-mono font-semibold text-[var(--ink)]'
+                                  ? 'font-mono font-semibold text-(--ink)'
                                   : cIdx === 1
-                                  ? 'text-[var(--muted)]'
-                                  : 'text-[var(--cyan)]'
+                                  ? 'text-(--muted)'
+                                  : 'text-(--cyan)'
                               }`}
                             >
                               {cell}
@@ -752,21 +751,21 @@ export const KnowledgeMapView: React.FC<KnowledgeMapViewProps> = ({
             </div>
 
             {/* Staff Signal Callout (Full 1px border, tinted surface, zero border-l-4) */}
-            <div className="p-4 rounded-[12px] border border-[var(--cyan)]/40 bg-[var(--cyan)]/10 text-xs text-[var(--muted)] leading-relaxed">
-              <div className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-wider text-[var(--cyan)] font-semibold mb-1.5">
+            <div className="p-4 rounded-xl border border-(--cyan)/40 bg-(--cyan)/10 text-xs text-(--muted) leading-relaxed">
+              <div className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-wider text-(--cyan) font-semibold mb-1.5">
                 <Sparkles className="w-3.5 h-3.5" /> FAANG Staff-Level Interview Signal
               </div>
-              <p className="text-[var(--ink)]">“{activeModule.signal}”</p>
+              <p className="text-(--ink)">“{activeModule.signal}”</p>
             </div>
 
             {/* Knowledge Checkpoints + Interactive Concept Check Quiz */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 pt-2">
               {/* Self-Checkboxes */}
-              <div className="border border-[var(--line)] rounded-[14px] p-4 sm:p-5 bg-[var(--p2)]">
-                <h3 className="font-display font-bold text-lg text-[var(--ink)]">
+              <div className="border border-(--line) rounded-[14px] p-4 sm:p-5 bg-(--p2)">
+                <h3 className="font-display font-bold text-lg text-(--ink)">
                   Knowledge checkpoint
                 </h3>
-                <p className="text-[11px] text-[var(--muted)] mt-0.5 mb-3.5">
+                <p className="text-[11px] text-(--muted) mt-0.5 mb-3.5">
                   Tick each prompt after you can explain the trade-off aloud without looking at notes.
                 </p>
                 <div className="space-y-2">
@@ -776,15 +775,15 @@ export const KnowledgeMapView: React.FC<KnowledgeMapViewProps> = ({
                     return (
                       <label
                         key={key}
-                        className="flex items-start gap-2.5 p-2.5 rounded-[9px] bg-[var(--panel)] border border-[var(--line)] text-xs text-[var(--ink)] cursor-pointer hover:border-[var(--soft)]"
+                        className="flex items-start gap-2.5 p-2.5 rounded-[9px] bg-(--panel) border border-(--line) text-xs text-(--ink) cursor-pointer hover:border-(--soft)"
                       >
                         <input
                           type="checkbox"
                           checked={checked}
                           onChange={() => toggleCheckItem(key)}
-                          className="mt-0.5 accent-[var(--lime)]"
+                          className="mt-0.5 accent-(--lime)"
                         />
-                        <span className={checked ? 'line-through text-[var(--muted)]' : ''}>
+                        <span className={checked ? 'line-through text-(--muted)' : ''}>
                           {checkText}
                         </span>
                       </label>
@@ -794,14 +793,14 @@ export const KnowledgeMapView: React.FC<KnowledgeMapViewProps> = ({
               </div>
 
               {/* Multiple-Choice Concept Quiz */}
-              <div className="border border-[var(--line)] rounded-[14px] p-4 sm:p-5 bg-[var(--p2)]">
-                <h3 className="font-display font-bold text-lg text-[var(--ink)]">
+              <div className="border border-(--line) rounded-[14px] p-4 sm:p-5 bg-(--p2)">
+                <h3 className="font-display font-bold text-lg text-(--ink)">
                   Quick concept check
                 </h3>
-                <p className="text-[11px] text-[var(--muted)] mt-0.5 mb-3">
+                <p className="text-[11px] text-(--muted) mt-0.5 mb-3">
                   Choose an answer, then verify the architectural explanation.
                 </p>
-                <div className="font-semibold text-xs text-[var(--ink)] mb-2.5">
+                <div className="font-semibold text-xs text-(--ink) mb-2.5">
                   {activeSupplement.quiz.question}
                 </div>
                 <div className="space-y-1.5">
@@ -810,13 +809,13 @@ export const KnowledgeMapView: React.FC<KnowledgeMapViewProps> = ({
                     const submitted = !!quizSubmitted[activeModule.id];
                     const isCorrect = idx === activeSupplement.quiz.answerIndex;
 
-                    let borderClass = 'border-[var(--line)] bg-[var(--panel)] text-[var(--muted)]';
+                    let borderClass = 'border-(--line) bg-(--panel) text-(--muted)';
                     if (submitted && isCorrect) {
-                      borderClass = 'border-[var(--lime)] bg-[var(--lime)]/10 text-[var(--ink)]';
+                      borderClass = 'border-(--lime) bg-(--lime)/10 text-(--ink)';
                     } else if (submitted && picked && !isCorrect) {
-                      borderClass = 'border-[var(--rose)] bg-[var(--rose)]/10 text-[var(--ink)]';
+                      borderClass = 'border-(--rose) bg-(--rose)/10 text-(--ink)';
                     } else if (picked) {
-                      borderClass = 'border-[var(--cyan)] bg-[var(--panel)] text-[var(--ink)]';
+                      borderClass = 'border-(--cyan) bg-(--panel) text-(--ink)';
                     }
 
                     return (
@@ -832,7 +831,7 @@ export const KnowledgeMapView: React.FC<KnowledgeMapViewProps> = ({
                             setQuizAnswers((prev) => ({ ...prev, [activeModule.id]: idx }));
                             setQuizSubmitted((prev) => ({ ...prev, [activeModule.id]: false }));
                           }}
-                          className="mt-0.5 accent-[var(--lime)]"
+                          className="mt-0.5 accent-(--lime)"
                         />
                         <span>{opt}</span>
                       </label>
@@ -841,13 +840,13 @@ export const KnowledgeMapView: React.FC<KnowledgeMapViewProps> = ({
                 </div>
 
                 <div className="flex flex-wrap items-center justify-between gap-2 mt-3.5">
-                  <span className="text-[11px] text-[var(--muted)] flex-1">
+                  <span className="text-[11px] text-(--muted) flex-1">
                     {quizSubmitted[activeModule.id] && (
                       <span
                         className={
                           quizAnswers[activeModule.id] === activeSupplement.quiz.answerIndex
-                            ? 'text-[var(--lime)]'
-                            : 'text-[var(--rose)]'
+                            ? 'text-(--lime)'
+                            : 'text-(--rose)'
                         }
                       >
                         {quizAnswers[activeModule.id] === activeSupplement.quiz.answerIndex
@@ -864,7 +863,7 @@ export const KnowledgeMapView: React.FC<KnowledgeMapViewProps> = ({
                         setQuizSubmitted((prev) => ({ ...prev, [activeModule.id]: true }));
                       }
                     }}
-                    className="px-3 py-1.5 rounded-[9px] border border-[var(--line)] bg-[var(--panel)] text-[var(--ink)] font-semibold text-xs hover:border-[var(--lime)] cursor-pointer"
+                    className="px-3 py-1.5 rounded-[9px] border border-(--line) bg-(--panel) text-(--ink) font-semibold text-xs hover:border-(--lime) cursor-pointer"
                   >
                     Check answer
                   </button>
@@ -873,12 +872,12 @@ export const KnowledgeMapView: React.FC<KnowledgeMapViewProps> = ({
             </div>
 
             {/* Lesson Footer Navigation */}
-            <div className="flex flex-wrap items-center justify-between gap-3 pt-5 border-t border-[var(--line)]">
+            <div className="flex flex-wrap items-center justify-between gap-3 pt-5 border-t border-(--line)">
               <button
                 type="button"
                 disabled={activeModule.id === 1}
                 onClick={() => openModuleLesson(Math.max(1, activeModule.id - 1), false)}
-                className="px-3.5 py-2 rounded-[9px] border border-[var(--line)] bg-[var(--p2)] text-[var(--ink)] text-xs font-bold disabled:opacity-40 hover:border-[var(--lime)] cursor-pointer flex items-center gap-1.5"
+                className="px-3.5 py-2 rounded-[9px] border border-(--line) bg-(--p2) text-(--ink) text-xs font-bold disabled:opacity-40 hover:border-(--lime) cursor-pointer flex items-center gap-1.5"
               >
                 <ChevronLeft className="w-3.5 h-3.5" /> Previous module
               </button>
@@ -888,8 +887,8 @@ export const KnowledgeMapView: React.FC<KnowledgeMapViewProps> = ({
                 onClick={() => onToggleComplete(activeModule.id)}
                 className={`px-4 py-2 rounded-[9px] text-xs font-bold border cursor-pointer ${
                   completedIds.includes(activeModule.id)
-                    ? 'border-[var(--line)] bg-[var(--p2)] text-[var(--ink)]'
-                    : 'border-[var(--lime)] bg-[var(--lime)] text-[var(--lime-ink)]'
+                    ? 'border-(--line) bg-(--p2) text-(--ink)'
+                    : 'border-(--lime) bg-(--lime) text-(--lime-ink)'
                 }`}
               >
                 {completedIds.includes(activeModule.id)
@@ -901,7 +900,7 @@ export const KnowledgeMapView: React.FC<KnowledgeMapViewProps> = ({
                 type="button"
                 disabled={activeModule.id === 25}
                 onClick={() => openModuleLesson(Math.min(25, activeModule.id + 1), false)}
-                className="px-3.5 py-2 rounded-[9px] border border-[var(--line)] bg-[var(--p2)] text-[var(--ink)] text-xs font-bold disabled:opacity-40 hover:border-[var(--lime)] cursor-pointer flex items-center gap-1.5"
+                className="px-3.5 py-2 rounded-[9px] border border-(--line) bg-(--p2) text-(--ink) text-xs font-bold disabled:opacity-40 hover:border-(--lime) cursor-pointer flex items-center gap-1.5"
               >
                 Next module <ChevronRight className="w-3.5 h-3.5" />
               </button>
@@ -913,26 +912,26 @@ export const KnowledgeMapView: React.FC<KnowledgeMapViewProps> = ({
       {/* BACK-OF-THE-ENVELOPE CAPACITY ESTIMATOR + CANONICAL BLUEPRINTS */}
       <section className="grid grid-cols-1 lg:grid-cols-12 gap-5">
         {/* Interactive Capacity Calculator */}
-        <div className="lg:col-span-5 border border-[var(--line)] rounded-[18px] bg-[var(--panel)] p-5 sm:p-6 flex flex-col justify-between">
+        <div className="lg:col-span-5 border border-(--line) rounded-[18px] bg-(--panel) p-5 sm:p-6 flex flex-col justify-between">
           <div>
             <div className="flex items-center justify-between gap-2 mb-1">
-              <span className="font-mono text-[10px] uppercase tracking-[0.15em] text-[var(--lime)]">
+              <span className="font-mono text-[10px] uppercase tracking-[0.15em] text-(--lime)">
                 Interactive Estimator · Module 03
               </span>
-              <Calculator className="w-4 h-4 text-[var(--lime)]" />
+              <Calculator className="w-4 h-4 text-(--lime)" />
             </div>
-            <h3 className="font-display font-bold text-xl text-[var(--ink)]">
+            <h3 className="font-display font-bold text-xl text-(--ink)">
               Back-of-the-Envelope Physics Calculator
             </h3>
-            <p className="text-xs text-[var(--muted)] mt-1 mb-5">
+            <p className="text-xs text-(--muted) mt-1 mb-5">
               Slide DAU, read/write ratios, and payload size to compute real QPS, peak concurrency, and annual storage footprint.
             </p>
 
             <div className="space-y-3.5">
               <div>
                 <div className="flex justify-between text-xs mb-1">
-                  <span className="text-[var(--muted)]">Daily Active Users (DAU)</span>
-                  <span className="font-mono font-bold text-[var(--lime)]">{dauMillions}M users</span>
+                  <span className="text-(--muted)">Daily Active Users (DAU)</span>
+                  <span className="font-mono font-bold text-(--lime)">{dauMillions}M users</span>
                 </div>
                 <input
                   type="range"
@@ -941,15 +940,15 @@ export const KnowledgeMapView: React.FC<KnowledgeMapViewProps> = ({
                   value={dauMillions}
                   onChange={(e) => setDauMillions(Number(e.target.value))}
                   aria-label="Daily Active Users in Millions"
-                  className="w-full accent-[var(--lime)]"
+                  className="w-full accent-(--lime)"
                 />
               </div>
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
                   <div className="flex justify-between text-xs mb-1">
-                    <span className="text-[var(--muted)]">Reads / User / Day</span>
-                    <span className="font-mono text-[var(--cyan)]">{readsPerUser}</span>
+                    <span className="text-(--muted)">Reads / User / Day</span>
+                    <span className="font-mono text-(--cyan)">{readsPerUser}</span>
                   </div>
                   <input
                     type="range"
@@ -958,13 +957,13 @@ export const KnowledgeMapView: React.FC<KnowledgeMapViewProps> = ({
                     value={readsPerUser}
                     onChange={(e) => setReadsPerUser(Number(e.target.value))}
                     aria-label="Reads per user per day"
-                    className="w-full accent-[var(--cyan)]"
+                    className="w-full accent-(--cyan)"
                   />
                 </div>
                 <div>
                   <div className="flex justify-between text-xs mb-1">
-                    <span className="text-[var(--muted)]">Writes / User / Day</span>
-                    <span className="font-mono text-[var(--orange)]">{writesPerUser}</span>
+                    <span className="text-(--muted)">Writes / User / Day</span>
+                    <span className="font-mono text-(--orange)">{writesPerUser}</span>
                   </div>
                   <input
                     type="range"
@@ -973,15 +972,15 @@ export const KnowledgeMapView: React.FC<KnowledgeMapViewProps> = ({
                     value={writesPerUser}
                     onChange={(e) => setWritesPerUser(Number(e.target.value))}
                     aria-label="Writes per user per day"
-                    className="w-full accent-[var(--orange)]"
+                    className="w-full accent-(--orange)"
                   />
                 </div>
               </div>
 
               <div>
                 <div className="flex justify-between text-xs mb-1">
-                  <span className="text-[var(--muted)]">Record Payload Size</span>
-                  <span className="font-mono text-[var(--ink)]">{payloadKB} KB</span>
+                  <span className="text-(--muted)">Record Payload Size</span>
+                  <span className="font-mono text-(--ink)">{payloadKB} KB</span>
                 </div>
                 <input
                   type="range"
@@ -990,34 +989,34 @@ export const KnowledgeMapView: React.FC<KnowledgeMapViewProps> = ({
                   value={payloadKB}
                   onChange={(e) => setPayloadKB(Number(e.target.value))}
                   aria-label="Payload size in kilobytes"
-                  className="w-full accent-[var(--lime)]"
+                  className="w-full accent-(--lime)"
                 />
               </div>
             </div>
           </div>
 
-          <div className="grid grid-cols-2 gap-2.5 mt-5 pt-4 border-t border-[var(--line)]">
-            <div className="p-3 rounded-[10px] bg-[var(--p2)] border border-[var(--line)]">
-              <span className="font-mono text-[10px] text-[var(--muted)] uppercase">Avg Read / Write QPS</span>
-              <div className="font-mono font-bold text-sm text-[var(--ink)] mt-0.5">
+          <div className="grid grid-cols-2 gap-2.5 mt-5 pt-4 border-t border-(--line)">
+            <div className="p-3 rounded-[10px] bg-(--p2) border border-(--line)">
+              <span className="font-mono text-[10px] text-(--muted) uppercase">Avg Read / Write QPS</span>
+              <div className="font-mono font-bold text-sm text-(--ink) mt-0.5">
                 {estimation.readQps.toLocaleString()} / {estimation.writeQps.toLocaleString()}
               </div>
             </div>
-            <div className="p-3 rounded-[10px] bg-[var(--p2)] border border-[var(--line)]">
-              <span className="font-mono text-[10px] text-[var(--muted)] uppercase">Peak Total QPS (3×)</span>
-              <div className="font-mono font-bold text-sm text-[var(--lime)] mt-0.5">
+            <div className="p-3 rounded-[10px] bg-(--p2) border border-(--line)">
+              <span className="font-mono text-[10px] text-(--muted) uppercase">Peak Total QPS (3×)</span>
+              <div className="font-mono font-bold text-sm text-(--lime) mt-0.5">
                 {estimation.peakQps.toLocaleString()} req/s
               </div>
             </div>
-            <div className="p-3 rounded-[10px] bg-[var(--p2)] border border-[var(--line)]">
-              <span className="font-mono text-[10px] text-[var(--muted)] uppercase">Ingress / Egress BW</span>
-              <div className="font-mono font-bold text-sm text-[var(--cyan)] mt-0.5">
+            <div className="p-3 rounded-[10px] bg-(--p2) border border-(--line)">
+              <span className="font-mono text-[10px] text-(--muted) uppercase">Ingress / Egress BW</span>
+              <div className="font-mono font-bold text-sm text-(--cyan) mt-0.5">
                 {estimation.ingressBandwidthMBps} / {estimation.egressBandwidthMBps} MB/s
               </div>
             </div>
-            <div className="p-3 rounded-[10px] bg-[var(--p2)] border border-[var(--line)]">
-              <span className="font-mono text-[10px] text-[var(--muted)] uppercase">Annual New Storage</span>
-              <div className="font-mono font-bold text-sm text-[var(--orange)] mt-0.5">
+            <div className="p-3 rounded-[10px] bg-(--p2) border border-(--line)">
+              <span className="font-mono text-[10px] text-(--muted) uppercase">Annual New Storage</span>
+              <div className="font-mono font-bold text-sm text-(--orange) mt-0.5">
                 {estimation.yearlyStorageFormatted}
               </div>
             </div>
@@ -1025,48 +1024,48 @@ export const KnowledgeMapView: React.FC<KnowledgeMapViewProps> = ({
         </div>
 
         {/* Canonical System Blueprints Quick Launcher */}
-        <div className="lg:col-span-7 border border-[var(--line)] rounded-[18px] bg-[var(--panel)] p-5 sm:p-6">
+        <div className="lg:col-span-7 border border-(--line) rounded-[18px] bg-(--panel) p-5 sm:p-6">
           <div className="flex items-center justify-between gap-2 mb-1">
-            <span className="font-mono text-[10px] uppercase tracking-[0.15em] text-[var(--cyan)]">
+            <span className="font-mono text-[10px] uppercase tracking-[0.15em] text-(--cyan)">
               Canonical Case Studies · Module 22
             </span>
-            <Layers className="w-4 h-4 text-[var(--cyan)]" />
+            <Layers className="w-4 h-4 text-(--cyan)" />
           </div>
-          <h3 className="font-display font-bold text-xl text-[var(--ink)]">
+          <h3 className="font-display font-bold text-xl text-(--ink)">
             FAANG Production Architecture Blueprints
           </h3>
-          <p className="text-xs text-[var(--muted)] mt-1 mb-4">
+          <p className="text-xs text-(--muted) mt-1 mb-4">
             Inspect the critical invariant, scale math, and Staff-level trade-offs for 8 canonical interviews, or launch a live topology in the Whiteboard Lab.
           </p>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 max-h-[370px] overflow-y-auto pr-1">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 max-h-92.5 overflow-y-auto pr-1">
             {CASE_BLUEPRINTS.map((bp, idx) => (
               <div
                 key={idx}
-                className="p-3.5 rounded-[12px] border border-[var(--line)] bg-[var(--p2)] flex flex-col justify-between gap-2"
+                className="p-3.5 rounded-xl border border-(--line) bg-(--p2) flex flex-col justify-between gap-2"
               >
                 <div>
                   <div className="flex items-center justify-between gap-2">
-                    <span className="font-display font-bold text-sm text-[var(--ink)]">
+                    <span className="font-display font-bold text-sm text-(--ink)">
                       {bp.name}
                     </span>
                   </div>
-                  <div className="font-mono text-[10px] text-[var(--cyan)] mt-0.5">
+                  <div className="font-mono text-[10px] text-(--cyan) mt-0.5">
                     {bp.scale}
                   </div>
-                  <p className="text-[11px] text-[var(--muted)] mt-2 line-clamp-2">
-                    <strong className="text-[var(--ink)]">{bp.decisions[0]?.title}:</strong>{' '}
+                  <p className="text-[11px] text-(--muted) mt-2 line-clamp-2">
+                    <strong className="text-(--ink)">{bp.decisions[0]?.title}:</strong>{' '}
                     {bp.decisions[0]?.detail}
                   </p>
                 </div>
-                <div className="flex items-center justify-between pt-2 border-t border-[var(--line)]/60 font-mono text-[10px]">
-                  <span className="text-[var(--muted)] truncate max-w-[180px]">
+                <div className="flex items-center justify-between pt-2 border-t border-(--line)/60 font-mono text-[10px]">
+                  <span className="text-(--muted) truncate max-w-45">
                     {bp.decisions[1]?.title}
                   </span>
                   <button
                     type="button"
                     onClick={() => onLaunchPresetInWhiteboard('whatsapp')}
-                    className="text-[var(--lime)] hover:underline shrink-0 cursor-pointer"
+                    className="text-(--lime) hover:underline shrink-0 cursor-pointer"
                   >
                     Simulate ↗
                   </button>
@@ -1081,37 +1080,37 @@ export const KnowledgeMapView: React.FC<KnowledgeMapViewProps> = ({
       <section id="practice" className="space-y-4">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
           <div>
-            <div className="font-mono text-[10px] uppercase tracking-[0.15em] text-[var(--muted)]">
+            <div className="font-mono text-[10px] uppercase tracking-[0.15em] text-(--muted)">
               03 · Deliberate practice
             </div>
-            <h2 className="font-display font-bold text-[clamp(24px,3vw,36px)] leading-[1.1] tracking-[-0.04em] text-[var(--ink)] mt-1.5">
+            <h2 className="font-display font-bold text-[clamp(24px,3vw,36px)] leading-[1.1] tracking-[-0.04em] text-(--ink) mt-1.5">
               Turn knowledge into design skill
             </h2>
           </div>
-          <p className="max-w-[470px] text-xs text-[var(--muted)] leading-relaxed">
+          <p className="max-w-117.5 text-xs text-(--muted) leading-relaxed">
             The objective is not to memorise 25 diagrams. Recognise constraints, choose the right primitive, and explain what your choice costs.
           </p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
           {/* 8-Week Progression */}
-          <div className="border border-[var(--line)] rounded-[15px] bg-[var(--panel)] p-5 sm:p-6">
-            <div className="font-mono text-[10px] uppercase tracking-[0.15em] text-[var(--muted)]">
+          <div className="border border-(--line) rounded-[15px] bg-(--panel) p-5 sm:p-6">
+            <div className="font-mono text-[10px] uppercase tracking-[0.15em] text-(--muted)">
               An eight-week progression
             </div>
-            <h3 className="font-display font-bold text-lg text-[var(--ink)] mt-1 mb-1">
+            <h3 className="font-display font-bold text-lg text-(--ink) mt-1 mb-1">
               From first principles to full designs
             </h3>
-            <p className="text-xs text-[var(--muted)] mb-4">
+            <p className="text-xs text-(--muted) mb-4">
               Use this sequence as a default. Spend longer where you cannot yet explain the trade-off without notes.
             </p>
-            <div className="divide-y divide-[var(--line)]">
+            <div className="divide-y divide-(--line)">
               {EIGHT_WEEK_PLAN.map((item) => (
                 <div key={item.wk} className="grid grid-cols-[54px_1fr] gap-3 py-3">
-                  <div className="font-mono text-[10px] text-[var(--lime)] pt-0.5">{item.wk}</div>
+                  <div className="font-mono text-[10px] text-(--lime) pt-0.5">{item.wk}</div>
                   <div>
-                    <strong className="text-xs text-[var(--ink)] block">{item.title}</strong>
-                    <p className="text-[11px] text-[var(--muted)] mt-0.5">{item.desc}</p>
+                    <strong className="text-xs text-(--ink) block">{item.title}</strong>
+                    <p className="text-[11px] text-(--muted) mt-0.5">{item.desc}</p>
                   </div>
                 </div>
               ))}
@@ -1119,32 +1118,32 @@ export const KnowledgeMapView: React.FC<KnowledgeMapViewProps> = ({
           </div>
 
           {/* 45-Minute Interview Operating System */}
-          <div className="border border-[var(--line)] rounded-[15px] bg-[var(--panel)] p-5 sm:p-6 flex flex-col justify-between">
+          <div className="border border-(--line) rounded-[15px] bg-(--panel) p-5 sm:p-6 flex flex-col justify-between">
             <div>
-              <div className="font-mono text-[10px] uppercase tracking-[0.15em] text-[var(--muted)]">
+              <div className="font-mono text-[10px] uppercase tracking-[0.15em] text-(--muted)">
                 The interview operating system
               </div>
-              <h3 className="font-display font-bold text-lg text-[var(--ink)] mt-1 mb-1">
+              <h3 className="font-display font-bold text-lg text-(--ink) mt-1 mb-1">
                 A repeatable 45-minute HLD loop
               </h3>
-              <p className="text-xs text-[var(--muted)] mb-4">
+              <p className="text-xs text-(--muted) mb-4">
                 Adapt the time to the interviewer and prompt. This is scaffolding, not a rigid script.
               </p>
-              <div className="divide-y divide-[var(--line)]">
+              <div className="divide-y divide-(--line)">
                 {HLD_INTERVIEW_LOOP.map((item) => (
                   <div key={item.step} className="grid grid-cols-[54px_1fr] gap-3 py-3">
-                    <div className="font-mono text-[10px] text-[var(--cyan)] pt-0.5">{item.step}</div>
+                    <div className="font-mono text-[10px] text-(--cyan) pt-0.5">{item.step}</div>
                     <div>
-                      <strong className="text-xs text-[var(--ink)] block">{item.title}</strong>
-                      <p className="text-[11px] text-[var(--muted)] mt-0.5">{item.desc}</p>
+                      <strong className="text-xs text-(--ink) block">{item.title}</strong>
+                      <p className="text-[11px] text-(--muted) mt-0.5">{item.desc}</p>
                     </div>
                   </div>
                 ))}
               </div>
             </div>
 
-            <div className="mt-4 p-3.5 rounded-[11px] border border-[var(--orange)]/40 bg-[var(--orange)]/10 text-xs text-[var(--muted)]">
-              <strong className="text-[var(--orange)] font-semibold">Senior signal:</strong> Do not add Kafka, Redis, Kubernetes, or microservices because they sound impressive. Introduce a component when a requirement or measured bottleneck justifies it.
+            <div className="mt-4 p-3.5 rounded-[11px] border border-(--orange)/40 bg-(--orange)/10 text-xs text-(--muted)">
+              <strong className="text-(--orange) font-semibold">Senior signal:</strong> Do not add Kafka, Redis, Kubernetes, or microservices because they sound impressive. Introduce a component when a requirement or measured bottleneck justifies it.
             </div>
           </div>
         </div>
@@ -1154,14 +1153,14 @@ export const KnowledgeMapView: React.FC<KnowledgeMapViewProps> = ({
       <section id="flashcards" className="space-y-4">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
           <div>
-            <div className="font-mono text-[10px] uppercase tracking-[0.15em] text-[var(--muted)]">
+            <div className="font-mono text-[10px] uppercase tracking-[0.15em] text-(--muted)">
               04 · Active recall
             </div>
-            <h2 className="font-display font-bold text-[clamp(24px,3vw,36px)] leading-[1.1] tracking-[-0.04em] text-[var(--ink)] mt-1.5">
+            <h2 className="font-display font-bold text-[clamp(24px,3vw,36px)] leading-[1.1] tracking-[-0.04em] text-(--ink) mt-1.5">
               Quick revision deck
             </h2>
           </div>
-          <p className="max-w-[470px] text-xs text-[var(--muted)] leading-relaxed">
+          <p className="max-w-117.5 text-xs text-(--muted) leading-relaxed">
             Try to answer aloud before flipping. Retrieval practice exposes architectural gaps more honestly than rereading.
           </p>
         </div>
@@ -1176,32 +1175,37 @@ export const KnowledgeMapView: React.FC<KnowledgeMapViewProps> = ({
           }}
           tabIndex={0}
           role="button"
-          aria-label="Flashcard. Press to reveal answer"
           className="flash-perspective cursor-pointer outline-none"
         >
           <div className={`flash-inner ${flashFlipped ? 'is-flipped' : ''}`}>
             {/* Front Face */}
-            <div className="flash-face border border-[var(--line)] rounded-[16px] bg-[var(--panel)] p-6 sm:p-8 flex flex-col justify-center">
-              <small className="font-mono text-[10px] text-[var(--lime)] tracking-[0.14em] uppercase">
+            <div
+              aria-hidden={flashFlipped}
+              className="flash-face border border-(--line) rounded-2xl bg-(--panel) p-6 sm:p-8 flex flex-col justify-center"
+            >
+              <small className="font-mono text-[10px] text-(--lime) tracking-[0.14em] uppercase">
                 CONCEPT · {String(flashIndex + 1).padStart(2, '0')} / {FLASHCARD_DECK.length}
               </small>
-              <strong className="font-display font-bold text-xl sm:text-2xl text-[var(--ink)] mt-2.5">
+              <strong className="font-display font-bold text-xl sm:text-2xl text-(--ink) mt-2.5">
                 {currentFlashcard[0]}
               </strong>
-              <div className="font-mono text-[10px] text-[var(--muted)] uppercase tracking-[0.15em] mt-5">
+              <div className="font-mono text-[10px] text-(--muted) uppercase tracking-[0.15em] mt-5">
                 CLICK TO REVEAL ANSWER ↗
               </div>
             </div>
 
             {/* Back Face */}
-            <div className="flash-face flash-back border border-[var(--lime)]/60 rounded-[16px] bg-[var(--p2)] p-6 sm:p-8 flex flex-col justify-center">
-              <small className="font-mono text-[10px] text-[var(--cyan)] tracking-[0.14em] uppercase">
+            <div
+              aria-hidden={!flashFlipped}
+              className="flash-face flash-back border border-(--lime)/60 rounded-2xl bg-(--p2) p-6 sm:p-8 flex flex-col justify-center"
+            >
+              <small className="font-mono text-[10px] text-(--cyan) tracking-[0.14em] uppercase">
                 THE CORE ARCHITECTURAL IDEA
               </small>
-              <p className="text-sm sm:text-[15px] text-[var(--ink)] leading-relaxed mt-2.5">
+              <p className="text-sm sm:text-[15px] text-(--ink) leading-relaxed mt-2.5">
                 {currentFlashcard[1]}
               </p>
-              <div className="font-mono text-[10px] text-[var(--muted)] uppercase tracking-[0.15em] mt-4">
+              <div className="font-mono text-[10px] text-(--muted) uppercase tracking-[0.15em] mt-4">
                 CLICK TO FLIP BACK
               </div>
             </div>
@@ -1215,11 +1219,11 @@ export const KnowledgeMapView: React.FC<KnowledgeMapViewProps> = ({
               setFlashFlipped(false);
               setFlashIndex((i) => (i - 1 + FLASHCARD_DECK.length) % FLASHCARD_DECK.length);
             }}
-            className="px-3.5 py-2 rounded-[9px] border border-[var(--line)] bg-[var(--panel)] text-xs text-[var(--ink)] hover:border-[var(--lime)] cursor-pointer"
+            className="px-3.5 py-2 rounded-[9px] border border-(--line) bg-(--panel) text-xs text-(--ink) hover:border-(--lime) cursor-pointer"
           >
             ← Previous
           </button>
-          <span className="font-mono text-xs text-[var(--muted)]">
+          <span className="font-mono text-xs text-(--muted)">
             {String(flashIndex + 1).padStart(2, '0')} / {FLASHCARD_DECK.length}
           </span>
           <button
@@ -1228,7 +1232,7 @@ export const KnowledgeMapView: React.FC<KnowledgeMapViewProps> = ({
               setFlashFlipped(false);
               setFlashIndex((i) => (i + 1) % FLASHCARD_DECK.length);
             }}
-            className="px-3.5 py-2 rounded-[9px] border border-[var(--line)] bg-[var(--panel)] text-xs text-[var(--ink)] hover:border-[var(--lime)] cursor-pointer"
+            className="px-3.5 py-2 rounded-[9px] border border-(--line) bg-(--panel) text-xs text-(--ink) hover:border-(--lime) cursor-pointer"
           >
             Next →
           </button>
@@ -1239,14 +1243,14 @@ export const KnowledgeMapView: React.FC<KnowledgeMapViewProps> = ({
       <section id="resources" className="space-y-4">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
           <div>
-            <div className="font-mono text-[10px] uppercase tracking-[0.15em] text-[var(--muted)]">
+            <div className="font-mono text-[10px] uppercase tracking-[0.15em] text-(--muted)">
               05 · Go deeper
             </div>
-            <h2 className="font-display font-bold text-[clamp(24px,3vw,36px)] leading-[1.1] tracking-[-0.04em] text-[var(--ink)] mt-1.5">
+            <h2 className="font-display font-bold text-[clamp(24px,3vw,36px)] leading-[1.1] tracking-[-0.04em] text-(--ink) mt-1.5">
               Reference library
             </h2>
           </div>
-          <p className="max-w-[470px] text-xs text-[var(--muted)] leading-relaxed">
+          <p className="max-w-117.5 text-xs text-(--muted) leading-relaxed">
             Use primary documentation and engineering books to validate details. Treat summaries as maps; read the source when a production design depends on it.
           </p>
         </div>
@@ -1258,19 +1262,19 @@ export const KnowledgeMapView: React.FC<KnowledgeMapViewProps> = ({
               href={res.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="border border-[var(--line)] bg-[var(--panel)] rounded-[13px] p-4 hover:-translate-y-0.5 hover:border-[var(--cyan)] transition-all flex flex-col justify-between"
+              className="border border-(--line) bg-(--panel) rounded-[13px] p-4 hover:-translate-y-0.5 hover:border-(--cyan) transition-all flex flex-col justify-between"
             >
               <div>
-                <small className="font-mono text-[9px] text-[var(--cyan)] uppercase tracking-[0.13em]">
+                <small className="font-mono text-[9px] text-(--cyan) uppercase tracking-[0.13em]">
                   {res.tag}
                 </small>
-                <h3 className="font-display font-bold text-[15px] text-[var(--ink)] mt-2 mb-1.5 flex items-center justify-between">
+                <h3 className="font-display font-bold text-[15px] text-(--ink) mt-2 mb-1.5 flex items-center justify-between">
                   {res.title}
-                  <ArrowUpRight className="w-3.5 h-3.5 text-[var(--muted)]" />
+                  <ArrowUpRight className="w-3.5 h-3.5 text-(--muted)" />
                 </h3>
-                <p className="text-[11px] text-[var(--muted)] leading-relaxed">{res.desc}</p>
+                <p className="text-[11px] text-(--muted) leading-relaxed">{res.desc}</p>
               </div>
-              <span className="font-mono text-[9px] text-[var(--muted)] mt-3 pt-2 border-t border-[var(--line)]/50 truncate">
+              <span className="font-mono text-[9px] text-(--muted) mt-3 pt-2 border-t border-(--line)/50 truncate">
                 {res.domain}
               </span>
             </a>

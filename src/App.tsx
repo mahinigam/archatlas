@@ -123,25 +123,25 @@ export default function App() {
   const progressPercent = Math.round((completedIds.length / 25) * 100);
 
   return (
-    <div className="min-h-screen bg-[var(--bg)] text-[var(--ink)] flex flex-col">
+    <div className="min-h-screen bg-(--bg) text-(--ink) flex flex-col">
       {/* FIXED LEFT SIDEBAR (Reference Architecture) */}
-      <aside className="hidden md:flex fixed inset-y-0 left-0 w-[230px] lg:w-[250px] px-4 py-6 border-r border-[var(--line)] bg-[var(--bg)] flex-col z-30 select-none">
+      <aside className="hidden md:flex fixed inset-y-0 left-0 w-57.5 lg:w-62.5 px-4 py-6 border-r border-(--line) bg-(--bg) flex-col z-30 select-none">
         {/* Brand Header */}
         <div className="flex items-center gap-3 px-2.5 pb-7">
-          <div className="w-9 h-9 rounded-[11px] bg-[var(--lime)] text-[#10150c] grid place-items-center font-display font-bold text-[17px] -rotate-6 shrink-0 shadow-sm">
+          <div className="w-9 h-9 rounded-[11px] bg-(--lime) text-[#10150c] grid place-items-center font-display font-bold text-[17px] -rotate-6 shrink-0 shadow-sm">
             S
           </div>
           <div>
-            <b className="font-display font-bold text-[15px] tracking-tight text-[var(--ink)] block leading-tight">
+            <b className="font-display font-bold text-[15px] tracking-tight text-(--ink) block leading-tight">
               SYSTEMS / MAP
             </b>
-            <small className="font-mono text-[10px] text-[var(--muted)] uppercase tracking-[0.13em] block mt-0.5">
+            <small className="font-mono text-[10px] text-(--muted) uppercase tracking-[0.13em] block mt-0.5">
               Engineering field guide
             </small>
           </div>
         </div>
 
-        <div className="px-2.5 font-mono text-[10px] uppercase tracking-[0.15em] text-[var(--muted)]">
+        <div className="px-2.5 font-mono text-[10px] uppercase tracking-[0.15em] text-(--muted)">
           Navigate
         </div>
 
@@ -154,13 +154,13 @@ export default function App() {
             onClick={() => navigateSection('00', 'map', 'overview')}
             className={`w-full text-left px-3 py-2.5 rounded-[11px] flex items-center gap-3 text-xs font-bold transition-colors cursor-pointer ${
               activeNavKey === '00'
-                ? 'bg-[var(--p2)] text-[var(--ink)]'
-                : 'text-[var(--muted)] hover:bg-[var(--p2)] hover:text-[var(--ink)]'
+                ? 'bg-(--p2) text-(--ink)'
+                : 'text-(--muted) hover:bg-(--p2) hover:text-(--ink)'
             }`}
           >
             <i
               className={`font-mono text-[11px] not-italic w-5 ${
-                activeNavKey === '00' ? 'text-[var(--lime)]' : 'text-[var(--soft)]'
+                activeNavKey === '00' ? 'text-(--lime)' : 'text-(--soft)'
               }`}
             >
               00
@@ -173,13 +173,13 @@ export default function App() {
             onClick={() => navigateSection('01', 'map', 'curriculum')}
             className={`w-full text-left px-3 py-2.5 rounded-[11px] flex items-center gap-3 text-xs font-bold transition-colors cursor-pointer ${
               activeNavKey === '01'
-                ? 'bg-[var(--p2)] text-[var(--ink)]'
-                : 'text-[var(--muted)] hover:bg-[var(--p2)] hover:text-[var(--ink)]'
+                ? 'bg-(--p2) text-(--ink)'
+                : 'text-(--muted) hover:bg-(--p2) hover:text-(--ink)'
             }`}
           >
             <i
               className={`font-mono text-[11px] not-italic w-5 ${
-                activeNavKey === '01' ? 'text-[var(--lime)]' : 'text-[var(--soft)]'
+                activeNavKey === '01' ? 'text-(--lime)' : 'text-(--soft)'
               }`}
             >
               01
@@ -192,13 +192,13 @@ export default function App() {
             onClick={() => navigateSection('02', 'whiteboard')}
             className={`w-full text-left px-3 py-2.5 rounded-[11px] flex items-center gap-3 text-xs font-bold transition-colors cursor-pointer ${
               activeNavKey === '02'
-                ? 'bg-[var(--p2)] text-[var(--ink)]'
-                : 'text-[var(--muted)] hover:bg-[var(--p2)] hover:text-[var(--ink)]'
+                ? 'bg-(--p2) text-(--ink)'
+                : 'text-(--muted) hover:bg-(--p2) hover:text-(--ink)'
             }`}
           >
             <i
               className={`font-mono text-[11px] not-italic w-5 ${
-                activeNavKey === '02' ? 'text-[var(--lime)]' : 'text-[var(--soft)]'
+                activeNavKey === '02' ? 'text-(--lime)' : 'text-(--soft)'
               }`}
             >
               02
@@ -211,13 +211,13 @@ export default function App() {
             onClick={() => navigateSection('03', 'internals')}
             className={`w-full text-left px-3 py-2.5 rounded-[11px] flex items-center gap-3 text-xs font-bold transition-colors cursor-pointer ${
               activeNavKey === '03'
-                ? 'bg-[var(--p2)] text-[var(--ink)]'
-                : 'text-[var(--muted)] hover:bg-[var(--p2)] hover:text-[var(--ink)]'
+                ? 'bg-(--p2) text-(--ink)'
+                : 'text-(--muted) hover:bg-(--p2) hover:text-(--ink)'
             }`}
           >
             <i
               className={`font-mono text-[11px] not-italic w-5 ${
-                activeNavKey === '03' ? 'text-[var(--lime)]' : 'text-[var(--soft)]'
+                activeNavKey === '03' ? 'text-(--lime)' : 'text-(--soft)'
               }`}
             >
               03
@@ -230,13 +230,13 @@ export default function App() {
             onClick={() => navigateSection('04', 'interview')}
             className={`w-full text-left px-3 py-2.5 rounded-[11px] flex items-center gap-3 text-xs font-bold transition-colors cursor-pointer ${
               activeNavKey === '04'
-                ? 'bg-[var(--p2)] text-[var(--ink)]'
-                : 'text-[var(--muted)] hover:bg-[var(--p2)] hover:text-[var(--ink)]'
+                ? 'bg-(--p2) text-(--ink)'
+                : 'text-(--muted) hover:bg-(--p2) hover:text-(--ink)'
             }`}
           >
             <i
               className={`font-mono text-[11px] not-italic w-5 ${
-                activeNavKey === '04' ? 'text-[var(--lime)]' : 'text-[var(--soft)]'
+                activeNavKey === '04' ? 'text-(--lime)' : 'text-(--soft)'
               }`}
             >
               04
@@ -249,13 +249,13 @@ export default function App() {
             onClick={() => navigateSection('05', 'map', 'practice')}
             className={`w-full text-left px-3 py-2.5 rounded-[11px] flex items-center gap-3 text-xs font-bold transition-colors cursor-pointer ${
               activeNavKey === '05'
-                ? 'bg-[var(--p2)] text-[var(--ink)]'
-                : 'text-[var(--muted)] hover:bg-[var(--p2)] hover:text-[var(--ink)]'
+                ? 'bg-(--p2) text-(--ink)'
+                : 'text-(--muted) hover:bg-(--p2) hover:text-(--ink)'
             }`}
           >
             <i
               className={`font-mono text-[11px] not-italic w-5 ${
-                activeNavKey === '05' ? 'text-[var(--lime)]' : 'text-[var(--soft)]'
+                activeNavKey === '05' ? 'text-(--lime)' : 'text-(--soft)'
               }`}
             >
               05
@@ -265,9 +265,9 @@ export default function App() {
         </nav>
 
         {/* Bottom Learning Progress Card */}
-        <div className="mt-auto border border-[var(--line)] bg-[var(--panel)] rounded-[15px] p-3.5">
+        <div className="mt-auto border border-(--line) bg-(--panel) rounded-[15px] p-3.5">
           <div className="flex items-center justify-between">
-            <span className="font-mono text-[10px] uppercase tracking-[0.14em] text-[var(--muted)]">
+            <span className="font-mono text-[10px] uppercase tracking-[0.14em] text-(--muted)">
               Your learning progress
             </span>
             {completedIds.length > 0 && (
@@ -275,44 +275,44 @@ export default function App() {
                 type="button"
                 onClick={handleResetProgress}
                 title="Reset completed modules"
-                className="text-[var(--muted)] hover:text-[var(--rose)] cursor-pointer"
+                className="text-(--muted) hover:text-(--rose) cursor-pointer"
               >
                 <RotateCcw className="w-3 h-3" />
               </button>
             )}
           </div>
-          <div className="h-[5px] bg-[var(--p3)] rounded-full my-2.5 overflow-hidden">
+          <div className="h-1.25 bg-(--p3) rounded-full my-2.5 overflow-hidden">
             <span
-              className="block h-full bg-[var(--lime)] transition-all duration-300"
+              className="block h-full bg-(--lime) transition-all duration-300"
               style={{ width: `${progressPercent}%` }}
             />
           </div>
-          <strong className="font-display font-bold text-xl text-[var(--ink)] block">
+          <strong className="font-display font-bold text-xl text-(--ink) block">
             {completedIds.length} / 25
           </strong>
-          <p className="text-[11px] text-[var(--muted)] mt-0.5">
+          <p className="text-[11px] text-(--muted) mt-0.5">
             Modules marked complete
           </p>
         </div>
       </aside>
 
       {/* MAIN CONTENT AREA */}
-      <div className="md:ml-[230px] lg:ml-[250px] min-h-screen flex flex-col">
+      <div className="md:ml-57.5 lg:ml-62.5 min-h-screen flex flex-col">
         {/* Sticky Glass Topbar */}
-        <header className="sticky top-0 z-20 flex items-center justify-between gap-4 px-4 sm:px-8 lg:px-12 py-3.5 bg-[var(--bg)]/88 backdrop-blur-xl border-b border-[var(--line)]">
+        <header className="sticky top-0 z-20 flex items-center justify-between gap-4 px-4 sm:px-8 lg:px-12 py-3.5 bg-(--bg)/88 backdrop-blur-xl border-b border-(--line)">
           {/* Mobile Brand */}
-          <div className="flex md:hidden items-center gap-2 font-display font-bold text-xs text-[var(--ink)]">
-            <div className="w-7 h-7 rounded-[9px] bg-[var(--lime)] text-[#10150c] grid place-items-center font-display font-bold text-xs -rotate-6">
+          <div className="flex md:hidden items-center gap-2 font-display font-bold text-xs text-(--ink)">
+            <div className="w-7 h-7 rounded-[9px] bg-(--lime) text-[#10150c] grid place-items-center font-display font-bold text-xs -rotate-6">
               S
             </div>
             <span>SYSTEMS / MAP</span>
           </div>
 
           {/* Desktop Breadcrumb */}
-          <div className="hidden md:block font-mono text-[11px] uppercase tracking-[0.1em] text-[var(--muted)]">
-            Learning system <span className="text-[var(--lime)]">/</span> System design{' '}
-            <span className="text-[var(--lime)]">/</span>{' '}
-            <span className="text-[var(--ink)]">
+          <div className="hidden md:block font-mono text-[11px] uppercase tracking-widest text-(--muted)">
+            Learning system <span className="text-(--lime)">/</span> System design{' '}
+            <span className="text-(--lime)">/</span>{' '}
+            <span className="text-(--ink)">
               {activeWorkspace === 'map'
                 ? 'Knowledge Map & Curriculum'
                 : activeWorkspace === 'whiteboard'
@@ -326,7 +326,7 @@ export default function App() {
           {/* Right Actions: Global Search, Completed Filter, Theme Toggle */}
           <div className="flex items-center gap-2">
             <div className="relative">
-              <Search className="w-3.5 h-3.5 text-[var(--muted)] absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
+              <Search className="w-3.5 h-3.5 text-(--muted) absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
               <input
                 type="search"
                 value={searchQuery}
@@ -340,7 +340,7 @@ export default function App() {
                 }}
                 placeholder="Search concepts, modules…"
                 aria-label="Search concepts and modules"
-                className="w-[175px] sm:w-[250px] lg:w-[290px] border border-[var(--line)] rounded-[10px] bg-[var(--panel)] text-[var(--ink)] placeholder:text-[var(--muted)] pl-8 pr-3 py-2 text-xs focus:outline-none focus:border-[var(--lime)]"
+                className="w-43.75 sm:w-62.5 lg:w-72.5 border border-(--line) rounded-[10px] bg-(--panel) text-(--ink) placeholder:text-(--muted) pl-8 pr-3 py-2 text-xs focus:outline-none focus:border-(--lime)"
               />
             </div>
 
@@ -351,7 +351,7 @@ export default function App() {
               }
               title="Toggle light/dark theme"
               aria-label="Toggle color theme"
-              className="w-9 h-9 rounded-[10px] border border-[var(--line)] bg-[var(--panel)] text-[var(--muted)] hover:text-[var(--lime)] hover:border-[var(--lime)] grid place-items-center text-sm cursor-pointer transition-colors"
+              className="w-9 h-9 rounded-[10px] border border-(--line) bg-(--panel) text-(--muted) hover:text-(--lime) hover:border-(--lime) grid place-items-center text-sm cursor-pointer transition-colors"
             >
               ◐
             </button>
@@ -364,7 +364,7 @@ export default function App() {
               }}
               title="Show completed modules"
               aria-label="Show completed modules"
-              className="w-9 h-9 rounded-[10px] border border-[var(--line)] bg-[var(--panel)] text-[var(--muted)] hover:text-[var(--lime)] hover:border-[var(--lime)] grid place-items-center text-xs font-mono cursor-pointer transition-colors"
+              className="w-9 h-9 rounded-[10px] border border-(--line) bg-(--panel) text-(--muted) hover:text-(--lime) hover:border-(--lime) grid place-items-center text-xs font-mono cursor-pointer transition-colors"
             >
               ↗
             </button>
@@ -372,7 +372,7 @@ export default function App() {
         </header>
 
         {/* Main Workspace Container */}
-        <main className="w-full max-w-[1380px] mx-auto px-4 sm:px-8 lg:px-12 pb-24 flex-1">
+        <main className="w-full max-w-345 mx-auto px-4 sm:px-8 lg:px-12 pb-24 flex-1">
           {activeWorkspace === 'map' && (
             <KnowledgeMapView
               completedIds={completedIds}
@@ -394,7 +394,7 @@ export default function App() {
           {activeWorkspace === 'interview' && <InterviewLabView />}
 
           {/* Footer */}
-          <footer className="border-t border-[var(--line)] mt-16 pt-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 font-mono text-[10px] text-[var(--muted)]">
+          <footer className="border-t border-(--line) mt-16 pt-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 font-mono text-[10px] text-(--muted)">
             <span>SYSTEMS / MAP · INTERACTIVE ARCHITECTURE & FAANG FIELD GUIDE</span>
             <span>Understand the constraint → choose the primitive → defend the trade-off.</span>
           </footer>
@@ -404,13 +404,13 @@ export default function App() {
       {/* MOBILE BOTTOM NAVIGATION BAR */}
       <nav
         aria-label="Mobile Navigation"
-        className="flex md:hidden fixed bottom-0 inset-x-0 z-30 bg-[var(--bg)]/94 backdrop-blur-xl border-t border-[var(--line)] px-3 py-2 justify-around"
+        className="flex md:hidden fixed bottom-0 inset-x-0 z-30 bg-(--bg)/94 backdrop-blur-xl border-t border-(--line) px-3 py-2 justify-around"
       >
         <button
           type="button"
           onClick={() => navigateSection('00', 'map', 'overview')}
           className={`flex flex-col items-center gap-0.5 font-mono text-[9px] ${
-            activeWorkspace === 'map' ? 'text-[var(--lime)]' : 'text-[var(--muted)]'
+            activeWorkspace === 'map' ? 'text-(--lime)' : 'text-(--muted)'
           }`}
         >
           <span className="text-sm">⌘</span>
@@ -420,7 +420,7 @@ export default function App() {
           type="button"
           onClick={() => navigateSection('02', 'whiteboard')}
           className={`flex flex-col items-center gap-0.5 font-mono text-[9px] ${
-            activeWorkspace === 'whiteboard' ? 'text-[var(--lime)]' : 'text-[var(--muted)]'
+            activeWorkspace === 'whiteboard' ? 'text-(--lime)' : 'text-(--muted)'
           }`}
         >
           <span className="text-sm">▤</span>
@@ -430,7 +430,7 @@ export default function App() {
           type="button"
           onClick={() => navigateSection('03', 'internals')}
           className={`flex flex-col items-center gap-0.5 font-mono text-[9px] ${
-            activeWorkspace === 'internals' ? 'text-[var(--lime)]' : 'text-[var(--muted)]'
+            activeWorkspace === 'internals' ? 'text-(--lime)' : 'text-(--muted)'
           }`}
         >
           <span className="text-sm">◈</span>
@@ -440,7 +440,7 @@ export default function App() {
           type="button"
           onClick={() => navigateSection('04', 'interview')}
           className={`flex flex-col items-center gap-0.5 font-mono text-[9px] ${
-            activeWorkspace === 'interview' ? 'text-[var(--lime)]' : 'text-[var(--muted)]'
+            activeWorkspace === 'interview' ? 'text-(--lime)' : 'text-(--muted)'
           }`}
         >
           <span className="text-sm">↗</span>
@@ -452,7 +452,7 @@ export default function App() {
       <div
         role="status"
         aria-live="polite"
-        className={`fixed bottom-16 md:bottom-6 right-6 z-50 px-3.5 py-2 rounded-[9px] bg-[var(--lime)] text-[#10150c] font-mono font-bold text-[11px] shadow-lg transition-all duration-200 pointer-events-none ${
+        className={`fixed bottom-16 md:bottom-6 right-6 z-50 px-3.5 py-2 rounded-[9px] bg-(--lime) text-[#10150c] font-mono font-bold text-[11px] shadow-lg transition-all duration-200 pointer-events-none ${
           toastMessage
             ? 'opacity-100 translate-y-0'
             : 'opacity-0 translate-y-2.5'
