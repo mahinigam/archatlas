@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { Analytics } from '@vercel/analytics/react';
+import { SpeedInsights } from '@vercel/speed-insights/react';
 import { KnowledgeMapView } from './components/KnowledgeMapView';
 import { WhiteboardLabView } from './components/WhiteboardLabView';
 import { InternalsWorkbenchView } from './components/InternalsWorkbenchView';
@@ -458,6 +460,10 @@ export default function App() {
       >
         {toastMessage || 'Progress saved'}
       </div>
+
+      {/* VERCEL WEB ANALYTICS & CORE WEB VITALS */}
+      <Analytics />
+      <SpeedInsights />
     </div>
   );
 }
