@@ -9,7 +9,7 @@ import { Search, RotateCcw } from 'lucide-react';
 
 type ActiveWorkspace = 'map' | 'whiteboard' | 'internals' | 'interview';
 
-const STORAGE_KEY_COMPLETED = 'archatlas_completed_modules_v1';
+const STORAGE_KEY_COMPLETED = 'archatlas_completed_modules_v2';
 const STORAGE_KEY_THEME = 'archatlas_theme_v1';
 
 export default function App() {
@@ -27,11 +27,11 @@ export default function App() {
   const [completedIds, setCompletedIds] = useState<number[]>(() => {
     try {
       const raw = localStorage.getItem(STORAGE_KEY_COMPLETED);
-      if (!raw) return [1, 2, 3];
+      if (!raw) return [];
       const parsed = JSON.parse(raw);
-      return Array.isArray(parsed) ? parsed : [1, 2, 3];
+      return Array.isArray(parsed) ? parsed : [];
     } catch {
-      return [1, 2, 3];
+      return [];
     }
   });
 
