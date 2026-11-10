@@ -1,0 +1,153 @@
+@import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  --bg: #f3f5f6;
+  --panel: #ffffff;
+  --p2: #edf1f3;
+  --p3: #e5ebef;
+  --ink: #111927;
+  --muted: #566575;
+  --line: #d8e0e5;
+  --soft: #bac6cf;
+  --lime: #547d0d;
+  --lime-ink: #ffffff;
+  --cyan: #087e91;
+  --orange: #a95b08;
+  --rose: #b43e5a;
+  --shadow: 0 22px 60px rgba(29, 45, 57, 0.09);
+  --font-display: 'Bricolage Grotesque', 'Manrope', sans-serif;
+  --font-sans: 'Manrope', system-ui, sans-serif;
+  --font-mono: 'DM Mono', 'JetBrains Mono', monospace;
+}
+
+.dark,
+:root[data-theme="dark"] {
+  --bg: #0a0d14;
+  --panel: #111722;
+  --p2: #151e2b;
+  --p3: #1b2635;
+  --ink: #f2f5f7;
+  --muted: #9ba9b8;
+  --line: #263344;
+  --soft: #344253;
+  --lime: #c6f36a;
+  --lime-ink: #10150c;
+  --cyan: #73d9e8;
+  --orange: #ffb86b;
+  --rose: #ff8e9e;
+  --shadow: 0 24px 70px rgba(0, 0, 0, 0.35);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 84px;
+  }
+
+  body {
+    background-color: var(--bg);
+    color: var(--ink);
+    font-family: var(--font-sans);
+    letter-spacing: -0.01em;
+  }
+
+  h1, h2, h3, .font-display {
+    font-family: var(--font-display);
+  }
+
+  code, pre, .font-mono {
+    font-family: var(--font-mono);
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+.map-radial-bg {
+  background: radial-gradient(ellipse at 49% 45%, rgba(198, 243, 106, 0.055), transparent 62%);
+}
+
+.track-rings {
+  position: relative;
+  overflow: hidden;
+}
+
+.track-rings::after {
+  content: '';
+  position: absolute;
+  width: 80px;
+  height: 80px;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  right: -25px;
+  bottom: -28px;
+  box-shadow: 0 0 0 12px rgba(52, 66, 83, 0.14), 0 0 0 25px rgba(52, 66, 83, 0.09);
+  pointer-events: none;
+}
+
+.eyebrow-line {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--lime);
+}
+
+.eyebrow-line::before {
+  content: '';
+  height: 1px;
+  width: 27px;
+  background: var(--lime);
+}
+
+/* 3D Flashcard Flip */
+.flash-perspective {
+  perspective: 1000px;
+}
+
+.flash-inner {
+  position: relative;
+  min-height: 185px;
+  transform-style: preserve-3d;
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.flash-inner.is-flipped {
+  transform: rotateY(180deg);
+}
+
+.flash-face {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.flash-back {
+  transform: rotateY(180deg);
+}
+
+@keyframes packetFlow {
+  to {
+    stroke-dashoffset: -28;
+  }
+}
+
+.animate-packet-flow {
+  stroke-dasharray: 6 8;
+  animation: packetFlow 0.65s linear infinite;
+}
+
+.animate-packet-overload {
+  stroke-dasharray: 5 5;
+  animation: packetFlow 0.25s linear infinite;
+}
+
+.whiteboard-canvas {
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
