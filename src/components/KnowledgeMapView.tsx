@@ -9,6 +9,7 @@ import {
   Layers,
   AlertTriangle,
   Sparkles,
+  CheckCircle2,
 } from 'lucide-react';
 import { MODULES, CASE_BLUEPRINTS, KnowledgeModule } from '../data/systemDesignData';
 import {
@@ -357,9 +358,10 @@ export const KnowledgeMapView: React.FC<KnowledgeMapViewProps> = ({
                     onClick={() => openModuleLesson(m.id, true)}
                     onMouseEnter={() => setHoveredId(m.id)}
                     onMouseLeave={() => setHoveredId(null)}
-                    className="cursor-pointer outline-none"
+                    className="cursor-pointer outline-none focus-visible:outline-none"
                     role="button"
                     tabIndex={0}
+                    aria-label={`Module ${m.code}: ${m.title}, Track 0${m.cat} (${m.catName}). Status: ${isDone ? 'Completed' : 'Not started'}`}
                     onKeyDown={(e) => {
                       if (e.key === 'Enter' || e.key === ' ') {
                         e.preventDefault();
@@ -367,6 +369,9 @@ export const KnowledgeMapView: React.FC<KnowledgeMapViewProps> = ({
                       }
                     }}
                   >
+                    <title>
+                      {`Module ${m.code}: ${m.title}\nTrack 0${m.cat} · ${m.catName}\nStatus: ${isDone ? 'Completed ✓' : 'Not started'}`}
+                    </title>
                     {isSelected && (
                       <circle
                         cx={x}
@@ -437,10 +442,20 @@ export const KnowledgeMapView: React.FC<KnowledgeMapViewProps> = ({
           {SWIMLANE_LANES.map((track) => {
             const isActiveTrack = filterPart === track.id;
             return (
-              <article
+              <div
                 key={track.id}
+                role="button"
+                tabIndex={0}
+                aria-pressed={isActiveTrack}
+                aria-label={`Track 0${track.id}: ${track.title}. ${track.desc}. Filter modules.`}
                 onClick={() => onFilterPartChange(isActiveTrack ? 'all' : track.id)}
-                className={`track-rings border rounded-[15px] bg-(--panel) p-4 min-h-37 cursor-pointer transition-all hover:-translate-y-0.5 ${
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    onFilterPartChange(isActiveTrack ? 'all' : track.id);
+                  }
+                }}
+                className={`track-rings border rounded-[15px] bg-(--panel) p-4 min-h-37 cursor-pointer transition-all hover:-translate-y-0.5 focus-visible:ring-2 focus-visible:ring-(--lime) focus-visible:outline-none ${
                   isActiveTrack
                     ? 'border-(--lime) shadow-(--shadow)'
                     : 'border-(--line) hover:border-(--soft)'
@@ -458,7 +473,7 @@ export const KnowledgeMapView: React.FC<KnowledgeMapViewProps> = ({
                 <p className="text-[11px] text-(--muted) leading-relaxed max-w-55">
                   {track.desc}
                 </p>
-              </article>
+              </div>
             );
           })}
         </div>
@@ -803,7 +818,11 @@ export const KnowledgeMapView: React.FC<KnowledgeMapViewProps> = ({
                 <div className="font-semibold text-xs text-(--ink) mb-2.5">
                   {activeSupplement.quiz.question}
                 </div>
-                <div className="space-y-1.5">
+                <div
+                  role="radiogroup"
+                  aria-label={`Concept quiz for module ${activeModule.code}`}
+                  className="space-y-1.5"
+                >
                   {activeSupplement.quiz.options.map((opt, idx) => {
                     const picked = quizAnswers[activeModule.id] === idx;
                     const submitted = !!quizSubmitted[activeModule.id];
@@ -821,7 +840,7 @@ export const KnowledgeMapView: React.FC<KnowledgeMapViewProps> = ({
                     return (
                       <label
                         key={idx}
-                        className={`flex items-start gap-2.5 p-2.5 rounded-[9px] border text-xs cursor-pointer transition-colors ${borderClass}`}
+                        className={`flex items-start gap-2.5 p-2.5 rounded-[9px] border text-xs cursor-pointer transition-colors focus-within:ring-2 focus-within:ring-(--lime) ${borderClass}`}
                       >
                         <input
                           type="radio"
@@ -831,7 +850,7 @@ export const KnowledgeMapView: React.FC<KnowledgeMapViewProps> = ({
                             setQuizAnswers((prev) => ({ ...prev, [activeModule.id]: idx }));
                             setQuizSubmitted((prev) => ({ ...prev, [activeModule.id]: false }));
                           }}
-                          className="mt-0.5 accent-(--lime)"
+                          className="mt-0.5 accent-(--lime) focus-visible:outline-none"
                         />
                         <span>{opt}</span>
                       </label>
@@ -840,30 +859,38 @@ export const KnowledgeMapView: React.FC<KnowledgeMapViewProps> = ({
                 </div>
 
                 <div className="flex flex-wrap items-center justify-between gap-2 mt-3.5">
-                  <span className="text-[11px] text-(--muted) flex-1">
+                  <div className="text-[11px] text-(--muted) flex-1">
                     {quizSubmitted[activeModule.id] && (
-                      <span
-                        className={
+                      <div
+                        className={`flex items-start gap-1.5 font-medium ${
                           quizAnswers[activeModule.id] === activeSupplement.quiz.answerIndex
                             ? 'text-(--lime)'
                             : 'text-(--rose)'
-                        }
+                        }`}
                       >
-                        {quizAnswers[activeModule.id] === activeSupplement.quiz.answerIndex
-                          ? 'Correct. '
-                          : 'Not quite. '}
-                        {activeSupplement.quiz.explanation}
-                      </span>
+                        {quizAnswers[activeModule.id] === activeSupplement.quiz.answerIndex ? (
+                          <CheckCircle2 className="w-3.5 h-3.5 shrink-0 mt-0.5" />
+                        ) : (
+                          <AlertTriangle className="w-3.5 h-3.5 shrink-0 mt-0.5" />
+                        )}
+                        <span>
+                          {quizAnswers[activeModule.id] === activeSupplement.quiz.answerIndex
+                            ? 'Correct. '
+                            : 'Not quite. '}
+                          {activeSupplement.quiz.explanation}
+                        </span>
+                      </div>
                     )}
-                  </span>
+                  </div>
                   <button
                     type="button"
+                    disabled={quizAnswers[activeModule.id] === undefined || quizAnswers[activeModule.id] === null}
                     onClick={() => {
                       if (quizAnswers[activeModule.id] !== undefined && quizAnswers[activeModule.id] !== null) {
                         setQuizSubmitted((prev) => ({ ...prev, [activeModule.id]: true }));
                       }
                     }}
-                    className="px-3 py-1.5 rounded-[9px] border border-(--line) bg-(--panel) text-(--ink) font-semibold text-xs hover:border-(--lime) cursor-pointer"
+                    className="px-3 py-1.5 rounded-[9px] border border-(--line) bg-(--panel) text-(--ink) font-semibold text-xs hover:border-(--lime) cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed focus-visible:ring-2 focus-visible:ring-(--lime) focus-visible:outline-none"
                   >
                     Check answer
                   </button>
@@ -1171,11 +1198,21 @@ export const KnowledgeMapView: React.FC<KnowledgeMapViewProps> = ({
             if (e.key === 'Enter' || e.key === ' ') {
               e.preventDefault();
               setFlashFlipped((f) => !f);
+            } else if (e.key === 'ArrowLeft') {
+              e.preventDefault();
+              setFlashFlipped(false);
+              setFlashIndex((i) => (i - 1 + FLASHCARD_DECK.length) % FLASHCARD_DECK.length);
+            } else if (e.key === 'ArrowRight') {
+              e.preventDefault();
+              setFlashFlipped(false);
+              setFlashIndex((i) => (i + 1) % FLASHCARD_DECK.length);
             }
           }}
           tabIndex={0}
           role="button"
-          className="flash-perspective cursor-pointer outline-none"
+          aria-expanded={flashFlipped}
+          aria-label={`Flashcard ${flashIndex + 1} of ${FLASHCARD_DECK.length}: ${currentFlashcard[0]}. Press Enter or Space to flip, Arrow keys to navigate.`}
+          className="flash-perspective cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-(--lime) focus-visible:outline-none rounded-2xl"
         >
           <div className={`flash-inner ${flashFlipped ? 'is-flipped' : ''}`}>
             {/* Front Face */}
@@ -1262,20 +1299,22 @@ export const KnowledgeMapView: React.FC<KnowledgeMapViewProps> = ({
               href={res.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="border border-(--line) bg-(--panel) rounded-[13px] p-4 hover:-translate-y-0.5 hover:border-(--cyan) transition-all flex flex-col justify-between"
+              aria-label={`${res.title} - ${res.tag} (${res.domain})`}
+              className="border border-(--line) bg-(--panel) rounded-[13px] p-4 hover:-translate-y-0.5 hover:border-(--cyan) transition-all flex flex-col justify-between focus-visible:ring-2 focus-visible:ring-(--cyan) focus-visible:outline-none"
             >
               <div>
                 <small className="font-mono text-[9px] text-(--cyan) uppercase tracking-[0.13em]">
                   {res.tag}
                 </small>
                 <h3 className="font-display font-bold text-[15px] text-(--ink) mt-2 mb-1.5 flex items-center justify-between">
-                  {res.title}
-                  <ArrowUpRight className="w-3.5 h-3.5 text-(--muted)" />
+                  <span>{res.title}</span>
+                  <ArrowUpRight className="w-3.5 h-3.5 text-(--muted)" aria-hidden="true" />
                 </h3>
                 <p className="text-[11px] text-(--muted) leading-relaxed">{res.desc}</p>
               </div>
-              <span className="font-mono text-[9px] text-(--muted) mt-3 pt-2 border-t border-(--line)/50 truncate">
-                {res.domain}
+              <span className="font-mono text-[9px] text-(--muted) mt-3 pt-2 border-t border-(--line)/50 truncate flex items-center justify-between">
+                <span>{res.domain}</span>
+                <span className="sr-only">(opens in a new tab)</span>
               </span>
             </a>
           ))}

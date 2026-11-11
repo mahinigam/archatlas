@@ -37,22 +37,34 @@ export const SWIMLANE_EDGES: [number, number][] = [
   [18, 22], [19, 22], [20, 21], [21, 22], [22, 23], [23, 24], [24, 25],
 ];
 
-export const SWIMLANE_LANES = [
+export interface SwimlaneLane {
+  id: number;
+  y: number;
+  h: number;
+  label: string;
+  range: string;
+  title: string;
+  desc: string;
+}
+
+export const SWIMLANE_LANES: SwimlaneLane[] = [
   { id: 1, y: 25, h: 135, label: '01 / FOUNDATIONS', range: '01—04', title: 'Foundations', desc: 'Understand how requests move, what systems promise, and how to size the problem.' },
   { id: 2, y: 195, h: 165, label: '02 / BUILDING BLOCKS', range: '05—11', title: 'Core building blocks', desc: 'Data, caching, traffic distribution, queues, scaling, and fault tolerance.' },
   { id: 3, y: 395, h: 185, label: '03 / ARCHITECTURE & OPERATIONS', range: '12—19', title: 'Architecture & operations', desc: 'Service boundaries, security, observability, cloud, storage, and distributed systems.' },
   { id: 4, y: 610, h: 135, label: '04 / DESIGN & INTERVIEW', range: '20—25', title: 'Design & interview lab', desc: 'Object design, HLD method, case studies, tools, deliberate practice, and mastery.' },
 ];
 
+export interface ModuleQuiz {
+  question: string;
+  options: string[];
+  answerIndex: number;
+  explanation: string;
+}
+
 export interface ModuleInteractiveSupplement {
   flow: string[];
   checks: string[];
-  quiz: {
-    question: string;
-    options: string[];
-    answerIndex: number;
-    explanation: string;
-  };
+  quiz: ModuleQuiz;
 }
 
 export const MODULE_SUPPLEMENTS: Record<number, ModuleInteractiveSupplement> = {
@@ -121,8 +133,8 @@ export const MODULE_SUPPLEMENTS: Record<number, ModuleInteractiveSupplement> = {
     ],
     quiz: {
       question: 'When does a composite B-tree index on (user_id, created_at) help most?',
-      options: ['Filtering only by created_at', 'Filtering by user_id and sorting by created_at', 'Full-text wildcard regex search', 'Eliminating write amplification'],
-      answerIndex: 1,
+      options: ['Filtering only by created_at', 'Full-text wildcard regex search', 'Filtering by user_id and sorting by created_at', 'Eliminating write amplification'],
+      answerIndex: 2,
       explanation: 'Composite B-tree indexes follow left-prefix ordering: equality on user_id followed by range/sort on created_at scans a contiguous range.',
     },
   },
@@ -135,8 +147,8 @@ export const MODULE_SUPPLEMENTS: Record<number, ModuleInteractiveSupplement> = {
     ],
     quiz: {
       question: 'What causes a cache stampede (thundering herd)?',
-      options: ['Too many Redis replicas', 'A hot key expires and thousands of concurrent misses hit the database simultaneously', 'Using LRU instead of LFU', 'Setting TTL jitter'],
-      answerIndex: 1,
+      options: ['Too many Redis replicas', 'Using LRU instead of LFU', 'Setting TTL jitter', 'A hot key expires and thousands of concurrent misses hit the database simultaneously'],
+      answerIndex: 3,
       explanation: 'When a popular key expires, concurrent callers miss simultaneously unless request coalescing (single-flight) or early refresh is used.',
     },
   },
@@ -149,8 +161,8 @@ export const MODULE_SUPPLEMENTS: Record<number, ModuleInteractiveSupplement> = {
     ],
     quiz: {
       question: 'What is the primary advantage of consistent hashing when scaling a stateful cache ring?',
-      options: ['It encrypts all cache keys', 'Only ~1/N of keys relocate when a node joins or leaves instead of nearly all keys', 'It eliminates network partitions', 'It replaces DNS'],
-      answerIndex: 1,
+      options: ['Only ~1/N of keys relocate when a node joins or leaves instead of nearly all keys', 'It encrypts all cache keys', 'It eliminates network partitions', 'It replaces DNS'],
+      answerIndex: 0,
       explanation: 'Modulo hashing (hash % N) remaps almost every key when N changes; consistent hashing only moves keys adjacent on the ring.',
     },
   },
@@ -163,7 +175,7 @@ export const MODULE_SUPPLEMENTS: Record<number, ModuleInteractiveSupplement> = {
     ],
     quiz: {
       question: 'In a 5-replica quorum system (N=5), which (W, R) pair guarantees overlap between write and read sets?',
-      options: ['W=2, R=2', 'W=3, R=3', 'W=1, R=4', 'Both W=3,R=3 and W=1,R=4'],
+      options: ['W=2, R=2', 'W=3, R=3', 'W=1, R=3', 'W=2, R=3'],
       answerIndex: 1,
       explanation: 'W=3, R=3 satisfies W + R > 5 (6 > 5) while also tolerating 2 node failures on both reads and writes.',
     },
@@ -177,8 +189,8 @@ export const MODULE_SUPPLEMENTS: Record<number, ModuleInteractiveSupplement> = {
     ],
     quiz: {
       question: 'Within Apache Kafka, message ordering is guaranteed at what scope?',
-      options: ['Globally across the entire cluster', 'Within a single partition', 'Across all topics in a consumer group', 'Ordering is never preserved'],
-      answerIndex: 1,
+      options: ['Globally across the entire cluster', 'Across all topics in a consumer group', 'Within a single partition', 'Ordering is never preserved'],
+      answerIndex: 2,
       explanation: 'Kafka appends records sequentially per partition; events sharing a partition key preserve strict relative order.',
     },
   },
@@ -191,8 +203,8 @@ export const MODULE_SUPPLEMENTS: Record<number, ModuleInteractiveSupplement> = {
     ],
     quiz: {
       question: 'Why does unbounded queueing in front of a saturated service hurt reliability?',
-      options: ['It reduces memory usage', 'Every caller waits until timeout and retries, multiplying load and exhausting threads', 'It makes p99 faster than p50', 'It bypasses TLS'],
-      answerIndex: 1,
+      options: ['It reduces memory usage', 'It makes p99 faster than p50', 'It bypasses TLS', 'Every caller waits until timeout and retries, multiplying load and exhausting threads'],
+      answerIndex: 3,
       explanation: 'Unbounded queues turn transient spikes into prolonged high latency for all requests; bounded queues + load shedding protect healthy traffic.',
     },
   },
@@ -219,8 +231,8 @@ export const MODULE_SUPPLEMENTS: Record<number, ModuleInteractiveSupplement> = {
     ],
     quiz: {
       question: 'How does the Transactional Outbox pattern avoid dual-write inconsistency?',
-      options: ['By writing to Kafka first and ignoring DB errors', 'By inserting both the business row and outbox event in a single local DB transaction, then relaying asynchronously', 'By disabling database transactions', 'By using sticky sessions'],
-      answerIndex: 1,
+      options: ['By writing to Kafka first and ignoring DB errors', 'By disabling database transactions', 'By inserting both the business row and outbox event in a single local DB transaction, then relaying asynchronously', 'By using sticky sessions'],
+      answerIndex: 2,
       explanation: 'A local ACID transaction guarantees the business state and outbox record commit together; a relay publishes to the broker with at-least-once semantics.',
     },
   },
@@ -233,8 +245,8 @@ export const MODULE_SUPPLEMENTS: Record<number, ModuleInteractiveSupplement> = {
     ],
     quiz: {
       question: 'What vulnerability occurs when an endpoint checks that a JWT is valid but fails to verify the caller owns the requested resource ID?',
-      options: ['SQL Injection', 'Broken Object-Level Authorization (BOLA / IDOR)', 'Cross-Site Scripting', 'DNS Spoofing'],
-      answerIndex: 1,
+      options: ['Broken Object-Level Authorization (BOLA / IDOR)', 'SQL Injection', 'Cross-Site Scripting', 'DNS Spoofing'],
+      answerIndex: 0,
       explanation: 'Valid authentication proves identity, not resource ownership; every data access must authorize the principal against the target object.',
     },
   },
@@ -247,8 +259,8 @@ export const MODULE_SUPPLEMENTS: Record<number, ModuleInteractiveSupplement> = {
     ],
     quiz: {
       question: 'How do you safely rename or drop a database column in zero-downtime production?',
-      options: ['Run ALTER TABLE DROP COLUMN immediately during peak traffic', 'Use expand-and-contract across multiple deployments so old and new code coexist safely', 'Stop all servers for 30 minutes', 'Delete the table and recreate it'],
-      answerIndex: 1,
+      options: ['Run ALTER TABLE DROP COLUMN immediately during peak traffic', 'Stop all servers for 30 minutes', 'Delete the table and recreate it', 'Use expand-and-contract across multiple deployments so old and new code coexist safely'],
+      answerIndex: 3,
       explanation: 'Expand-and-contract adds the new column first, dual-writes/backfills, switches reads, and drops the old column only after no running code references it.',
     },
   },
@@ -275,8 +287,8 @@ export const MODULE_SUPPLEMENTS: Record<number, ModuleInteractiveSupplement> = {
     ],
     quiz: {
       question: 'What happens if a Kubernetes liveness probe checks a slow downstream database?',
-      options: ['The database scales automatically', 'Pods get restarted repeatedly in a crash loop, amplifying the outage instead of recovering', 'Traffic routes to CDN', 'Latency drops to zero'],
-      answerIndex: 1,
+      options: ['The database scales automatically', 'Traffic routes to CDN', 'Pods get restarted repeatedly in a crash loop, amplifying the outage instead of recovering', 'Latency drops to zero'],
+      answerIndex: 2,
       explanation: 'Liveness probes should only verify the local process is not deadlocked; restarting healthy pods during a downstream DB slowdown causes cascading failure.',
     },
   },
@@ -289,8 +301,8 @@ export const MODULE_SUPPLEMENTS: Record<number, ModuleInteractiveSupplement> = {
     ],
     quiz: {
       question: 'Why are presigned URLs preferred for large client video or image uploads?',
-      options: ['They compress video in the browser', 'Clients upload bytes directly to object storage without tying up application server threads and bandwidth', 'They bypass authentication', 'They store blobs inside PostgreSQL'],
-      answerIndex: 1,
+      options: ['Clients upload bytes directly to object storage without tying up application server threads and bandwidth', 'They compress video in the browser', 'They bypass authentication', 'They store blobs inside PostgreSQL'],
+      answerIndex: 0,
       explanation: 'The application authenticates and authorizes the upload once, issuing a short-lived signed URL so heavy byte transfer goes straight to object storage.',
     },
   },
@@ -303,8 +315,8 @@ export const MODULE_SUPPLEMENTS: Record<number, ModuleInteractiveSupplement> = {
     ],
     quiz: {
       question: 'Why does pure fan-out-on-write struggle when a celebrity with 50M followers posts?',
-      options: ['Read latency becomes too slow', 'A single post triggers 50M asynchronous timeline writes, creating massive write amplification and queue lag', 'WebSockets stop working', 'Object storage runs out of space'],
-      answerIndex: 1,
+      options: ['Read latency becomes too slow', 'WebSockets stop working', 'Object storage runs out of space', 'A single post triggers 50M asynchronous timeline writes, creating massive write amplification and queue lag'],
+      answerIndex: 3,
       explanation: 'Hybrid fan-out pushes to normal followers on write while merging celebrity posts on read.',
     },
   },
@@ -317,8 +329,8 @@ export const MODULE_SUPPLEMENTS: Record<number, ModuleInteractiveSupplement> = {
     ],
     quiz: {
       question: 'How does a fencing token protect a storage resource when a lock holder experiences a long GC pause?',
-      options: ['It prevents garbage collection', 'Storage rejects any write carrying a token lower than the highest token already seen', 'It synchronizes NTP clocks', 'It disables lock expiration'],
-      answerIndex: 1,
+      options: ['It prevents garbage collection', 'It synchronizes NTP clocks', 'Storage rejects any write carrying a token lower than the highest token already seen', 'It disables lock expiration'],
+      answerIndex: 2,
       explanation: 'If Client 1 pauses past its lease expiry and Client 2 acquires token 34, storage rejects Client 1’s delayed write carrying stale token 33.',
     },
   },
@@ -331,8 +343,8 @@ export const MODULE_SUPPLEMENTS: Record<number, ModuleInteractiveSupplement> = {
     ],
     quiz: {
       question: 'In a Low-Level Design (LLD) interview for a booking or payment component, what prevents invalid lifecycle transitions?',
-      options: ['Global mutable booleans', 'An explicit state machine enforcing allowed transitions and invariants', 'Adding more threads', 'Storing everything as untyped strings'],
-      answerIndex: 1,
+      options: ['An explicit state machine enforcing allowed transitions and invariants', 'Global mutable booleans', 'Adding more threads', 'Storing everything as untyped strings'],
+      answerIndex: 0,
       explanation: 'Explicit state machines define legal transitions (e.g., CREATED -> AUTHORIZED -> CAPTURED) and reject out-of-order or duplicate events.',
     },
   },
@@ -345,8 +357,8 @@ export const MODULE_SUPPLEMENTS: Record<number, ModuleInteractiveSupplement> = {
     ],
     quiz: {
       question: 'What should happen before drawing architecture?',
-      options: ['Choose a database vendor', 'Clarify scope and quality requirements', 'Add a message queue', 'Optimise for one billion users'],
-      answerIndex: 1,
+      options: ['Choose a database vendor', 'Add a message queue', 'Clarify scope and quality requirements', 'Optimise for one billion users'],
+      answerIndex: 2,
       explanation: 'Requirements define what architecture must achieve; estimates and design follow.',
     },
   },
@@ -359,8 +371,8 @@ export const MODULE_SUPPLEMENTS: Record<number, ModuleInteractiveSupplement> = {
     ],
     quiz: {
       question: 'Which concern is central to payment design?',
-      options: ['Only low-latency reads', 'Idempotency, durable ledger, and reconciliation', 'A CDN for every write', 'Eventual consistency for balances'],
-      answerIndex: 1,
+      options: ['Only low-latency reads', 'A CDN for every write', 'Eventual consistency for balances', 'Idempotency, durable ledger, and reconciliation'],
+      answerIndex: 3,
       explanation: 'Financial workflows need duplicate protection, auditable records, and reconciliation with payment rails.',
     },
   },
@@ -373,8 +385,8 @@ export const MODULE_SUPPLEMENTS: Record<number, ModuleInteractiveSupplement> = {
     ],
     quiz: {
       question: 'Best reason to add Kafka?',
-      options: ['Make architecture look scalable', 'Need retained events, replay, or decoupled consumers', 'Every backend needs Kafka', 'Remove database transactions'],
-      answerIndex: 1,
+      options: ['Need retained events, replay, or decoupled consumers', 'Make architecture look scalable', 'Every backend needs Kafka', 'Remove database transactions'],
+      answerIndex: 0,
       explanation: 'Choose technology after a requirement; Kafka is useful when its log, partition, and consumer model solve a real problem.',
     },
   },
@@ -387,8 +399,8 @@ export const MODULE_SUPPLEMENTS: Record<number, ModuleInteractiveSupplement> = {
     ],
     quiz: {
       question: 'Strongest evidence you understand a design?',
-      options: ['You watched the full playlist', 'You can adapt it when requirements change and defend the trade-off', 'You memorised a company diagram', 'You know every cloud product name'],
-      answerIndex: 1,
+      options: ['You watched the full playlist', 'You memorised a company diagram', 'You can adapt it when requirements change and defend the trade-off', 'You know every cloud product name'],
+      answerIndex: 2,
       explanation: 'Transfer and adaptation reveal understanding much better than diagram recall.',
     },
   },
@@ -401,14 +413,16 @@ export const MODULE_SUPPLEMENTS: Record<number, ModuleInteractiveSupplement> = {
     ],
     quiz: {
       question: 'Which statement demonstrates design judgement?',
-      options: ['I always use microservices', 'I choose this for the requirement; this is the cost and revisit condition', 'This is how a famous company does it', 'We can scale infinitely'],
-      answerIndex: 1,
+      options: ['I always use microservices', 'This is how a famous company does it', 'We can scale infinitely', 'I choose this for the requirement; this is the cost and revisit condition'],
+      answerIndex: 3,
       explanation: 'Strong answers connect constraints to choices, state costs, and identify what would change the decision.',
     },
   },
 };
 
-export const FLASHCARD_DECK: [string, string][] = [
+export type Flashcard = [term: string, definition: string];
+
+export const FLASHCARD_DECK: Flashcard[] = [
   ['Latency vs throughput', 'Latency is time per operation; throughput is completed work per unit time. Measure percentiles because tail latency reveals queueing and dependency problems.'],
   ['Availability vs durability', 'Availability is whether a service responds; durability is whether acknowledged data survives defined failures. A service can be available but lose data, or durable but temporarily unavailable.'],
   ['CAP theorem', 'During a network partition, a distributed data system cannot provide both linearizable consistency and availability for every operation. Decide which operations reject, defer, or serve stale data.'],
@@ -429,9 +443,21 @@ export const FLASHCARD_DECK: [string, string][] = [
   ['Presigned URL', 'A short-lived, scoped bearer capability lets a client transfer bytes directly to object storage. Verify the object after upload.'],
   ['Backpressure', 'Slow or reject producers when downstream consumers cannot keep up, preventing unbounded queues and resource exhaustion.'],
   ['Design interview signal', 'For every choice: state the requirement, why the choice fits, its cost, and what changed assumption would make you revisit it.'],
+  ['Raft consensus', 'A leader-based consensus algorithm providing linearizable distributed state replication. Tolerates up to (N-1)/2 node failures by requiring a majority quorum (N/2 + 1) for both leader election and log entry commit.'],
+  ['LSM-tree vs B+tree', 'B+trees update disk pages in-place, optimizing for fast O(log N) point and range reads. LSM-trees append writes sequentially to an in-memory MemTable and immutable disk SSTables, maximizing write throughput at the cost of background compaction and read amplification.'],
+  ['Bloom filter', 'A space-efficient probabilistic bit array that tests set membership with zero false negatives and a configurable false positive rate. Used in front of disk reads (LSM SSTables, Cassandra, Redis) to skip querying keys that do not exist.'],
+  ['Double-entry ledger', 'A financial accounting pattern where every transaction creates at least two immutable balancing entries (Debit and Credit) summing to exactly zero. Balances are derived by summing immutable journal entries rather than updating a mutable balance column.'],
+  ['Geospatial H3 hexagons', 'Uber’s discrete global grid system that partitions the Earth into hexagonal cells. Unlike square geohashes where diagonals are 1.41x further, all 6 neighbors of an H3 hexagon share identical center distances, making radius searches uniform.'],
+  ['Fencing tokens', 'A monotonically increasing counter issued by a distributed lock manager (e.g., Zookeeper/etcd). Storage systems reject stale writes from paused clients (e.g., during long GC pauses) whose fencing token is lower than the current highest token seen.'],
 ];
 
-export const EIGHT_WEEK_PLAN = [
+export interface StudyPlanWeek {
+  wk: string;
+  title: string;
+  desc: string;
+}
+
+export const EIGHT_WEEK_PLAN: StudyPlanWeek[] = [
   { wk: 'WK 01', title: 'Request path + requirements', desc: 'Modules 01–04. Draw a request lifecycle; estimate QPS, storage, and bandwidth. Design a basic Pastebin.' },
   { wk: 'WK 02', title: 'Data + caching', desc: 'Modules 05–06. Model access patterns, indexes, cache-aside, invalidation, and stampede protection.' },
   { wk: 'WK 03', title: 'Traffic + distributed foundations', desc: 'Modules 07–08. Load balancing, replication, consistency, partitioning, and failure assumptions.' },
@@ -442,7 +468,13 @@ export const EIGHT_WEEK_PLAN = [
   { wk: 'WK 08', title: 'Interview simulation', desc: 'Modules 24–25. Do timed mocks, record gaps, revise trade-offs, and repeat the weakest design.' },
 ];
 
-export const HLD_INTERVIEW_LOOP = [
+export interface HldInterviewStep {
+  step: string;
+  title: string;
+  desc: string;
+}
+
+export const HLD_INTERVIEW_LOOP: HldInterviewStep[] = [
   { step: '00–05', title: 'Clarify the problem', desc: 'Users, core flows, scope boundaries, and measurable quality goals.' },
   { step: '05–09', title: 'Estimate the load', desc: 'DAU, reads/writes, average and peak QPS, storage, bandwidth.' },
   { step: '09–14', title: 'API + data model', desc: 'Contracts, entities, keys, indexes, and access patterns.' },
@@ -451,7 +483,15 @@ export const HLD_INTERVIEW_LOOP = [
   { step: '38–45', title: 'Trade-offs + wrap-up', desc: 'State bottlenecks, failure modes, observability, cost, and next steps.' },
 ];
 
-export const REFERENCE_LIBRARY = [
+export interface ReferenceResource {
+  tag: string;
+  title: string;
+  desc: string;
+  url: string;
+  domain: string;
+}
+
+export const REFERENCE_LIBRARY: ReferenceResource[] = [
   { tag: 'Open source · Handbook', title: 'System Design Primer', desc: 'Broad topic map, interview prompts, and design exercises. Excellent for structured revision.', url: 'https://github.com/donnemartin/system-design-primer', domain: 'github.com/donnemartin/system-design-primer' },
   { tag: 'Google · Reliability', title: 'Site Reliability Engineering', desc: 'SLIs, SLOs, error budgets, monitoring, incident response, and reliable services.', url: 'https://sre.google/sre-book/table-of-contents/', domain: 'sre.google/sre-book' },
   { tag: 'AWS · Engineering', title: 'AWS Builders’ Library', desc: 'Real engineering lessons on timeouts, retries, idempotency, overload, and distributed systems.', url: 'https://aws.amazon.com/builders-library/', domain: 'aws.amazon.com/builders-library' },

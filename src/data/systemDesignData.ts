@@ -1,9 +1,22 @@
 import { WhiteboardNode, WhiteboardEdge } from '../utils/systemPhysics';
 
+export type ModuleCategory = 1 | 2 | 3 | 4;
+
+export type ModuleCategoryName =
+  | 'Foundation'
+  | 'Building Blocks'
+  | 'Architecture & Ops'
+  | 'FAANG Interview';
+
+export interface KnowledgeModulePoint {
+  label: string;
+  text: string;
+}
+
 export interface KnowledgeModule {
   id: number;
-  cat: 1 | 2 | 3 | 4;
-  catName: string;
+  cat: ModuleCategory;
+  catName: ModuleCategoryName;
   code: string;
   title: string;
   x: number;
@@ -11,7 +24,7 @@ export interface KnowledgeModule {
   deps: number[];
   mental: string;
   diagram: string;
-  points: { label: string; text: string }[];
+  points: KnowledgeModulePoint[];
   table: string[][];
   signal: string;
 }
@@ -905,11 +918,16 @@ The downside is [Trade-off W], which we mitigate by [Mitigation M]."`,
   },
 ];
 
+export interface CaseBlueprintDecision {
+  title: string;
+  detail: string;
+}
+
 export interface CaseBlueprint {
   name: string;
   scale: string;
   arch: string;
-  decisions: { title: string; detail: string }[];
+  decisions: CaseBlueprintDecision[];
 }
 
 export const CASE_BLUEPRINTS: CaseBlueprint[] = [
@@ -1144,18 +1162,25 @@ export const WHITEBOARD_PRESETS: Record<string, WhiteboardPreset> = {
   },
 };
 
+export interface MockInterviewChaosProbe {
+  btn: string;
+  ans: string;
+}
+
+export interface MockInterviewPhase {
+  time: string;
+  name: string;
+  signal: string;
+  interviewer: string;
+  candidate: string;
+  diagram: string;
+  chaos: MockInterviewChaosProbe[];
+}
+
 export interface MockInterviewScenario {
   id: string;
   title: string;
-  phases: {
-    time: string;
-    name: string;
-    signal: string;
-    interviewer: string;
-    candidate: string;
-    diagram: string;
-    chaos: { btn: string; ans: string }[];
-  }[];
+  phases: MockInterviewPhase[];
 }
 
 export const MOCK_INTERVIEWS: MockInterviewScenario[] = [
@@ -1231,35 +1256,55 @@ CREATE TABLE seats (
     title: 'WhatsApp / Discord (2B Users Real-Time Chat)',
     phases: [
       {
-        time: '00:00 - 15:00',
-        name: '01. Scale Math & Stateful Routing',
+        time: '00:00 - 05:00',
+        name: '01. Requirements & Scope',
+        signal: 'E2EE Signal protocol constraints, 100B msgs/day scale math, and CP ordering per conversation.',
+        interviewer: 'Design a global real-time chat platform like WhatsApp for 2 Billion users. What scope and scale parameters are you assuming?',
+        candidate: 'Let us define the boundaries. Functional Requirements: (1) 1-on-1 and group chats (up to 1,000 members), (2) Real-time delivery with three status states (Sent, Delivered, Read receipts), (3) Media message uploads via presigned URLs. Non-Functional Requirements: Ultra-low latency (P99 message delivery < 100ms), High Availability (99.999% uptime for core chat), Strict chronological ordering per conversation, and zero server-side plaintext storage (End-to-End Encryption). Scale: 2B DAU sending 50 msgs/day = 100B msgs/day (~1.15M write QPS, peak 3M QPS).',
+        diagram: `FUNCTIONAL SCOPE:                    NON-FUNCTIONAL TARGETS:
+1. 1-on-1 & Group Chats (<=1,000)   ├── Delivery Latency P99 < 100ms
+2. Sent / Delivered / Read Receipts ├── 100B msgs/day (~1.15M write QPS)
+3. End-to-End Encryption (Signal)   └── Strict Per-Chat Monotonic Ordering`,
+        chaos: [
+          {
+            btn: 'Probe: Why cap WhatsApp group chats at 1,000 members?',
+            ans: 'Because WhatsApp uses End-to-End Encryption (Signal Protocol) where a group message is encrypted with unique pairwise keys and fanned out to every recipient device on client send. Discord or Slack support 500k-member channels because messages are not E2EE per-device and leverage Fan-Out-on-Read.',
+          },
+        ],
+      },
+      {
+        time: '05:00 - 15:00',
+        name: '02. Scale Math & Stateful Gateway Routing',
         signal: '1.15M Write QPS · Epoll WebSocket Gateways · Redis Session Registry.',
-        interviewer: 'Design WhatsApp supporting 1-on-1 chat, group chat up to 1,000 members, and read receipts for 2 Billion users.',
-        candidate: '2B DAU sending 50 messages/day equals 100B messages/day (~1.15M write QPS, peak 3M QPS). Each Chat Gateway holds 50k concurrent TCP WebSockets tuned via Linux epoll. A Redis Session Registry maps user_id -> gateway_host so Gateway 1 can route messages to Gateway 42 over internal gRPC.',
+        interviewer: 'How do 2 Billion clients maintain connections and how does Gateway A locate and route messages to Gateway B?',
+        candidate: 'Each Chat Gateway holds ~50k concurrent TCP WebSockets managed via Linux epoll non-blocking event loops. A Redis Session Registry cluster maps active user_id -> gateway_pod_ip. When User A posts a message for User B, Gateway 01 queries Redis, discovers User B is connected to Gateway 42, and forwards the payload over internal multiplexed gRPC for instant client push.',
         diagram: `[User A] ══WS══► [Gateway 01] ──1. Lookup B──► [Redis Session Registry]
                       │
                       ├──2. Persist──► [ScyllaDB: PRIMARY KEY ((chat_id), msg_id DESC)]
                       └──3. gRPC Push─► [Gateway 42] ══WS══► [User B (Online)]`,
         chaos: [
           {
-            btn: 'Chaos: 1M users reconnect after network blip!',
-            ans: 'A synchronized reconnection storm will overload Auth and Redis. Clients must use Exponential Backoff with Full Jitter on WebSocket reconnects, and Gateways shed non-critical Presence ("last seen") updates first.',
+            btn: 'Chaos: 1M users reconnect after an edge network blip!',
+            ans: 'A synchronized reconnection storm will crush Auth services and Redis. Gateways require clients to connect with Exponential Backoff + Full Jitter, use TLS session resumption (0-RTT), and throttle non-critical Presence ("last seen / typing") updates first.',
           },
         ],
       },
       {
         time: '15:00 - 45:00',
-        name: '02. Storage Engine & Group Fan-Out',
+        name: '03. Deep Dive: LSM Storage & Offline Queueing',
         signal: 'ScyllaDB LSM-Trees for append-heavy chat + Snowflake time-ordered clustering key.',
-        interviewer: 'Which database stores 100B messages/day and how do you order messages reliably across clocks?',
-        candidate: 'B+Tree SQL databases suffer severe random I/O amplification at 1.15M writes/sec. We use ScyllaDB/Cassandra (LSM-Tree append-only MemTable + SSTables) with composite primary key ((chat_id), message_id DESC) where message_id is a 64-bit Snowflake ID so messages sort chronologically on disk without secondary indexes.',
+        interviewer: 'Which database stores 100B messages/day, how are messages ordered, and how do you handle offline users?',
+        candidate: 'Relational B+Tree databases suffer severe random I/O write amplification under 1.15M writes/sec. We use ScyllaDB/Cassandra (LSM-tree append-only MemTable + immutable SSTables) partitioned by ((chat_id), message_id DESC) where message_id is a 64-bit Snowflake ID so messages sort chronologically on disk without secondary indexes. For offline users, we store an unread inbox queue in Redis/Postgres and dispatch an encrypted APNs/FCM push notification waking the mobile app.',
         diagram: `ScyllaDB Wide-Column Layout:
-Partition Key: chat_id (Hashes chat to owning shard ring node)
-Clustering Key: message_id DESC (64-bit Snowflake -> contiguous disk range scan)`,
+Partition Key: chat_id (Hashes conversation to owning shard ring node)
+Clustering Key: message_id DESC (64-bit Snowflake -> contiguous disk range scan)
+
+Offline Delivery:
+[Gateway] ──User Offline──► [Push Dispatcher] ──► [APNs / FCM Push]`,
         chaos: [
           {
-            btn: 'Probe: Why cap WhatsApp groups at 1,000 members?',
-            ans: 'Because WhatsApp uses End-to-End Encryption (Signal Protocol) with Fan-Out-on-Write per recipient device. Discord supports 500k-user servers because channels are not E2EE per-device and use Fan-Out-on-Read for passive members.',
+            btn: 'Chaos: Two users send messages concurrently with out-of-sync local clocks!',
+            ans: 'Never trust client device clocks for ordering. Message IDs are generated by our gateway using 64-bit Snowflake IDs or server-side monotonic sequence counters per chat_id. Clients render chat bubbles ordered strictly by server-assigned message_id.',
           },
         ],
       },
@@ -1270,17 +1315,56 @@ Clustering Key: message_id DESC (64-bit Snowflake -> contiguous disk range scan)
     title: 'Uber / Lyft (Real-Time Geospatial Dispatch)',
     phases: [
       {
-        time: '00:00 - 45:00',
-        name: '01. Uber H3 Hexagonal Indexing & Dispatch Lock',
+        time: '00:00 - 05:00',
+        name: '01. Requirements & Ingestion Math',
+        signal: '2.5M GPS writes/sec, <100ms dispatch latency, and CP driver lock.',
+        interviewer: 'Design the real-time driver location tracking and dispatch matching engine for Uber/Lyft.',
+        candidate: 'Let us align on functional and non-functional requirements. Functional: (1) Active drivers broadcast GPS every 4 seconds, (2) Riders request a pickup and match with the closest available driver within 2km, (3) Driver accepts or rejects the dispatch offer within 15 seconds. Non-Functional: Ingest 2.5M GPS writes/sec (10M active drivers ÷ 4s), sub-100ms P99 matching latency, High Availability for location pings, and Zero Double-Dispatch (Strict CP: two riders must never be dispatched to the same driver simultaneously).',
+        diagram: `SCALE & BOTTLENECK MATH:
+10M Active Drivers / 4s Ping Interval = 2,500,000 Writes/sec
+SQL B+Tree Lat/Lng Index ──► Disk I/O Wall at ~15k QPS
+Required: In-Memory Spatial Index (Redis H3) + Atomic Dispatch Locks`,
+        chaos: [
+          {
+            btn: 'Probe: Why not store live GPS updates in Postgres with PostGIS?',
+            ans: 'At 2.5M updates/second, PostGIS spatial B-Tree or R-Tree updates require in-place page writes and massive WAL I/O. Ephemeral live location has a 15-second lifespan and belongs entirely in RAM (Redis), while trip history breadcrumbs are buffered via Kafka into cold S3/Parquet analytics.',
+          },
+        ],
+      },
+      {
+        time: '05:00 - 15:00',
+        name: '02. Geospatial Indexing: H3 Hexagons vs Geohashes',
         signal: 'Why H3 Hexagons beat SQL Lat/Lng and Quadtrees for 2.5M GPS writes/sec.',
-        interviewer: '10M active drivers send GPS pings every 4 seconds. How do you ingest 2.5M writes/sec and match riders within 2km in under 100ms?',
-        candidate: 'SQL lat/lng range scans and dynamic Quadtree rebalancing choke at 2.5M writes/sec. Instead, we quantize the Earth into Uber H3 Hexagons (Resolution 8 ≈ 0.7 km²). Every GPS ping maps in O(1) math to an h3_cell_id and writes to an in-memory Redis cluster with a 15-second TTL. Matching queries the center hexagon plus its 6 equidistant neighbor rings in parallel.',
+        interviewer: 'How do you structure the geospatial data in memory to query the closest drivers in O(1) time?',
+        candidate: 'We quantize geographic coordinates into Uber H3 Hexagons (Resolution 8 ≈ 0.7 km² area). Every GPS ping (lat, lng) maps in O(1) trigonometric math to an H3 index string (e.g. "8828308281fffff") and is stored in a Redis Geo/SET with a 15-second TTL. To find drivers for a rider, we query the rider’s center hexagon plus its 1st K-Ring (the 6 immediate neighbor hexagons) in parallel.',
         diagram: `Driver GPS (37.7749, -122.4194) ──O(1) Math──► H3 Hex ID: "8828308281fffff"
-Match Query: K-Ring(center_hex, k=1) ──► Queries center hex + 6 neighbor hexagons in O(1)`,
+Match Query: K-Ring(center_hex, k=1) ──► Queries center hex + 6 neighbor hexagons in O(1)
+Hexagon Advantage: All 6 neighbors are equidistant (d=1.0) vs Square Geohashes (diagonal d=1.41)`,
         chaos: [
           {
             btn: 'Probe: Why Hexagons over Square Geohashes?',
-            ans: 'In a square grid, diagonal neighbors are √2 (1.41x) further from the center than edge neighbors. In a hexagonal grid, all 6 neighbors are the exact same Euclidean distance from the center, making ETA radius searches uniform.',
+            ans: 'In a square grid, diagonal neighbors are √2 (1.41x) further from the center than edge neighbors, creating directional distortion. In a hexagonal grid, all 6 neighbors share the exact same Euclidean distance from the center, making radial ETA calculations uniform.',
+          },
+        ],
+      },
+      {
+        time: '15:00 - 45:00',
+        name: '03. Deep Dive: Atomic Dispatch Locks & Surge State',
+        signal: 'Distributed atomic driver locking via Redis SET NX EX 15 and timeout failover.',
+        interviewer: 'How do you prevent two nearby riders from matching the same driver at the same millisecond, and what happens if a driver does not respond?',
+        candidate: 'When the Matching Service selects candidate Driver D1, it attempts an atomic Redis lock: SET driver_lock:D1 rider_R1 NX EX 15. If the lock succeeds, we push a dispatch card to D1 with a 15-second countdown. If D1 accepts, we transition ride state to MATCHED in PostgreSQL. If D1 rejects or the 15s lock expires, the lock is released and the Matching Service instantly fails over to candidate D2 from the H3 neighbor set.',
+        diagram: `MATCHING & DISPATCH LOCK FLOW:
+[Rider Req] ──► [Match Svc] ──► Find D1 in H3 Ring
+                      │
+                      ├──SET driver_lock:D1 rider_R1 NX EX 15
+                      ├──SUCCESS ──► Push Offer to D1 (15s UI countdown)
+                      │               ├── Accept ──► Postgres ACID Commit
+                      │               └── Reject/Timeout ──► Release Lock & Match D2
+                      └──FAIL (Locked) ──► Immediately evaluate next driver D2`,
+        chaos: [
+          {
+            btn: 'Chaos: Driver accepts at 14.9s right as Redis lock expires!',
+            ans: 'To prevent split-brain dispatch, the final acceptance commits to PostgreSQL using optimistic concurrency control: UPDATE rides SET driver_id = D1, status = ACCEPTED WHERE id = R1 AND status = PENDING. If another rider seized D1 during the 100ms network propagation window, the database constraint rejects the second accept and notifies the driver.',
           },
         ],
       },
@@ -1323,7 +1407,7 @@ if tokens == nil then
   last_updated = now
 else
   local elapsed = math.max(0, now - last_updated)
-  tokens = Math.min(capacity, tokens + (elapsed * refill_rate))
+  tokens = math.min(capacity, tokens + (elapsed * refill_rate))
   last_updated = now
 end
 
@@ -1440,6 +1524,13 @@ class ConsistentHashRing:
             insort(self.ring_keys, vnode_hash)
             self.ring_map[vnode_hash] = physical_node
 
+    def remove_node(self, physical_node: str) -> None:
+        for i in range(self.vnodes):
+            vnode_hash = self._hash(f"{physical_node}#vnode{i}")
+            if vnode_hash in self.ring_map:
+                del self.ring_map[vnode_hash]
+                self.ring_keys.remove(vnode_hash)
+
     def get_node(self, item_key: str) -> str:
         if not self.ring_keys:
             raise RuntimeError("Hash ring is empty")
@@ -1507,10 +1598,16 @@ export class SnowflakeIDGenerator {
   },
 ];
 
+export interface GauntletOption {
+  title: string;
+  desc: string;
+  ok: boolean;
+}
+
 export interface GauntletQuestion {
   id: number;
   q: string;
-  opts: { title: string; desc: string; ok: boolean }[];
+  opts: GauntletOption[];
   verdict: string;
 }
 
@@ -1629,5 +1726,74 @@ export const GAUNTLET_QUESTIONS: GauntletQuestion[] = [
     ],
     verdict:
       'OFFSET 100000 is O(N)—the database walks and discards 100,000 index entries before returning 20 rows. Keyset Cursor Pagination jumps directly to the composite B+Tree index position (user_id, created_at DESC, id DESC) in O(log N) time (< 2ms).',
+  },
+  {
+    id: 6,
+    q: 'Martin Kleppmann demonstrated a critical flaw when distributed locks guard shared storage without fencing tokens. Why does a distributed lock alone fail during a Stop-the-World GC pause?',
+    opts: [
+      {
+        title: 'A. Long GC pause causes lease expiry while the client still believes it holds the lock',
+        desc: 'The lock expires during the pause, another client acquires the lock, and the paused client wakes up and writes stale/corrupt data.',
+        ok: true,
+      },
+      {
+        title: 'B. Garbage collectors automatically reset TCP connections',
+        desc: 'JVM GC cancels all in-flight network requests automatically.',
+        ok: false,
+      },
+      {
+        title: 'C. Redis requires NTP synchronization across all clients',
+        desc: 'Clock drift disables single-threaded execution in Redis.',
+        ok: false,
+      },
+    ],
+    verdict:
+      'A process can pause at any time (GC pause, hypervisor descheduling, page fault). During the pause, its lease expires and Client 2 acquires the lock. When Client 1 resumes, it has no awareness time passed and issues its write. Storage must reject writes carrying stale fencing tokens (token < highest_token_seen).',
+  },
+  {
+    id: 7,
+    q: 'A 5-node Raft consensus cluster experiences a network split into Partition A (2 nodes, including existing Leader) and Partition B (3 nodes). What happens to write requests sent to Partition A?',
+    opts: [
+      {
+        title: 'A. The leader in Partition A commits writes locally to preserve availability',
+        desc: 'Raft defaults to AP mode during network splits.',
+        ok: false,
+      },
+      {
+        title: 'B. The leader accepts entries into its log but cannot commit them due to lack of majority quorum',
+        desc: 'Entries require acknowledgment from (5/2 + 1) = 3 nodes; Partition A only has 2 nodes so writes remain uncommitted and time out.',
+        ok: true,
+      },
+      {
+        title: 'C. Partition B refuses to elect a new leader until Partition A reconnects',
+        desc: 'Followers cannot run elections without approval from the old leader.',
+        ok: false,
+      },
+    ],
+    verdict:
+      'Raft requires a strict majority quorum (3 of 5 nodes) to commit any entry. The leader in Partition A cannot reach 3 nodes, so its writes never commit and clients receive timeouts. Partition B has 3 nodes (a valid majority), elects a new leader, and safely commits writes.',
+  },
+  {
+    id: 8,
+    q: 'In an eCommerce payment saga, the orchestrator invokes POST /charge on the Payment Gateway. The HTTP request times out after 10 seconds. What is the safest next action?',
+    opts: [
+      {
+        title: 'A. Immediately execute compensating transactions to cancel the order',
+        desc: 'Assume timeout equals transaction failure and refund the user.',
+        ok: false,
+      },
+      {
+        title: 'B. Re-submit POST /charge with a new random transaction ID',
+        desc: 'Keep charging until the payment processor returns HTTP 200.',
+        ok: false,
+      },
+      {
+        title: 'C. Query payment status using the original Idempotency Key before deciding to proceed or compensate',
+        desc: 'A timeout means the outcome is unknown; the card may already have been charged before the response was lost.',
+        ok: true,
+      },
+    ],
+    verdict:
+      'A network timeout does not mean the operation failed—the gateway may have processed the charge but dropped the return packet. Firing a compensation or blindly re-submitting with a new ID causes lost revenue or double-charging. Query GET /charges/{idempotency_key} to determine the ground truth first.',
   },
 ];

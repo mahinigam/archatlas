@@ -48,6 +48,14 @@ export const WhiteboardLabView: React.FC<WhiteboardLabViewProps> = ({
   const [connectMode, setConnectMode] = useState<boolean>(false);
   const [connectSourceId, setConnectSourceId] = useState<string | null>(null);
   const [chaosMode, setChaosMode] = useState<boolean>(false);
+  const [statusNotice, setStatusNotice] = useState<string | null>(null);
+
+  const showNotice = (msg: string) => {
+    setStatusNotice(msg);
+    setTimeout(() => {
+      setStatusNotice((prev) => (prev === msg ? null : prev));
+    }, 2500);
+  };
 
   const svgRef = useRef<SVGSVGElement | null>(null);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
@@ -244,6 +252,89 @@ export const WhiteboardLabView: React.FC<WhiteboardLabViewProps> = ({
       window.removeEventListener('mouseup', handleGlobalMouseUp);
     };
   }, []);
+
+  // Global keydown handler to cancel connectMode or chaosMode on Escape
+  useEffect(() => {
+    const handleGlobalKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        if (connectMode || chaosMode) {
+          setConnectMode(false);
+          setConnectSourceId(null);
+          setChaosMode(false);
+          showNotice('Interactive wiring/chaos mode cancelled');
+        }
+      }
+    };
+    window.addEventListener('keydown', handleGlobalKeyDown);
+    return () => {
+      window.removeEventListener('keydown', handleGlobalKeyDown);
+    };
+  }, [connectMode, chaosMode]);
+
+  const handleNodeKeyDown = (
+    e: React.KeyboardEvent<SVGGElement>,
+    node: WhiteboardNode
+  ) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      if (chaosMode) {
+        if (node.type !== 'client') {
+          setNodes((prev) =>
+            prev.map((n) => (n.id === node.id ? { ...n, down: !n.down } : n))
+          );
+        }
+        return;
+      }
+
+      if (connectMode) {
+        if (!connectSourceId) {
+          setConnectSourceId(node.id);
+        } else if (connectSourceId !== node.id) {
+          const exists = edges.some(
+            (ed) => ed.from === connectSourceId && ed.to === node.id
+          );
+          if (!exists) {
+            setEdges((prev) => [...prev, { from: connectSourceId, to: node.id }]);
+            showNotice('Link created successfully');
+          }
+          setConnectSourceId(null);
+          setConnectMode(false);
+        }
+        return;
+      }
+
+      setSelectedNodeId(node.id);
+    } else if (
+      e.key === 'ArrowUp' ||
+      e.key === 'ArrowDown' ||
+      e.key === 'ArrowLeft' ||
+      e.key === 'ArrowRight'
+    ) {
+      e.preventDefault();
+      const step = e.shiftKey ? 40 : 15;
+      const dx =
+        e.key === 'ArrowLeft' ? -step : e.key === 'ArrowRight' ? step : 0;
+      const dy =
+        e.key === 'ArrowUp' ? -step : e.key === 'ArrowDown' ? step : 0;
+      setNodes((prev) =>
+        prev.map((n) =>
+          n.id === node.id
+            ? {
+                ...n,
+                x: Math.max(-500, Math.min(2000, n.x + dx)),
+                y: Math.max(-500, Math.min(2000, n.y + dy)),
+              }
+            : n
+        )
+      );
+    } else if (e.key === 'Delete' || e.key === 'Backspace') {
+      if (node.type !== 'client' && node.id === selectedNodeId) {
+        e.preventDefault();
+        deleteSelectedNode();
+        showNotice(`Deleted node ${node.label}`);
+      }
+    }
+  };
 
   const handleNodeMouseDown = (
     e: React.MouseEvent<SVGGElement>,
@@ -504,6 +595,7 @@ export const WhiteboardLabView: React.FC<WhiteboardLabViewProps> = ({
     a.click();
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
+    showNotice('Architecture exported as JSON');
   };
 
   const handleImportJsonClick = () => {
@@ -524,7 +616,7 @@ export const WhiteboardLabView: React.FC<WhiteboardLabViewProps> = ({
         const data = JSON.parse(content);
 
         if (!Array.isArray(data.nodes) || !Array.isArray(data.edges)) {
-          alert('Invalid architecture file: missing nodes or edges array.');
+          showNotice('Invalid architecture file: missing nodes or edges array.');
           return;
         }
 
@@ -539,7 +631,7 @@ export const WhiteboardLabView: React.FC<WhiteboardLabViewProps> = ({
         );
 
         if (!isValid) {
-          alert('Invalid architecture file: node objects are missing required fields.');
+          showNotice('Invalid architecture file: node objects are missing required fields.');
           return;
         }
 
@@ -584,9 +676,10 @@ export const WhiteboardLabView: React.FC<WhiteboardLabViewProps> = ({
         setConnectMode(false);
         setConnectSourceId(null);
         setChaosMode(false);
+        showNotice(`Blueprint loaded: ${importedNodes.length} nodes, ${importedEdges.length} links`);
       } catch (err) {
         console.error('Failed to import architecture JSON', err);
-        alert('Failed to parse architecture JSON file.');
+        showNotice('Failed to parse architecture JSON file.');
       }
     };
     reader.readAsText(file);
@@ -703,6 +796,7 @@ export const WhiteboardLabView: React.FC<WhiteboardLabViewProps> = ({
           document.body.appendChild(a);
           a.click();
           document.body.removeChild(a);
+          showNotice('Architecture exported as PNG');
         }
         URL.revokeObjectURL(blobUrl);
       };
@@ -710,13 +804,13 @@ export const WhiteboardLabView: React.FC<WhiteboardLabViewProps> = ({
       img.onerror = (e) => {
         console.error('Error rendering SVG image for PNG export', e);
         URL.revokeObjectURL(blobUrl);
-        alert('Failed to export PNG.');
+        showNotice('Failed to export PNG.');
       };
 
       img.src = blobUrl;
     } catch (err) {
       console.error('Failed to export architecture PNG', err);
-      alert('Failed to export PNG.');
+      showNotice('Failed to export PNG.');
     }
   };
 
@@ -1052,6 +1146,48 @@ export const WhiteboardLabView: React.FC<WhiteboardLabViewProps> = ({
 
           {/* Interactive SVG Canvas */}
           <div className="relative flex-1 map-radial-bg flex items-center justify-center p-2 overflow-hidden">
+            {/* Top helper banner when connectMode or chaosMode is active */}
+            {(connectMode || chaosMode) && (
+              <div className="absolute top-3 left-1/2 -translate-x-1/2 z-10 px-3.5 py-1.5 rounded-full border text-xs font-mono font-semibold shadow-md backdrop-blur-md flex items-center gap-2 bg-(--panel)/95 border-(--line) select-none">
+                {connectMode ? (
+                  <>
+                    <span className="w-2 h-2 rounded-full bg-(--cyan) animate-ping" />
+                    <span className="text-(--cyan)">
+                      {connectSourceId
+                        ? 'Wiring: Click target node to link'
+                        : 'Wiring: Click source node first'}
+                    </span>
+                  </>
+                ) : (
+                  <>
+                    <span className="w-2 h-2 rounded-full bg-(--rose) animate-ping" />
+                    <span className="text-(--rose)">
+                      Chaos Mode: Click any node to crash/revive
+                    </span>
+                  </>
+                )}
+                <button
+                  type="button"
+                  onClick={() => {
+                    setConnectMode(false);
+                    setConnectSourceId(null);
+                    setChaosMode(false);
+                  }}
+                  className="text-(--muted) hover:text-(--ink) underline ml-1 cursor-pointer"
+                >
+                  Esc
+                </button>
+              </div>
+            )}
+
+            {/* Notification Notice Toast */}
+            {statusNotice && (
+              <div className="absolute top-3 left-4 z-20 px-3 py-1.5 rounded-lg border border-(--lime)/60 bg-(--panel) text-(--lime) text-xs font-mono font-bold shadow-lg flex items-center gap-2 select-none">
+                <CheckCircle2 className="w-3.5 h-3.5" />
+                <span>{statusNotice}</span>
+              </div>
+            )}
+
             <svg
               ref={svgRef}
               viewBox={`${panX} ${panY} ${850 / zoom} ${470 / zoom}`}
@@ -1144,20 +1280,60 @@ export const WhiteboardLabView: React.FC<WhiteboardLabViewProps> = ({
                   barHex = 'var(--orange)';
                 }
 
+                const isConnectSource = connectSourceId === node.id;
+
                 return (
                   <g
                     key={node.id}
                     transform={`translate(${node.x}, ${node.y})`}
                     onMouseDown={(e) => handleNodeMouseDown(e, node)}
                     onTouchStart={(e) => handleNodeTouchStart(e, node)}
-                    className="cursor-move"
+                    onKeyDown={(e) => handleNodeKeyDown(e, node)}
+                    tabIndex={0}
+                    role="button"
+                    aria-label={`Node ${node.label} (${node.type}), Replicas: ${node.replicas}, Utilization: ${node.utilizationPct}%, Status: ${node.down ? 'Offline' : node.status}`}
+                    className="cursor-move focus-visible:outline-none"
                   >
+                    <title>
+                      {`${node.label} (${node.type})\nReplicas: ${node.replicas}\nTraffic: ${(node.inQps / 1000).toFixed(1)}k QPS\nLatency: ${node.effectiveLatencyMs}ms\nConcurrency L: ${node.concurrencyConnections}\nStatus: ${node.down ? 'OFFLINE' : node.status}`}
+                    </title>
+                    {/* Glowing outer halo if selected or active wire source */}
+                    {isSelected && (
+                      <rect
+                        x={-3}
+                        y={-3}
+                        width={176}
+                        height={82}
+                        rx={14}
+                        fill="none"
+                        stroke="var(--lime)"
+                        strokeWidth={1.5}
+                        strokeDasharray="4 3"
+                        opacity={0.85}
+                        className="pointer-events-none"
+                      />
+                    )}
+                    {isConnectSource && (
+                      <rect
+                        x={-4}
+                        y={-4}
+                        width={178}
+                        height={84}
+                        rx={15}
+                        fill="none"
+                        stroke="var(--cyan)"
+                        strokeWidth={2}
+                        strokeDasharray="3 3"
+                        opacity={0.95}
+                        className="pointer-events-none"
+                      />
+                    )}
                     <rect
                       width={170}
                       height={76}
                       rx={11}
                       fill={isSelected ? 'var(--p2)' : 'var(--panel)'}
-                      stroke={strokeHex}
+                      stroke={isConnectSource ? 'var(--cyan)' : strokeHex}
                       strokeWidth={isSelected ? 2.5 : 1.5}
                       strokeDasharray={node.down ? '4 3' : undefined}
                     />
@@ -1461,15 +1637,17 @@ export const WhiteboardLabView: React.FC<WhiteboardLabViewProps> = ({
               <div className="flex flex-wrap gap-2 mb-3">
                 <button
                   type="button"
+                  disabled={ringNodes.length >= 6}
                   onClick={handleAddRingShard}
-                  className="px-2.5 py-1.5 text-xs font-mono font-medium bg-(--p2) text-(--ink) rounded-lg border border-(--line) hover:border-(--lime) whitespace-nowrap cursor-pointer"
+                  className="px-2.5 py-1.5 text-xs font-mono font-medium bg-(--p2) text-(--ink) rounded-lg border border-(--line) hover:border-(--lime) whitespace-nowrap cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed focus-visible:ring-2 focus-visible:ring-(--lime) focus-visible:outline-none"
                 >
                   + Add Shard
                 </button>
                 <button
                   type="button"
+                  disabled={ringNodes.length <= 2}
                   onClick={handleRemoveRingShard}
-                  className="px-2.5 py-1.5 text-xs font-mono font-medium bg-(--p2) text-(--ink) rounded-lg border border-(--line) hover:border-(--rose) whitespace-nowrap cursor-pointer"
+                  className="px-2.5 py-1.5 text-xs font-mono font-medium bg-(--p2) text-(--ink) rounded-lg border border-(--line) hover:border-(--rose) whitespace-nowrap cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed focus-visible:ring-2 focus-visible:ring-(--rose) focus-visible:outline-none"
                 >
                   - Remove Shard
                 </button>
@@ -1478,7 +1656,7 @@ export const WhiteboardLabView: React.FC<WhiteboardLabViewProps> = ({
                   aria-label="Consistent hash key input"
                   value={ringKey}
                   onChange={(e) => setRingKey(e.target.value)}
-                  className="flex-1 min-w-[120px] px-2.5 py-1.5 text-xs font-mono bg-(--p2) border border-(--line) rounded-lg text-(--ink)"
+                  className="flex-1 min-w-[120px] px-2.5 py-1.5 text-xs font-mono bg-(--p2) border border-(--line) rounded-lg text-(--ink) focus-visible:outline-none focus-visible:border-(--lime)"
                 />
               </div>
 
@@ -1630,19 +1808,35 @@ export const WhiteboardLabView: React.FC<WhiteboardLabViewProps> = ({
                 </div>
               </div>
 
-              <div className="space-y-1 max-h-24 overflow-y-auto text-[11px] font-mono p-2.5 rounded-[10px] bg-(--p2) border border-(--line)">
-                {rateLogs.map((log) => (
-                  <div
-                    key={log.id}
-                    className={
-                      log.rejected
-                        ? 'text-(--rose) font-semibold'
-                        : 'text-(--lime)'
-                    }
+              <div className="flex items-center justify-between gap-2 mb-1.5">
+                <span className="text-xs font-mono text-(--muted)">Live Traffic Log:</span>
+                {rateLogs.length > 0 && (
+                  <button
+                    type="button"
+                    onClick={() => setRateLogs([])}
+                    className="text-[10px] font-mono text-(--muted) hover:text-(--rose) cursor-pointer"
                   >
-                    {log.text}
-                  </div>
-                ))}
+                    Clear Log
+                  </button>
+                )}
+              </div>
+              <div className="space-y-1 max-h-24 overflow-y-auto text-[11px] font-mono p-2.5 rounded-[10px] bg-(--p2) border border-(--line)">
+                {rateLogs.length === 0 ? (
+                  <span className="text-(--muted) italic text-[10px]">No logs recorded</span>
+                ) : (
+                  rateLogs.map((log) => (
+                    <div
+                      key={log.id}
+                      className={
+                        log.rejected
+                          ? 'text-(--rose) font-semibold'
+                          : 'text-(--lime)'
+                      }
+                    >
+                      {log.text}
+                    </div>
+                  ))
+                )}
               </div>
             </div>
           </div>
@@ -1668,7 +1862,12 @@ export const WhiteboardLabView: React.FC<WhiteboardLabViewProps> = ({
                     min={1}
                     max={7}
                     value={quorumResult.n}
-                    onChange={(e) => setQuorumN(Number(e.target.value))}
+                    onChange={(e) => {
+                      const newN = Number(e.target.value);
+                      setQuorumN(newN);
+                      if (quorumW > newN) setQuorumW(newN);
+                      if (quorumR > newN) setQuorumR(newN);
+                    }}
                     className="w-full accent-(--cyan)"
                   />
                 </div>
@@ -1682,7 +1881,7 @@ export const WhiteboardLabView: React.FC<WhiteboardLabViewProps> = ({
                     min={1}
                     max={quorumResult.n}
                     value={quorumResult.w}
-                    onChange={(e) => setQuorumW(Number(e.target.value))}
+                    onChange={(e) => setQuorumW(Math.min(quorumN, Math.max(1, Number(e.target.value))))}
                     className="w-full accent-(--lime)"
                   />
                 </div>
@@ -1696,7 +1895,7 @@ export const WhiteboardLabView: React.FC<WhiteboardLabViewProps> = ({
                     min={1}
                     max={quorumResult.n}
                     value={quorumResult.r}
-                    onChange={(e) => setQuorumR(Number(e.target.value))}
+                    onChange={(e) => setQuorumR(Math.min(quorumN, Math.max(1, Number(e.target.value))))}
                     className="w-full accent-(--orange)"
                   />
                 </div>
